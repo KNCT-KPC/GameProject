@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="316cc689-0cae-4ef1-aebd-4668d3022d28" name="masa@MASA-PC 2014-11-09 21:18:26" runUser="masa-PC\masa" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="ローカル" id="8d43720d-d6ac-49aa-8a1f-108a2a564103">
+    <Description>これらはローカル テスト実行用の既定のテスト設定です。</Description>
+    <Deployment userDeploymentRoot="C:\Users\masa\Documents\GitHub\GameProject\RPGProject\TestResults" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="masa_MASA-PC 2014-11-09 21_18_26">
+      <DeploymentItem filename="C:\Users\masa\Documents\GitHub\GameProject\RPGProject\Project1\bin\Release\Project1.exe" />
+      <DeploymentItem filename="C:\Users\masa\Documents\GitHub\GameProject\RPGProject\Project1\bin\Debug\Project1.exe" />
+      <DeploymentItem filename="C:\Users\masa\Documents\GitHub\GameProject\RPGProject\Project1\bin\Release\DxLibDotNet.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2014-11-09T21:18:26.0487407+09:00" queuing="2014-11-09T21:18:27.0167961+09:00" start="2014-11-09T21:18:27.0727993+09:00" finish="2014-11-09T21:18:27.5668275+09:00" />
+  <ResultSummary outcome="Inconclusive">
+    <Counters total="1" executed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="1" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="MASA-PC" outcome="Warning" timestamp="2014-11-09T21:18:26.0917432+09:00">
+        <Text>配置は現在無効になっています。テスト 'TestProject1.GameMainTest.Func1Test' の配置項目 'Project1.exe' は配置されていません。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Func1Test" storage="c:\users\masa\documents\github\gameproject\rpgproject\testproject1\bin\release\testproject1.dll" id="bbc70e05-5009-5a27-5e65-515efac7b652">
+      <DeploymentItems>
+        <DeploymentItem filename="Project1.exe" />
+      </DeploymentItems>
+      <Execution id="381b086a-b11f-4b7b-b341-99694135a30f" />
+      <TestMethod codeBase="C:/Users/masa/Documents/GitHub/GameProject/RPGProject/TestProject1/bin/Release/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestProject1.GameMainTest, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Func1Test" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="一覧に存在しない結果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="読み込まれたすべての結果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="bbc70e05-5009-5a27-5e65-515efac7b652" executionId="381b086a-b11f-4b7b-b341-99694135a30f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="381b086a-b11f-4b7b-b341-99694135a30f" testId="bbc70e05-5009-5a27-5e65-515efac7b652" testName="Func1Test" computerName="MASA-PC" duration="00:00:00.1871970" startTime="2014-11-09T21:18:27.1018010+09:00" endTime="2014-11-09T21:18:27.5218250+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Inconclusive" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="381b086a-b11f-4b7b-b341-99694135a30f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Inconclusive に失敗しました。このテストメソッドの正確性を確認します。</Message>
+          <StackTrace>   場所 TestProject1.GameMainTest.Func1Test() 場所 C:\Users\masa\Documents\GitHub\GameProject\RPGProject\TestProject1\GameMainTest.cs:行 76
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

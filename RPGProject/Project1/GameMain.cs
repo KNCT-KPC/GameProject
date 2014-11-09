@@ -6,6 +6,13 @@ using System.Text;
 namespace Project1 {
 	//ゲームのプログラムを記述するクラス
 	class GameMain {
+		int Func1(int a, int b){
+			if(a < 0) return b;
+			if(b < 0) return a;
+			return a*b;
+		}
+
+
 		/// <summary>
 		/// 更新メソッド
 		/// 状態の更新や演算処理などを記述する
