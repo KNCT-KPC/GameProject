@@ -37,3 +37,5 @@ C:\Users\morisita\Desktop\Template\Project1\obj\x86\Release\Project1.exe
 C:\Users\morisita\Desktop\Template\Project1\obj\x86\Release\Project1.pdb
 C:\Users\mori\Downloads\Template\Project1\obj\x86\Release\Project1.exe
 C:\Users\mori\Downloads\Template\Project1\obj\x86\Release\Project1.pdb
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\Project1.exe
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\Project1.pdb
