@@ -1,3 +1,4 @@
+名前空間 : RPGProject.GamePlay.Party
 クラス名 : PlayerStatus
 概要 : プレイヤーキャラのステータスを表すクラスです。
 メンバ :

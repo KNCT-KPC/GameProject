@@ -34,7 +34,7 @@ namespace RPGProject.GameSystem {
 		}
 
 		/// <summary>
-		/// 指定した音声が再生中なら、停止するメソッド
+		/// 指定した音声が再生中なら、停止するメソッドsi
 		/// </summary>
 		/// <param name="soundName">登録音声名</param>
 		public static void StopSound(string soundName){

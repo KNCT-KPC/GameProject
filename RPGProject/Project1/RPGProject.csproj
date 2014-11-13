@@ -98,6 +98,7 @@
     <Folder Include="GamePlay\Battle\" />
     <Folder Include="GamePlay\Database\" />
     <Folder Include="GamePlay\Map\" />
+    <Folder Include="GamePlay\Party\" />
     <Folder Include="GamePlay\Window\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
