@@ -3,3 +3,5 @@ C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\bin\Release\RPGPr
 C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.exe
 C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.pdb
 C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.csprojResolveAssemblyReference.cache
+C:\Users\masa\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.exe
+C:\Users\masa\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.pdb
