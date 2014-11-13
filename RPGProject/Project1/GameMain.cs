@@ -6,6 +6,9 @@ using System.Text;
 namespace Project1 {
 	//ゲームのプログラムを記述するクラス
 	class GameMain {
+		public GameMain(){
+		}
+
 		/// <summary>
 		/// 更新メソッド
 		/// 状態の更新や演算処理などを記述する

@@ -42,7 +42,7 @@ namespace Project1 {
 			GameMain main = new GameMain();
 			while(true){
 				if(!LoopStart()) break;	//初期化処理
-				Keyboard.Update();
+				GameInput.Update();
 
 				if(main.Update() != 0) break;	//更新メソッド
 				main.Draw();					//描画メソッド

@@ -22,7 +22,7 @@ namespace Project1 {
 		//======================
 		private static FontData[] fontData = new FontData[]{
 			//ここに追加していく
-			new FontData("SystemFont","MS ゴシック",16,6,false),
+			new FontData("system","MS ゴシック",16,6,false),
 		};
 
 
@@ -56,7 +56,14 @@ namespace Project1 {
 			}
 		}
 		public static int GetFont(string name){
-			return fontTable[name];
+			int result;
+			bool exist = fontTable.TryGetValue(name, out result);
+
+			if(!exist){
+				Program.AssertExit("登録されていないフォント" + name + "が指定されました。");
+			}
+
+			return result;
 		}
 	}
 }

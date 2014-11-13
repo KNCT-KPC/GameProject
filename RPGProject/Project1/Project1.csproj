@@ -63,11 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawer.cs" />
+    <Compile Include="GameFileReader.cs" />
     <Compile Include="GameFont.cs" />
     <Compile Include="GameMain.cs" />
     <Compile Include="GameGraph.cs" />
     <Compile Include="GameSound.cs" />
-    <Compile Include="Keyboard.cs" />
+    <Compile Include="GameInput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Speaker.cs" />
   </ItemGroup>
