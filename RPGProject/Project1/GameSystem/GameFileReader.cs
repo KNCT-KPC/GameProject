@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 
-namespace Project1 {
+namespace RPGProject.GameSystem {
 	/// <summary>
 	/// ファイル読み込み機能を提供するクラス
 	/// このクラスはアーカイバにまとめられたファイルを読み込むことができる

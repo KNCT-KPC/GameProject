@@ -1,0 +1,4 @@
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\bin\Release\RPGProject.exe
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\bin\Release\RPGProject.pdb
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.exe
+C:\Users\mori\Documents\GitHub\GameProject\RPGProject\Project1\obj\x86\Release\RPGProject.pdb

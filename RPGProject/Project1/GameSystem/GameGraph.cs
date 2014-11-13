@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Project1 {
+namespace RPGProject.GameSystem {
 	//画像データを管理するクラス
 
 	//画像の登録方法 :

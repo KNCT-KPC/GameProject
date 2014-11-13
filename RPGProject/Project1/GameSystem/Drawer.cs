@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 
-namespace Project1 {
+namespace RPGProject.GameSystem {
 	/// <summary>
 	/// rgb値を指定して色を得るクラス
 	/// </summary>

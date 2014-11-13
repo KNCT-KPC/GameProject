@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using RPGProject.GameSystem;
 using DxLibDLL;
 
 //================================
@@ -21,7 +22,7 @@ using DxLibDLL;
 //* DX Library Copyright (C) 2001-2014 Takumi Yamada.    *
 //********************************************************
 
-namespace Project1 {
+namespace RPGProject {
 	class Program {
 		/// <summary>
 		/// メインメソッド

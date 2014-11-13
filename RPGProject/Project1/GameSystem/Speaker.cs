@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 
-namespace Project1 {
+namespace RPGProject.GameSystem {
 	static class Speaker {
 		/// <summary>
 		/// 音声を通常再生するメソッド

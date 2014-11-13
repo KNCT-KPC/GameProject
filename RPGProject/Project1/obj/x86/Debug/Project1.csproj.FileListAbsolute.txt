@@ -1,6 +1,0 @@
-C:\Users\masa\_develop\TestProgram\Project1\bin\Debug\Project1.exe
-C:\Users\masa\_develop\TestProgram\Project1\bin\Debug\Project1.pdb
-C:\Users\masa\_develop\TestProgram\Project1\bin\Debug\DxLibDotNet.dll
-C:\Users\masa\_develop\TestProgram\Project1\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\masa\_develop\TestProgram\Project1\obj\x86\Debug\Project1.exe
-C:\Users\masa\_develop\TestProgram\Project1\obj\x86\Debug\Project1.pdb

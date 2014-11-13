@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Project1 {
+namespace RPGProject.GameSystem {
 	/// <summary>
 	/// デバイスからの入力を受け付けるクラス
 	/// </summary>
