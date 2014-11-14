@@ -62,6 +62,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamePlay\Window\Window.cs" />
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />
     <Compile Include="GameSystem\GameFont.cs" />
@@ -99,7 +100,6 @@
     <Folder Include="GamePlay\Database\" />
     <Folder Include="GamePlay\Map\" />
     <Folder Include="GamePlay\Party\" />
-    <Folder Include="GamePlay\Window\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
