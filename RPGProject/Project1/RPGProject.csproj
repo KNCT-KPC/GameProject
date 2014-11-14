@@ -65,7 +65,7 @@
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />
     <Compile Include="GameSystem\GameFont.cs" />
-    <Compile Include="GameSystem\GameMain.cs" />
+    <Compile Include="GameMain.cs" />
     <Compile Include="GameSystem\GameGraph.cs" />
     <Compile Include="GameSystem\GameSound.cs" />
     <Compile Include="GameSystem\GameInput.cs" />
