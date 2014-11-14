@@ -62,6 +62,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamePlay\Database\Player.cs" />
+    <Compile Include="GamePlay\Database\PlayerStatus.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />
@@ -97,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GamePlay\Battle\" />
-    <Folder Include="GamePlay\Database\" />
     <Folder Include="GamePlay\Map\" />
     <Folder Include="GamePlay\Party\" />
   </ItemGroup>
