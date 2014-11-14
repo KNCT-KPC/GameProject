@@ -1,5 +1,0 @@
-名前空間 : RPGProject.GamePlay.Party
-クラス名 : Player
-概要 : プレイヤーそのものを表します。
-メンバ :
-内容は空でおｋ
