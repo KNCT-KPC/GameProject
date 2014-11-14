@@ -1,0 +1,10 @@
+名前空間 : RPGProject.GamePlay.Window
+クラス名 : Window
+概要 : なにもない空白のウィンドウを表します。
+メンバ :
+
+public Map(int arg_xSize, int arg_ySize) : テスト用コンストラクタ
+処理 : 
+xSize,ySizeにarg_xSize,arg_ySizeの値を代入
+drawTip,stateTipをxSize,ySizeで初期化（以下のようにする）
+drawTip = new int[ySize,xSize];	//y,xで指定することに注意！
