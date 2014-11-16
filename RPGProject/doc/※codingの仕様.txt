@@ -1,0 +1,38 @@
+【全体の流れ】
+① デザイナーがゲーム仕様を作成
+② ゲーム仕様に従いチーフプログラマが設計言語と振る舞いを記述
+③ 設計言語に従いプログラマがコーディング
+④ 設計が完了したら、振る舞いをチェックして更新
+
+※ ソースファイルにドキュメントを必ず残す
+※ 分からなかったらすぐ聞く
+
+
+【コンストラクタの記述法】
+「クラスのフィールドをコンストラクタの引数でそのまま初期化する」場合は、以下のどちらかのように記述する。
+
+Class Anything{
+    private int field1;
+    private double field2;
+    private int フィールド;
+
+    public Anything(int arg_field1, double arg_field2, int arg_フィールド){
+        field1 = arg_field1;
+        field2 = arg_field2;
+        フィールド = arg_フィールド;
+    }
+}
+
+または、
+
+Class Anything{
+    private int field1;
+    private double field2;
+    private int フィールド;
+
+    public Anything(int field1, double field2, int フィールド){
+        this.field1 = field1;
+        this.field2 = field2;
+        this.フィールド = フィールド;
+    }
+}
