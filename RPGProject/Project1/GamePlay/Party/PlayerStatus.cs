@@ -16,16 +16,16 @@ namespace RPGProject.GamePlay.Party
         public readonly int 俊敏;
         public readonly int 幸運;
 
-        public PlayerStatus(int hp, int tp, int str, int end, int spi, int tec, int smq, int luc)
+        public PlayerStatus(int hp, int tp, int 筋力, int 耐久, int 精神, int 技能, int 俊敏, int 幸運)
         {
-            HP = hp;
-            TP = tp;
-            耐久 = str;
-            精神 = end;
-            精神 = spi;
-            技能 = tec;
-            俊敏 = smq;
-            幸運 = luc;
+            this.HP = hp;
+            this.TP = tp;
+            this.筋力 = 筋力;
+            this.耐久 = 耐久;
+            this.精神 = 精神;
+            this.技能 = 技能;
+            this.俊敏 = 俊敏;
+            this.幸運 = 幸運;
         }
     }
 }
