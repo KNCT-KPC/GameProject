@@ -147,6 +147,7 @@ $RECYCLE.BIN/
 
 
 # NITKC-PKC wrote
+GameMain.cs
 log.txt
 *.exe
 *.manifest
