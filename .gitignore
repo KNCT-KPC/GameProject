@@ -3,7 +3,8 @@
  
 # NITKC-PKC wrote
 log.txt
-GameMain.cs
+!DxLib.dll
+!DxLibDotNet.dll
 
 # User-specific files
 *.suo
