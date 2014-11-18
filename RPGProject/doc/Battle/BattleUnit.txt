@@ -1,0 +1,10 @@
+名前空間 : RPGProject.GamePlay.Battle
+クラス名 : BattleUnit
+概要 : 戦闘に参加するキャラを表します。
+メンバ :
+BattleUnitStatus btlStatus   //戦闘時の能力
+StatusAilment statusAilment  //状態異常
+BattleBuff buff
+BattleBuff debuff
+int nowHP
+int nowTP

@@ -1,0 +1,18 @@
+名前空間 : RPGProject.GamePlay.Battle
+クラス名 : Battle
+概要 : 戦闘処理全般を受け持ちます。
+メンバ :
+BattlePlayer[] player
+BattleEnemy[] enemy
+BattleScene scene
+
+public Battle(BattlePlayer[] player, BattleEnemy[] enemy) : コンストラクタ
+メンバを初期化
+
+public Update()
+sceneのUpdateを呼び出す
+シーケンスで処理を行う
+
+public Draw()
+sceneのDrawを呼び出す
+シーケンスで描画を行う

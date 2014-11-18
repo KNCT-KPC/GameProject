@@ -62,6 +62,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\Party\Player.cs" />
     <Compile Include="GamePlay\Party\PlayerStatus.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
@@ -98,7 +99,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GamePlay\Battle\" />
     <Folder Include="GamePlay\Database\" />
     <Folder Include="GamePlay\Map\" />
   </ItemGroup>
