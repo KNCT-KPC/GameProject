@@ -1,0 +1,16 @@
+名前空間 : RPGProject.GamePlay.Battle.OrderMaker
+クラス名 : OrderMaker
+概要 : 戦闘用オーダーを作成します。
+BattlePlayer[] player
+BattleEnemy[] enemy
+int nowPlayer
+PlayerOrderMaker plyOrderMaker
+List<BattleOrder> order
+
+Update()
+各プレイヤーユニットに対しPlayerOrderMaker実行
+各エネミーのオーダー作成
+完了したらBattleOrder[]を返す
+
+Draw()
+plyOrdermakerのDraw実行

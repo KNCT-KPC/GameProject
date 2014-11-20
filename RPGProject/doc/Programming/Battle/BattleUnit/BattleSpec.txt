@@ -1,0 +1,12 @@
+名前空間 : RPGProject.GamePlay.Battle.BattleUnit
+クラス名 : BattleSpec
+概要 : 戦闘中ユニットが得る特殊効果を表します。
+メンバ :
+RemoveType{TurnEnd, Eternal}
+EffectType{与ダメ倍率, 被ダメ倍率, 物理与ダメ倍率, 物理被ダメ倍率, 速度, 攻撃命中率, 攻撃回避率, 状態命中率, 状態回避率, 属性耐性, 無効化, HP回復, TP回復}
+
+string name
+BattleSpec.RemoveType rmType
+BattleSpec.EffectType eftType
+BattleSpec.ActionType actType
+//発動タイミング的な何か

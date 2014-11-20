@@ -1,0 +1,15 @@
+名前空間 : RPGProject.GamePlay.Battle.OrderMaker
+クラス名 : PlayerOrderMaker
+概要 : あるプレイヤーのオーダーを作成します。
+メンバ :
+enum{InputCommand, SelectSkill, SelectItem, SelectTerget, PrevCommand, Finish}
+BattlePlayer player	//オーダーを作成するプレイヤー
+MakeProcess proc	//現在の過程クラス
+BattleOrder ord		//作成途中のオーダー
+
+Update()
+procのUpdate()を呼び出す
+返ってきた値から次のprocを決める
+
+Draw()
+procのDraw()を呼び出す

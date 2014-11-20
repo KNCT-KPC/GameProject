@@ -1,0 +1,9 @@
+名前空間 : RPGProject.GamePlay.Battle.BattleUnit
+クラス名 : BattleBuff
+継承元 : BattleSpec
+概要 : 戦闘中ユニットが得る強化・弱体効果を表します。
+メンバ :
+BuffType{攻撃, 防御, 属性, 回復, 状態変化, 命中, 回避}
+
+int turnNum
+BattleBuff.BuffType bufType

@@ -1,0 +1,15 @@
+名前空間 : RPGProject.GamePlay.Battle.BattleUnit
+クラス名 : BattleUnit
+概要 : 戦闘に参加するユニットを表します。
+メンバ :
+BattleUnitStatus btlStatus   //戦闘時の能力
+StatusAilment statusAilment  //状態異常
+readonly BattleBuff[] buff = new BattleBuff[3]
+readonly BattleBuff[] debuff = new BattleBuff[3]
+List<BattleSpec> spec = new List<BattleSpec>(0)
+int nowHP
+int nowTP
+
+
+GetBattleAllSpec() ... ユニットが持っている特殊状態すべてを受け取る
+buff,debuff,specすべてを連結した配列を返す。

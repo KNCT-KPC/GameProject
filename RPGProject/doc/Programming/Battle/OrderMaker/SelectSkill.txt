@@ -1,0 +1,12 @@
+名前空間 : RPGProject.GamePlay.Battle.OrderMaker
+クラス名 : InputCommand
+概要 : プレイヤーユニットのコマンドを受け付けます。
+メンバ :
+BattlePlayer player	//コマンドを受け付けるプレイヤー
+
+Update() : 更新メソッド
+↑↓入力でコマンド選択
+Zキーで次の状態へ
+
+Draw() :
+コマンド・アイテム一覧・スキル一覧などを表示

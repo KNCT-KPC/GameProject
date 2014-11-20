@@ -1,9 +1,0 @@
-名前空間 : RPGProject.GamePlay.Battle
-クラス名 : BattlePlayer
-継承元 : BattleCharacter
-概要 : 戦闘に参加するプレイヤーサイドのキャラを表します。
-メンバ :
-Player player //プレイヤークラスを覆う
-Party party   //パーティクラス
-bool isFront  //前衛か？
-int hate

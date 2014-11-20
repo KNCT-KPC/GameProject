@@ -2,17 +2,54 @@
 クラス名 : Battle
 概要 : 戦闘処理全般を受け持ちます。
 メンバ :
+enum BattleScene{BattleStart, TurnStart, OrderMake, OrderExecute, TurnEnd};
 BattlePlayer[] player
 BattleEnemy[] enemy
-BattleScene scene
+#PartyItemList itemList
+Battle.BattleScene scene
+OrderMaker ordMaker
+OrderExecuter ordExecuter
+BattleFrontend btlFrontend
 
 public Battle(BattlePlayer[] player, BattleEnemy[] enemy) : コンストラクタ
 メンバを初期化
 
+
 public Update()
-sceneのUpdateを呼び出す
 シーケンスで処理を行う
+BattleStart : 
+ 戦闘開始時能力のチェック
+
+TurnStart : 
+ ターン開始時能力のチェック
+
+OrderMake : 
+ ordMakerのUpdate実行
+
+OrderExecute : 
+ ordExecuterのUpdate実行
+
+TurnEnd :
+ ターン終了時能力のチェック
+ 状態異常・強化・弱体ターン管理
+ 状態異常・特殊効果による効果発動
+ 即時特殊効果の解除
+
 
 public Draw()
-sceneのDrawを呼び出す
+BattleFrontendのDrawを呼び出す
 シーケンスで描画を行う
+BattleStart :
+ とくになし
+
+TurnStart : 
+ とくになし
+
+OrderMake :
+ ordMakerのDraw実行
+
+OrderExecute : 
+ ordExecuterのDraw実行
+
+TurnEnd :
+ とくになし

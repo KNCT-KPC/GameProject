@@ -1,0 +1,12 @@
+名前空間 : RPGProject.GamePlay.Battle.BattleUnit
+クラス名 : BattlePlayer
+継承元 : BattleUnit
+概要 : 戦闘に参加するプレイヤーサイドのユニットを表します。
+メンバ :
+Player player //プレイヤークラスを覆う
+Party party   //パーティクラス
+bool isFront  //前衛か？
+int hate      //挙動未定
+
+GetEnableCommand() : 有効なコマンドの集合を返す
+SetFront() : 前衛/後衛を切り変える
