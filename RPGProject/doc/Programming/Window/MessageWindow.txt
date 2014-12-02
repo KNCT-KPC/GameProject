@@ -2,6 +2,9 @@
 クラス名 : MessageWindow
 継承元 : Window
 概要 : メッセージを表示するためのウィンドウを表現します。
+参照 :
+using RPGProject.GamePlay.FrontEnd;
+
 メンバ :
 const STRING_X : 一文字目のx座標
 const STRING_Y : 一行目のy座標

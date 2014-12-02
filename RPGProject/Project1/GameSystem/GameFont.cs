@@ -22,7 +22,9 @@ namespace RPGProject.GameSystem {
 		//======================
 		private static FontData[] fontData = new FontData[]{
 			//ここに追加していく
-			new FontData("system","MS ゴシック",16,6,false),
+			new FontData("system","ＭＳ ゴシック",16,6,false),
+			new FontData("DEBUG_PFONT","ＭＳ Ｐゴシック",20,6,false),
+			new FontData("DEBUG_FONT","ＭＳ ゴシック",20,6,false),
 		};
 
 
@@ -64,6 +66,10 @@ namespace RPGProject.GameSystem {
 			}
 
 			return result;
+		}
+		public static int GetDrawStringWidth(string name, string mes){
+			int handle = GetFont(name);
+			return DxLibDLL.DX.GetDrawStringWidthToHandle(mes, mes.Length, handle);
 		}
 	}
 }
