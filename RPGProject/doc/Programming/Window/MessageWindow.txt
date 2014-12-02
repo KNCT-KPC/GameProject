@@ -1,0 +1,30 @@
+名前空間 : RPGProject.GamePlay.Window
+クラス名 : MessageWindow
+継承元 : Window
+概要 : メッセージを表示するためのウィンドウを表現します。
+メンバ :
+const STRING_X : 一文字目のx座標
+const STRING_Y : 一行目のy座標
+const LINE_HEIGHT : 一行あたりのy幅
+
+String[] message : 各ページのメッセージ
+TimeMessage timeMessage : 時間送りメッセージ
+
+MessageWindow : コンストラクタ
+messageに代入する値を入力として受け取る
+message[0]を入力としてtimeMessageのインスタンスを生成
+
+override Update
+timeMessageのNextCountメソッドを呼び出す
+timeMessageのisFinishedメソッドを呼び出す
+ falseを返したら、以下の処理を行う
+  Decideキーが入力されていたら、timeMessage.Finish()を呼び出す
+ trueを返したら、以下の処理を行う
+  Decideキーが入力されていたら、次ページのメッセージを入力としてtimeMessageのインスタンスを生成
+  もうメッセージがないなら、自身のBreak()メソッドをよびだす。
+
+override Draw
+四角形を描画する。（左上座標(px,py) width×height）
+STRING_X,STRING_Y,LINE_HEIGHTを使って文字列を表示
+timeMessageのGetMessageメソッドを使う
+戻り値のstring[]は、n行目の文字列が[n]番目に入っている

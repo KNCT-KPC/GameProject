@@ -13,11 +13,11 @@ Window(int arg_px, int arg_py, int arg_width, int arg_height) : コンストラクタ
 メンバに引数を代入
 brokenにfalseを代入
 
-void Update() : 更新メソッド
+virtual void Update() : 更新メソッド
 処理 : 
 Inputの内容を受け取って、INPUT_DECIDEの入力が1以上ならbrokenをtrueにする
 
-void Draw() : 描画メソッド
+virtual void Draw() : 描画メソッド
 処理 :
 四角形を描画する。（左上座標(px,py) width×height）
 
