@@ -64,7 +64,7 @@ namespace RPGProject.GamePlay.Map
                     {
                         DxLibDLL.DX.DrawBox(x, y, x + 32, y + 32, DX.GetColor(255, 255, 255), 1);
                     }
-                    else if (drawTip[y, x] == 0)
+                    else if (drawTip[y, x] == 1)
                     {
                         DxLibDLL.DX.DrawBox(x, y, x + 32, y + 32, DX.GetColor(0, 0, 0), 1);
                     }
