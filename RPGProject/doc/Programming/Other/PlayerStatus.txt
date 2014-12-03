@@ -4,8 +4,8 @@
 メンバ :
 ※C#では日本語のクラス名/フィールド名/メソッド名指定ができます。
 ※ただし、むやみな使用は推奨されないので、指示されたところ以外では使用しないでください。
-public readonly int HP
-public readonly int TP
+public readonly int MaxHP
+public readonly int MaxTP
 public readonly int 筋力
 public readonly int 耐久
 public readonly int 精神
