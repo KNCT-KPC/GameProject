@@ -9,12 +9,14 @@ namespace RPGProject.GamePlay.Map
 {
     class Map
     {
+		const int TIP_SIZE = 32;
         int xSize;
         int ySize;
         int px;
         int py;
         int[,] drawTip;
         int[,] stateTip;
+
         public Map(int arg_xSize, int arg_ySize)
         {
             xSize = arg_xSize;
@@ -55,6 +57,7 @@ namespace RPGProject.GamePlay.Map
             px = mx;
             py = my;
         }
+
         public void Draw()
         {
             for (int y = 0; y < ySize; y++)
@@ -63,15 +66,15 @@ namespace RPGProject.GamePlay.Map
                 {
                     if (drawTip[y, x] == 0)
                     {
-                        DxLibDLL.DX.DrawBox(x*32, y*32, x*32 + 32, y*32 + 32, DX.GetColor(255, 255, 255), 1);
+                        DxLibDLL.DX.DrawBox(x*TIP_SIZE, y*TIP_SIZE, x*TIP_SIZE + TIP_SIZE, y*TIP_SIZE + TIP_SIZE, DX.GetColor(255, 255, 255), 1);
                     }
                     else if (drawTip[y, x] == 1)
                     {
-                        DxLibDLL.DX.DrawBox(x*32, y*32, x*32 + 32, y*32 + 32, DX.GetColor(0, 0, 0), 1);
+                        DxLibDLL.DX.DrawBox(x*TIP_SIZE, y*TIP_SIZE, x*TIP_SIZE + TIP_SIZE, y*TIP_SIZE + TIP_SIZE, DX.GetColor(0, 0, 0), 1);
                     }
                 }
             }
-            DxLibDLL.DX.DrawBox(px*32, py*32, px*32 + 32, py*32 + 32, DX.GetColor(0, 255, 0), 1);
+            DxLibDLL.DX.DrawBox(px*TIP_SIZE, py*TIP_SIZE, px*TIP_SIZE + TIP_SIZE, py*TIP_SIZE + TIP_SIZE, DX.GetColor(0, 255, 0), 1);
         }
     }
 }

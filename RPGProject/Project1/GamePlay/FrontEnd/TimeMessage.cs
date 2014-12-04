@@ -21,8 +21,16 @@ namespace RPGProject.GamePlay.FrontEnd {
 		private string useFont;
 		private string[] subMessage;
 
-		public TimeMessage(string message, string useFont, int maxCount = DEBUG_INTERVAL, int lineLength = DEBUG_LINE_LENGTH, int lineNum = DEBUG_LINE_NUM){
-			this.interval = maxCount;
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="message">表示するメッセージ</param>
+		/// <param name="useFont">使用するフォントハンドル</param>
+		/// <param name="interval">表示間隔</param>
+		/// <param name="lineLength">一行あたりの文字数（目安）</param>
+		/// <param name="lineNum">行数</param>
+		public TimeMessage(string message, string useFont, int interval = DEBUG_INTERVAL, int lineLength = DEBUG_LINE_LENGTH, int lineNum = DEBUG_LINE_NUM){
+			this.interval = interval;
 			this.lineLength = lineLength;
 			this.lineNum = lineNum;
 
@@ -32,6 +40,9 @@ namespace RPGProject.GamePlay.FrontEnd {
 			subMessage[line] = "";
 		}
 
+		/// <summary>
+		/// 次のカウントに進む
+		/// </summary>
 		public void NextCount(){
 			if(finish){
 				return;
@@ -53,10 +64,17 @@ namespace RPGProject.GamePlay.FrontEnd {
 			}
 		}
 
+		/// <summary>
+		/// 現在カウントにおけるメッセージを受け取るメソッド
+		/// </summary>
+		/// <returns>メッセージ</returns>
 		public string[] GetMessage(){
 			return subMessage;
 		}
 
+		/// <summary>
+		/// すべての文字を表示し終えたかどうかを判定するメソッド
+		/// </summary>
 		public bool isFinished(){
 			return finish;
 		}

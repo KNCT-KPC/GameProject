@@ -34,7 +34,7 @@ namespace RPGProject.GameSystem {
 		public static void DrawGraph(int x, int y, string graphName, bool trans, int alpha = -1){
 			int transFlag = 1;
 			if(!trans) transFlag = 0;
-
+			
 			if(alpha != -1) DX.SetDrawBlendMode(DX.DX_BLENDMODE_ALPHA, alpha);
 			DX.DrawGraph(x, y, GameGraph.GetGraph(graphName), transFlag);
 			if(alpha != -1) DX.SetDrawBlendMode(DX.DX_BLENDMODE_NOBLEND, 0);
