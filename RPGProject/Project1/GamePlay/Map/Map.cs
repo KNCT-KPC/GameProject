@@ -15,29 +15,30 @@ namespace RPGProject.GamePlay.Map
         int py;
         int[,] drawTip;
         int[,] stateTip;
-        public void Map(int arg_xSize, int arg_ySize)
+        public Map(int arg_xSize, int arg_ySize)
         {
             xSize = arg_xSize;
             ySize = arg_ySize;
-            drawTip = new int[xSize, ySize];
-        }
+            drawTip = new int[ySize, xSize];
+			stateTip = new int[ySize, xSize];
+		}
         public void Update()
         {
-            int mx;
-            int my;
-            if (Input.GetCount(Input.Code.Up) > 0)
+            int mx = px;
+            int my = py;
+            if (GameInput.GetCount(GameInput.Code.INPUT_UP) > 0)
             {
                 my = py - 1;
             }
-            if (Input.GetCount(Input.Code.Down) > 0)
+            if (GameInput.GetCount(GameInput.Code.INPUT_DOWN) > 0)
             {
                 my = py + 1;
             }
-            if (Input.GetCount(Input.Code.Left) > 0)
+            if (GameInput.GetCount(GameInput.Code.INPUT_LEFT) > 0)
             {
                 mx = px - 1;
             }
-            if (Input.GetCount(Input.Code.Right) > 0)
+            if (GameInput.GetCount(GameInput.Code.INPUT_RIGHT) > 0)
             {
                 mx = px + 1;
             }
@@ -62,15 +63,15 @@ namespace RPGProject.GamePlay.Map
                 {
                     if (drawTip[y, x] == 0)
                     {
-                        DxLibDLL.DX.DrawBox(x, y, x + 32, y + 32, DX.GetColor(255, 255, 255), 1);
+                        DxLibDLL.DX.DrawBox(x*32, y*32, x*32 + 32, y*32 + 32, DX.GetColor(255, 255, 255), 1);
                     }
                     else if (drawTip[y, x] == 1)
                     {
-                        DxLibDLL.DX.DrawBox(x, y, x + 32, y + 32, DX.GetColor(0, 0, 0), 1);
+                        DxLibDLL.DX.DrawBox(x*32, y*32, x*32 + 32, y*32 + 32, DX.GetColor(0, 0, 0), 1);
                     }
                 }
             }
-            DxLibDLL.DX.DrawBox(px, py, px + 32, py + 32, DX.GetColor(0, 255, 0), 1);
+            DxLibDLL.DX.DrawBox(px*32, py*32, px*32 + 32, py*32 + 32, DX.GetColor(0, 255, 0), 1);
         }
     }
 }

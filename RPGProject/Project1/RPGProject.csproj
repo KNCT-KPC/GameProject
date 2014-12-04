@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
+    <Compile Include="GamePlay\Map\Map.cs" />
     <Compile Include="GamePlay\Party\Player.cs" />
     <Compile Include="GamePlay\Party\PlayerStatus.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
@@ -101,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GamePlay\Database\" />
-    <Folder Include="GamePlay\Map\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
