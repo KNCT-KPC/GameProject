@@ -25,3 +25,6 @@ statusのゲッタ
 
 GetLv : 
 Lvのゲッタ
+
+GetName :
+名前のゲッタ

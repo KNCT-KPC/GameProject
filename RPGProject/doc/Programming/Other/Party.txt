@@ -1,0 +1,31 @@
+名前空間 : RPGProject.GamePlay.Party
+クラス名 : Party
+概要 : プレイヤーキャラクターをまとめるパーティを表現します。
+メンバ :
+Player[] member : プレイヤーキャラクターの配列を表します。
+
+コンストラクタ :
+member = new Player[5] で配列を生成する。
+
+void AddMember : 以下のようにする
+void AddMember(Player p){
+  for(int i = 0; i < member.Length; i++){
+    if(member[i] == null){
+      member[i] = p;
+    }
+  }
+}
+
+Player GetMember :
+番号を入力し、配列から指定された番号のキャラクターを返す。
+指定する配列番号として、引数にint型整数を受け取る。
+memberの、指定された配列番号の要素を返す。
+
+Player SearchPlayer :
+名前を入力し、同じ名前のキャラクターを返す。
+引数としてstring型の名前を受け取る
+① 配列の要素をすべて見る。（AddMemberを参考にする）
+② 引数として受け取った名前と一致するPlayerを探す。(GetName()を呼び出す）
+※ただし、nullのときは回避するように、if(member[i] != null)で判定する。
+③ 一致したプレイヤーがいたら、その時点でreturnする。
+④ for文が回りきっても見つからなかったら、return nullする。
