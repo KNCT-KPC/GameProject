@@ -28,23 +28,25 @@ namespace RPGProject.GamePlay.Party
             return TP;
         }
 
-        public void SetHP(int MAXHP) {
+        public void SetHP(int arg_hp) {
+            HP = arg_hp;
             if (HP < 0) {
                 HP = 0;
             }
 
-            if (HP >= MAXHP) {
-                HP = MAXHP;
+            if (HP > status.MaxHP) {
+                HP = status.MaxHP;
             }
         }
 
-        public void SetTP(int MAXTP) {
+        public void SetTP(int arg_tp) {
+            TP = arg_tp;
             if (TP < 0) {
                 TP = 0;
             }
 
-            if (TP >= MAXTP){
-                TP = MAXTP;
+            if (TP > status.MaxTP){
+                TP = status.MaxTP;
             }
         }
 
@@ -54,6 +56,10 @@ namespace RPGProject.GamePlay.Party
 
         public int GetLv() {
             return Lv;
+        }
+
+        public string GetName() {
+            return name;
         }
     }
 }
