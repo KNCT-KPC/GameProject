@@ -65,6 +65,7 @@
     <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
     <Compile Include="GamePlay\Map\Map.cs" />
+    <Compile Include="GamePlay\Party\Party.cs" />
     <Compile Include="GamePlay\Party\Player.cs" />
     <Compile Include="GamePlay\Party\PlayerStatus.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
