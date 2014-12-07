@@ -1,0 +1,45 @@
+名前空間 : RPGProject.GamePlay.Map
+クラス名 : abstract MapChar
+概要 : マップ上に配置するキャラクタを定義します
+メンバー : 
+public enum MoveDirect{NEUTRAL, UP, DOWN, LEFT, RIGHT}
+private const int MOVE_TIME = 32 //移動にかかるカウント
+private Map map //マップ
+private int px  //キャラクタのx位置
+private int py  //キャラクタのy位置
+private MoveDirect moveDir //移動方向
+private int moveCount //移動カウント
+
+MapChar() //コンストラクタ
+map,px,pyを受け取った引数で初期化する
+moveDirをMoveDirect.NEUTRALで初期化する
+
+public void Update() //更新メソッド
+moveCountが0のとき、Moveメソッドを呼び出す
+Moveメソッドを呼び出した時の返り値がtrueなら、moveCount = MOVE_TIME とする
+moveCountの値が0より大きい場合は、moveCountの値をデクリメントする
+
+protected abstract bool Move() //移動メソッド
+
+public void Draw() //描画メソッド
+px,py,moveCount,moveDirから描画を行う
+moveCountが0でないなら、以下の処理を行う。
+  moveCount != 0なら、移動中である
+  px*TIP_SIZE or py*TIP_SIZEは「移動後の座標」なので、その値からTIP_SIZE/moveCountを 足す or 引く
+  「x座標 or y座標」「足す or 引く」は、移動方向によって決まる
+  そこで、以下のように分岐する
+  switch(moveDir){
+    case MoveDirect.UP
+      //y に 足す
+      break;
+    case MoveDirect.DOWN
+      //y から 引く
+      break;
+    case MoveDirect.LEFT
+      //x に 足す
+      break;
+    case MoveDirect.RIGHT
+      //x から 引く
+      break;
+  }
+以上の過程で計算された座標に、キャラクタを表す青い四角形を描画する。

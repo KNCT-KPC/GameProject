@@ -1,0 +1,12 @@
+名前空間 : RPGProject.GamePlay.Map
+クラス名 : MapMyChar
+継承元 : MapChar
+概要 : マップ上に配置するマイキャラを定義します
+
+override bool Move() //オーバーライドした移動メソッド
+GameInputの内容を受け取って、方向キーによって px,py の値を変える（=キャラクタを移動する）
+移動後 px,py の値が、0より少ないまたは xSize,ySize 以上になるなら移動をキャンセル
+移動先の map.JudgeEnter(px,py) の値が1なら移動できないようにする
+「移動したかどうか」と「移動した方向」をメソッド内で検知する
+「移動した方向」はmoveDirへ代入する
+移動したならメソッドの返り値としてtrueを返し、そうでないならfalseを返す
