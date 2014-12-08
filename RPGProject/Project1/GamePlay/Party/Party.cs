@@ -12,7 +12,7 @@ namespace RPGProject.GamePlay.Party
         /// <summary>
         /// Player配列の生成
         /// </summary>
-        public void Member() {
+        public Party() {
             member = new Player[5];
         }
 
