@@ -7,11 +7,11 @@ namespace RPGProject.GamePlay.Party
 {
     class Player
     {
-        string name;
-        PlayerStatus status;
-        int Lv;
-        int HP;
-        int TP;
+        private string name;
+        private PlayerStatus status;
+        private int Lv;
+        private int HP;
+        private int TP;
 
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace RPGProject.GamePlay.Party
         /// <param name="Status">ステータス</param>
         /// <param name="hp">HP</param>
         /// <param name="tp">TP</param>
-        public void NameStatus(string Name, PlayerStatus Status, int hp, int tp) {
+        public Player(string Name, PlayerStatus Status, int hp, int tp) {
             this.name = Name;
             this.status = Status;
             this.HP = hp;

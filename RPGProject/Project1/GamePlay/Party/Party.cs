@@ -7,7 +7,7 @@ namespace RPGProject.GamePlay.Party
 {
     class Party
     {
-        Player[] member;
+        private Player[] member;
 
         /// <summary>
         /// Player配列の生成
