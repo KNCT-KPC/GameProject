@@ -68,6 +68,7 @@
     <Compile Include="GamePlay\Party\Party.cs" />
     <Compile Include="GamePlay\Party\Player.cs" />
     <Compile Include="GamePlay\Party\PlayerStatus.cs" />
+    <Compile Include="GamePlay\Window\MessageWindow.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />
