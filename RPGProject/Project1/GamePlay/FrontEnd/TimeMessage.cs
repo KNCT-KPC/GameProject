@@ -78,5 +78,12 @@ namespace RPGProject.GamePlay.FrontEnd {
 		public bool isFinished(){
 			return finish;
 		}
+
+		/// <summary>
+		/// 最後の文字までスキップするメソッド
+		/// </summary>
+		public void Finish(){
+			finish = true;
+		}
 	}
 }
