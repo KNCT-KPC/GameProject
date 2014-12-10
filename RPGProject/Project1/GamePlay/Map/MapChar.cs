@@ -13,17 +13,18 @@ namespace RPGProject.GamePlay.Map
             const int TIP_SIZE = 32;
             public enum MoveDirect { NEUTRAL, UP, DOWN, LEFT, RIGHT };
             private const int MOVE_TIME = 32; //移動にかかるカウント
-            private Map map; //マップ
+            protected Map map; //マップ
             protected int px;  //キャラクタのx位置
             protected int py;  //キャラクタのy位置
             protected MoveDirect moveDir; //移動方向
             private int moveCount; //移動カウント
-            MapChar( Map maps, int x, int y)
+            protected MapChar( Map maps, int x, int y)
             {
                 map = maps;
                 px = x;
                 py = y;
                 moveDir = MoveDirect.NEUTRAL;
+                moveCount = 0;
             }
             public void Update()
             {
@@ -35,6 +36,7 @@ namespace RPGProject.GamePlay.Map
                 {
                     moveCount--;
                 }
+              
             }
 
             protected abstract bool Move();
@@ -42,23 +44,24 @@ namespace RPGProject.GamePlay.Map
             public void Draw()
             {
                 int nx, ny;
-                nx = px * TIP_SIZE;
-                ny = py * TIP_SIZE;
+                nx = px *TIP_SIZE;
+                ny = py *TIP_SIZE;
                 if (moveCount != 0)
                 {
                     switch (moveDir)
                     {
-                        case MoveDirect.UP: ny += TIP_SIZE / moveCount; //y に 足す
+                        case MoveDirect.UP: ny = ny +  moveCount; //y に 足す
                             break;
-                        case MoveDirect.DOWN: ny -= TIP_SIZE / moveCount;//y から 引く
+                        case MoveDirect.DOWN: ny = ny - moveCount;//y から 引く
                             break;
-                        case MoveDirect.LEFT: nx += TIP_SIZE / moveCount; //x に 足す
+                        case MoveDirect.LEFT: nx = nx + moveCount; //x に 足す
                             break;
-                        case MoveDirect.RIGHT: ny -= TIP_SIZE / moveCount;//x から 引く
+                        case MoveDirect.RIGHT: nx =  nx  - moveCount;//x から 引く
                             break;
+                        default: break;
                     }
                 }
-                DxLibDLL.DX.DrawBox(nx * TIP_SIZE, ny * TIP_SIZE, nx * TIP_SIZE + TIP_SIZE, ny * TIP_SIZE + TIP_SIZE, DX.GetColor(0, 255, 0), 1);
+                DxLibDLL.DX.DrawBox(nx,ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
             }
         }
     

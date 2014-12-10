@@ -15,15 +15,17 @@ namespace RPGProject.GamePlay.Map
         int[,] drawTip;
         int[,] stateTip;
         MapMychar myChar;
+        public int r, g, b;
         public Map(int arg_xSize, int arg_ySize)
         {
             xSize = arg_xSize;
             ySize = arg_ySize;
             drawTip = new int[ySize, xSize];
             stateTip = new int[ySize, xSize];
-            drawTip[1, 1] = 0;
+            drawTip[1, 0] = 0;
+            drawTip[0, 0] = 0;
             drawTip[3, 1] = 1;
-            myChar = new MapMychar(this, 0, 0);
+            myChar = new  MapMychar(this, 0, 0);
         }
         public void Update()
         {
@@ -31,28 +33,32 @@ namespace RPGProject.GamePlay.Map
         }
         public void Draw()
         {
+            
             for (int y = 0; y < ySize; y++)
             {
                 for (int x = 0; x < xSize; x++)
                 {
                     if (drawTip[y, x] == 0)
                     {
-                        DxLibDLL.DX.DrawBox(x * TIP_SIZE, y * TIP_SIZE, x * TIP_SIZE + TIP_SIZE, y * TIP_SIZE + TIP_SIZE, DX.GetColor(255, 255, 255), 1);
+                        r = g = b = 255;
+
                     }
                     else if (drawTip[y, x] == 1)
                     {
-                        DxLibDLL.DX.DrawBox(x * TIP_SIZE, y * TIP_SIZE, x * TIP_SIZE + TIP_SIZE, y * TIP_SIZE + TIP_SIZE, DX.GetColor(0, 0, 0), 1);
+                        r = g = b = 0;
                     }
+                    DxLibDLL.DX.DrawBox(x * TIP_SIZE, y * TIP_SIZE, x * TIP_SIZE + TIP_SIZE, y * TIP_SIZE + TIP_SIZE, DX.GetColor(r, g, b), 1);
                 }
             }
+            myChar.Draw();
         }
         public int JuggeEnter(int nx, int ny)
         {
-            if (nx < 0 || nx > xSize || ny < 0 || ny > ySize)
+            if ((nx < 0) || (nx > xSize-1) || (ny < 0) || (ny > ySize-1))
             {
                 return (1);
             }
-            return (stateTip[nx, ny]);
+            else return (stateTip[ny, nx]);
         }
         
        

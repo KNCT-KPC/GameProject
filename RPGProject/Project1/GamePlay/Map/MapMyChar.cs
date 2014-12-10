@@ -9,35 +9,46 @@ namespace RPGProject.GamePlay.Map
 {
     class MapMychar :  MapChar
     {
-        
-        int my, mx;
-        override bool Move()
+        public MapMychar(Map maps, int x, int y)
+            : base (maps,x,y)
         {
-             
+        }
+
+        override protected bool Move()
+        {
+            int my = py;
+            int mx = px;
+            moveDir = MoveDirect.NEUTRAL;
+            
             if (GameInput.GetCount(GameInput.Code.INPUT_UP) > 0)
             {
-                my = py--;
+                my--;
                 moveDir = MoveDirect.UP;
             }
             else if (GameInput.GetCount(GameInput.Code.INPUT_DOWN) > 0)
             {
-                my = py++;
+                my++;
                 moveDir = MoveDirect.DOWN;
             }
             else if (GameInput.GetCount(GameInput.Code.INPUT_LEFT) > 0)
             {
-                mx = px--;
+                mx--;
                 moveDir = MoveDirect.LEFT;
             }
             else if (GameInput.GetCount(GameInput.Code.INPUT_RIGHT) > 0)
             {
-                mx = px++;
+                mx++;
                 moveDir = MoveDirect.RIGHT;
             }
-            if (Map.JuggeEnter(mx, my) == 1) return (false);
+            if (map.JuggeEnter(mx, my) == 1)
+            {
+                moveDir = MoveDirect.NEUTRAL;
+                return (false);
+            }
 
             px = mx;
             py = my;
+            
             return (true);
 
 
