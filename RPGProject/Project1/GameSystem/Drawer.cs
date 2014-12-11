@@ -9,6 +9,9 @@ namespace RPGProject.GameSystem {
 	/// rgb値を指定して色を得るクラス
 	/// </summary>
 	public struct GameColor{
+		public readonly int r;
+		public readonly int g;
+		public readonly int b;
 		public readonly int value;
 
 		/// <summary>
@@ -18,6 +21,9 @@ namespace RPGProject.GameSystem {
 		/// <param name="g">緑値</param>
 		/// <param name="b">青値</param>
 		public GameColor(int r, int g, int b){
+			this.r = r;
+			this.g = g;
+			this.b = b;
 			this.value = DX.GetColor(r,g,b);
 		}
 	}

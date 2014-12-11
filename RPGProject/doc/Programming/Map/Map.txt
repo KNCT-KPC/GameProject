@@ -30,3 +30,9 @@ for(int y = 0; y < ySize; y++){
 drawTipの値が0なら、(x*32,y*32)から32×32の黒い四角形を描画する。
 drawTipの値が1なら、(x*32,y*32)から32×32の白い四角形を描画する。
 mychar.Draw()を呼び出す。
+
+
+public bool JudgeEnter
+引数としてチップ位置x,yを受け取る
+x,yの値が0未満またはxSize,ySize以上ならfalseを返す
+stateTip[y,x]の値が1ならfalseを、それ以外ならtrueを返す
