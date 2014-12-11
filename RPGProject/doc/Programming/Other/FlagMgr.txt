@@ -1,0 +1,23 @@
+名前空間 : RPGProject.GamePlay.Control
+クラス名 : FlagMgr
+概要 : フラグを管理するためのマネージャクラスを表現します。
+メンバ :
+Dictionary<string, flag> flags //管理するフラグ
+
+コンストラクタ 
+引数として文字列配列namesを受け取る
+for文を回してflagsを初期化する
+ flags[names[i]] = false
+ 以上のようにすることで、namesのi番目にある名前をキーとして追加できる
+
+SetFlag //フラグをセットする
+引数として、フラグ名と更新する値(bool値)を受け取る
+引数のフラグ名に対応する値を、引数で受け取ったbool値で更新する
+
+ReverseFlag //フラグを反転させる
+引数として、フラグ名を受け取る
+引数のフラグ名に対応する値がtrueならflaseに、falseならtrueにする
+
+GetFlag //フラグを返す
+引数として、フラグ名を受け取る
+引数のフラグ名に対応する値を返す
