@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RPGProject.GameSystem;
-using DxLibDLL;
 
 namespace RPGProject.GamePlay.Window
 {
@@ -44,7 +43,7 @@ namespace RPGProject.GamePlay.Window
         //四角形を描画するメソッド。 (左上の座標(px,py)に wid)
         {
 
-            DxLibDLL.DX.DrawBox(px, py, px + width - 1, py + height - 1, DX.GetColor(255, 255, 255), 1);
+            Drawer.DrawRect(px, py, px + width - 1, py + height - 1, new GameColor(255, 255, 255), true);
         }
 
         public bool isBroken()

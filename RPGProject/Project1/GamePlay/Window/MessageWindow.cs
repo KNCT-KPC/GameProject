@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using RPGProject.GamePlay.FrontEnd;
 using RPGProject.GameSystem;
-using DxLibDLL;
+
+
 namespace RPGProject.GamePlay.Window
 {
     class MessageWindow 
@@ -56,7 +57,8 @@ namespace RPGProject.GamePlay.Window
             for (int i = 0; i < line.Length; i++)
             {
                 
-                DxLibDLL.DX.DrawString(STRING_X, STRING_Y + LINE_HEIGHT * i, line[i], DX.GetColor(255, 255, 255));
+               // DxLibDLL.DX.DrawString(STRING_X, STRING_Y + LINE_HEIGHT * i, line[i], DX.GetColor(255, 255, 255));
+                Drawer.DrawString(STRING_X, STRING_Y + LINE_HEIGHT*i, line[i], new GameColor(0,0,0), "DEBUG_PFONT");
             }
         }
         
