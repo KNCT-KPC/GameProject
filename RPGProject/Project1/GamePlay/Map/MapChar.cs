@@ -18,7 +18,7 @@ namespace RPGProject.GamePlay.Map
             protected int py;  //キャラクタのy位置
             protected MoveDirect moveDir; //移動方向
             private int moveCount; //移動カウント
-            protected MapChar( Map maps, int x, int y)
+            protected MapChar(Map maps, int x, int y)
             {
                 map = maps;
                 px = x;
@@ -43,9 +43,9 @@ namespace RPGProject.GamePlay.Map
             
             public void Draw()
             {
-                int nx, ny;
-                nx = px *TIP_SIZE;
-                ny = py *TIP_SIZE;
+                
+                int nx = px *TIP_SIZE;
+                int ny = py *TIP_SIZE;
                 if (moveCount != 0)
                 {
                     switch (moveDir)

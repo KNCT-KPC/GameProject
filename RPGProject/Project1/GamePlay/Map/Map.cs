@@ -25,6 +25,7 @@ namespace RPGProject.GamePlay.Map
             drawTip[1, 0] = 0;
             drawTip[0, 0] = 0;
             drawTip[3, 1] = 1;
+            stateTip[3,1] = 1;
             myChar = new  MapMychar(this, 0, 0);
         }
         public void Update()
@@ -52,13 +53,14 @@ namespace RPGProject.GamePlay.Map
             }
             myChar.Draw();
         }
-        public int JuggeEnter(int nx, int ny)
+        public bool JudgeEnter(int x, int y)
         {
-            if ((nx < 0) || (nx > xSize-1) || (ny < 0) || (ny > ySize-1))
+            if ((x < 0) || (x > xSize-1) || (y < 0) || (y > ySize-1))
             {
-                return (1);
+                return (false);
             }
-            else return (stateTip[ny, nx]);
+            if (stateTip[y, x] == 1) return (false);
+            else return (true);
         }
         
        

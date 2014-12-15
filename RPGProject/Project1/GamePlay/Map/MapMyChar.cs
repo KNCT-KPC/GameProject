@@ -9,6 +9,7 @@ namespace RPGProject.GamePlay.Map
 {
     class MapMychar :  MapChar
     {
+       
         public MapMychar(Map maps, int x, int y)
             : base (maps,x,y)
         {
@@ -18,8 +19,7 @@ namespace RPGProject.GamePlay.Map
         {
             int my = py;
             int mx = px;
-            moveDir = MoveDirect.NEUTRAL;
-            
+            bool succes;
             if (GameInput.GetCount(GameInput.Code.INPUT_UP) > 0)
             {
                 my--;
@@ -40,16 +40,20 @@ namespace RPGProject.GamePlay.Map
                 mx++;
                 moveDir = MoveDirect.RIGHT;
             }
-            if (map.JuggeEnter(mx, my) == 1)
+            else return(false);
+
+            if (map.JudgeEnter(mx, my)) succes = true;
+            else succes = false; 
+            if (succes)
             {
-                moveDir = MoveDirect.NEUTRAL;
+                px = mx;
+                py = my;
+                return (true);
+            }
+            else
+            {
                 return (false);
             }
-
-            px = mx;
-            py = my;
-            
-            return (true);
 
 
         }
