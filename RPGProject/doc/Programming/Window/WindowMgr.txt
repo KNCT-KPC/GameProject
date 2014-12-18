@@ -1,0 +1,38 @@
+名前空間 : RPGProject.GamePlay.Window
+クラス名 : WindowMgr
+概要 : ウィンドウを管理するマネージャクラスを表現します
+メンバ :
+Window[] windows = new Window[32]	//ウィンドウ配列
+
+void Update() : 更新メソッド
+処理 : 
+windowsのすべての要素に対してUpdateを行う
+その後、windowsのすべての要素に対してisBrokenを呼び出しtrueならばremoveWindowで削除する
+ただし、nullが現れた時点で処理を終了する
+
+void Draw() : 描画メソッド
+処理 :
+windowsのすべての要素に対してDrawを行う
+ただし、nullが現れた時点で処理を終了する
+
+bool isEnable()
+処理 : 
+windowsに要素がある場合、trueを返す
+ない場合はfalseを返す
+
+void addWindow(Window w)
+処理 :
+windowsの末尾にwを挿入する
+
+void removeWindow(Window w) //オーバーロード
+処理 :
+wと同じインスタンスを、windowsから削除する
+wと同じインスタンスであるかどうかは、if(w == windows[i])のようにすればよい
+削除は、ただ単にwindows[i] = nullとすればよい
+削除後、windows[i]よりも後方にある要素をすべて前へ詰める
+
+void removeWindow(int index) //オーバーロード
+処理 :
+windowsのindex番目のインスタンスを削除する
+削除後、index番目よりも後方にある要素をすべて前へ詰める
+
