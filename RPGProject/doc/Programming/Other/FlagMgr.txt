@@ -2,7 +2,7 @@
 クラス名 : FlagMgr
 概要 : フラグを管理するためのマネージャクラスを表現します。
 メンバ :
-Dictionary<string, flag> flags //管理するフラグ
+Dictionary<string, bool> flags //管理するフラグ
 
 コンストラクタ 
 引数として文字列配列namesを受け取る
