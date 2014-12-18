@@ -2,13 +2,17 @@
 クラス名 : Map
 概要 : キャラクターが移動できるマップを表現します。
 メンバー : 
-int xSize : マップのxサイズ
-int ySize : マップのyサイズ
-int[,] drawTip : 描画マップチップ
-int[,] stateTip : 状態マップチップ
-MapMyChar myChar : マイキャラ
+const int SCREEN_XSIZE = 20
+const int SCREEN_YSIZE = 15
+int scX   //スクリーンの現在x位置
+int scY   //スクリーンの現在y位置
+int xSize // マップのxサイズ
+int ySize // マップのyサイズ
+int[,] drawTip // 描画マップチップ
+int[,] stateTip // 状態マップチップ
+MapMyChar myChar // マイキャラ
 
-public Map(int arg_xSize, int arg_ySize) : テスト用コンストラクタ
+public Map(int arg_xSize, int arg_ySize) // テスト用コンストラクタ
 処理 : 
 xSize,ySizeにarg_xSize,arg_ySizeの値を代入
 drawTip,stateTipをxSize,ySizeで初期化
@@ -17,13 +21,15 @@ myChar = new MapMyChar(0,0,this) とする
 public Update()
 処理 :
 myChar.Update()を呼び出す。
+scX = マイキャラのx位置-SCREEN_XSIZE/2	(ただし、0未満になるならscX=0 (xSize-SCREEN_XSIZE)以上になるならscX=xSize-SCREEN_XSIZE
+scY = マイキャラのy位置-SCREEN_YSIZE/2  (上記と同様、0未満とySize-SCREEN_YSIZEで判定)
 
 public Draw()
 処理 :
 drawTipの値をすべて走査して、マップチップを表示する
 2次配列の走査は以下のようにする。
-for(int y = 0; y < ySize; y++){
-	for(int x = 0; x < xSize; x++){
+for(int y = scY; y < scY+SCREEN_YSIZE; y++){
+	for(int x = scX; x < scX+SCREEN_XSIZE; x++){
 		//drawTip[y,x] とすると、順に値を見ていける
 	}
 }
@@ -36,3 +42,7 @@ public bool JudgeEnter
 引数としてチップ位置x,yを受け取る
 x,yの値が0未満またはxSize,ySize以上ならfalseを返す
 stateTip[y,x]の値が1ならfalseを、それ以外ならtrueを返す
+
+
+GetScreenX() GetScreenY()
+scX,scYを返す

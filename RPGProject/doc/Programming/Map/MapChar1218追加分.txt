@@ -1,0 +1,26 @@
+フィールド :
+現在private指定しているフィールドをすべてprtectedに
+
+Draw()
+                if (moveCount != 0)
+                {
+                    switch (moveDir)
+                    {
+                        case MoveDirect.UP: ny = ny +  moveCount; //y に 足す
+                            break;
+                        case MoveDirect.DOWN: ny = ny - moveCount;//y から 引く
+                            break;
+                        case MoveDirect.LEFT: nx = nx + moveCount; //x に 足す
+                            break;
+                        case MoveDirect.RIGHT: nx =  nx  - moveCount;//x から 引く
+                            break;
+                        default: break;
+                    }
+                }
+この方法だと、MOVE_TIMEを変えた時にバグる
+正常に動作するためには、TIP_SIZEとMOVE_TIMEの比を、moveCountにかければ良い
+moveCount*(TIP_SIZE/MOVE_TIME)
+
+
+GetX,GetY
+px,pyを返す
