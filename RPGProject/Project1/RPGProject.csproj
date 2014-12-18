@@ -67,6 +67,7 @@
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
     <Compile Include="GamePlay\Map\MapChar.cs" />
     <Compile Include="GamePlay\Map\Map.cs" />
+    <Compile Include="GamePlay\Party\FlagMgr.cs" />
     <Compile Include="GamePlay\Party\Party.cs" />
     <Compile Include="GamePlay\Party\Player.cs" />
     <Compile Include="GamePlay\Party\PlayerStatus.cs" />
