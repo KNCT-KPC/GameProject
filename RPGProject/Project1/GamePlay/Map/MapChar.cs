@@ -12,12 +12,12 @@ namespace RPGProject.GamePlay.Map
         {
             const int TIP_SIZE = 32;
             public enum MoveDirect { NEUTRAL, UP, DOWN, LEFT, RIGHT };
-            private const int MOVE_TIME = 32; //移動にかかるカウント
+            protected const int MOVE_TIME = 32; //移動にかかるカウント
             protected Map map; //マップ
             protected int px;  //キャラクタのx位置
             protected int py;  //キャラクタのy位置
             protected MoveDirect moveDir; //移動方向
-            private int moveCount; //移動カウント
+            protected int moveCount; //移動カウント
             protected MapChar(Map maps, int x, int y)
             {
                 map = maps;
@@ -50,19 +50,25 @@ namespace RPGProject.GamePlay.Map
                 {
                     switch (moveDir)
                     {
-                        case MoveDirect.UP: ny = ny +  moveCount; //y に 足す
+                        case MoveDirect.UP: ny = ny +  moveCount*(TIP_SIZE/MOVE_TIME); //y に 足す
                             break;
-                        case MoveDirect.DOWN: ny = ny - moveCount;//y から 引く
+                        case MoveDirect.DOWN: ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y から 引く
                             break;
-                        case MoveDirect.LEFT: nx = nx + moveCount; //x に 足す
+                        case MoveDirect.LEFT: nx = nx + moveCount*(TIP_SIZE/MOVE_TIME); //x に 足す
                             break;
-                        case MoveDirect.RIGHT: nx =  nx  - moveCount;//x から 引く
+                        case MoveDirect.RIGHT: nx =  nx  - moveCount*(TIP_SIZE/MOVE_TIME);//x から 引く
                             break;
                         default: break;
                     }
                 }
                 DxLibDLL.DX.DrawBox(nx,ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
             }
+           public int GetX(){
+               return(px);
+               }
+           public int GetY(){
+                return(py);
+                }    
         }
     
 }
