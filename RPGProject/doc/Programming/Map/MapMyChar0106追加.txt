@@ -1,0 +1,8 @@
+ˆÈ‰º‚ğ’Ç‰ÁB
+
+protected override int GetScreenX() {
+	return px - map.GetScreenX();
+}
+protected override int GetScreenY() {
+	return py - map.GetScreenY();
+}

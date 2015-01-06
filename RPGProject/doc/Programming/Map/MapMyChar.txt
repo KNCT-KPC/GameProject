@@ -10,3 +10,10 @@ GameInput‚Ì“à—e‚ğó‚¯æ‚Á‚ÄA•ûŒüƒL[‚É‚æ‚Á‚Ä px,py ‚Ì’l‚ğ•Ï‚¦‚éi=ƒLƒƒƒ‰ƒNƒ^‚ğˆ
 uˆÚ“®‚µ‚½‚©‚Ç‚¤‚©v‚ÆuˆÚ“®‚µ‚½•ûŒüv‚ğƒƒ\ƒbƒh“à‚ÅŒŸ’m‚·‚é
 uˆÚ“®‚µ‚½•ûŒüv‚ÍmoveDir‚Ö‘ã“ü‚·‚é
 ˆÚ“®‚µ‚½‚È‚çƒƒ\ƒbƒh‚Ì•Ô‚è’l‚Æ‚µ‚Ätrue‚ğ•Ô‚µA‚»‚¤‚Å‚È‚¢‚È‚çfalse‚ğ•Ô‚·
+
+protected override int GetScreenX() {
+	return px - map.GetScreenX();
+}
+protected override int GetScreenY() {
+	return py - map.GetScreenY();
+}

@@ -28,9 +28,9 @@ public Draw()
 処理 :
 drawTipの値をすべて走査して、マップチップを表示する
 2次配列の走査は以下のようにする。
-for(int y = scY; y < scY+SCREEN_YSIZE; y++){
-	for(int x = scX; x < scX+SCREEN_XSIZE; x++){
-		//drawTip[y,x] とすると、順に値を見ていける
+for(int y = 0; y < SCREEN_YSIZE; y++){
+	for(int x = 0; x < CREEN_XSIZE; x++){
+		//drawTip[y+scY,x+scX] とすると、順に値を見ていける
 	}
 }
 drawTipの値が0なら、(x*32,y*32)から32×32の黒い四角形を描画する。

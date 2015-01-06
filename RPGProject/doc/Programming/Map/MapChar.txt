@@ -22,10 +22,12 @@ moveCountの値が0より大きい場合は、moveCountの値をデクリメントする
 protected abstract bool Move() //移動メソッド
 
 public void Draw() //描画メソッド
-px,py,moveCount,moveDirから描画を行う
+dx = GetDisplayX()
+dy = GetDisplayY() とする。
+dx,dy,moveCount,moveDirから描画を行う
 moveCountが0でないなら、以下の処理を行う。
   moveCount != 0なら、移動中である
-  px*TIP_SIZE or py*TIP_SIZEは「移動後の座標」なので、その値からmoveCount*(TIP_SIZE/MOVE_TIME)を 足す or 引く
+  dx*TIP_SIZE or dy*TIP_SIZEは「移動後の座標」なので、その値からmoveCount*(TIP_SIZE/MOVE_TIME)を 足す or 引く
   「x座標 or y座標」「足す or 引く」は、移動方向によって決まる
   そこで、以下のように分岐する
   switch(moveDir){
@@ -46,3 +48,6 @@ moveCountが0でないなら、以下の処理を行う。
 
 public GetX, public GetY
 px,pyを返す
+
+protected abstract GetDisplayX()	//ディスプレイ上のx位置を返すメソッド
+protected abstract GetDisplayY()	//ディスプレイ上のy位置を返すメソッド
