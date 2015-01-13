@@ -1,7 +1,0 @@
-Draw()メソッド :
-px,pyをそのまま使うのではなく、以下で実装するGetScreenX(),GetScreenY()メソッドの値を使う。
-なお、dx,dyが0未満またはMAP.SCREEN_XSIZE,MAP.SCREEN_YSIZE以上ならスクリーン上にないのでDrawメソッドを終了する。
-
-protected abstract GetScreenX(); //新規
-protected abstract GetScreenY(); //新規
-この２つのメソッドは、自信を継承するマイキャラ・NPCがディスプレイ上の位置を返すメソッド。
