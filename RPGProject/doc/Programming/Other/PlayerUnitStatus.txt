@@ -1,5 +1,5 @@
 名前空間 : RPGProject.GamePlay.Party
-クラス名 : PlayerStatus
+クラス名 : PlayerUnitStatus
 概要 : プレイヤーキャラのステータスを表すクラスです。
 メンバ :
 ※C#では日本語のクラス名/フィールド名/メソッド名指定ができます。
@@ -13,5 +13,5 @@ public readonly int 技能
 public readonly int 俊敏
 public readonly int 幸運
 
-public PlayerStatus(...上記8能力すべて引数...) : コンストラクタ
+public PlayerUnitStatus(...上記8能力すべて引数...) : コンストラクタ
 8能力すべてを引数として受け取りフィールドに代入

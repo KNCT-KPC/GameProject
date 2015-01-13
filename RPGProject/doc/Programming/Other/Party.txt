@@ -2,30 +2,53 @@
 クラス名 : Party
 概要 : プレイヤーキャラクターをまとめるパーティを表現します。
 メンバ :
-Player[] member : プレイヤーキャラクターの配列を表します。
+public f const int ITEM_MAXNUM = 50;  //50は暫定。パーティが持てるアイテムの最大数。
+public const int MEMBER_MAXNUM = 5; //パーティの最大メンバー数
+public const int BATTLE_MEMBER_MAXNUM = 4; //戦闘に参加する最大メンバー数
+private PlayerUnit[] member; //プレイヤーキャラクターの配列を表します。
+private string[] item; //パーティ全体が管理するアイテムを表します。
+private int memNum; //現在のメンバー数を表します。
 
 コンストラクタ :
-member = new Player[5] で配列を生成する。
+member = new PlayerUnit[MEMBER_MAXNUM] で配列を生成する。
+item = new string[ITEM_MAXNUM] で配列を生成する
 
-void AddMember : 以下のようにする
-void AddMember(Player p){
-  for(int i = 0; i < member.Length; i++){
-    if(member[i] == null){
-      member[i] = p;
-    }
+bool AddMember : 以下のようにする
+bool AddMember(PlayerUnit p){
+  if(memNum == MEMBER_MAXNUM){
+    return false;
   }
+  member[memNum] = p;
+  memNum++;
+  return true;
 }
 
-Player GetMember :
+PlayerUnit GetMember :
 番号を入力し、配列から指定された番号のキャラクターを返す。
 指定する配列番号として、引数にint型整数を受け取る。
 memberの、指定された配列番号の要素を返す。
 
-Player SearchPlayer :
+void RemoveMember
+nameを入力とし、削除するプレイヤーの名前とする。
+SearchPlayerUnitと同じ要領でnameに一致するキャラクターを検索。
+nameに一致するキャラクターを削除（nullを代入）
+それ以降の要素をひとつずつずらす。
+memberの末尾にnullを追加。
+memNum--する。
+
+=======イメージ図=======
+0 1 2 3 4 : 入力c, nはnullを表す
+a b c d e //初期状態
+a b n d e //cをnullに
+a b d e e //ひとつずつずらす
+a b d e n //末尾にnullを追加
+========================
+
+PlayerUnit SearchPlayerUnit :
 名前を入力し、同じ名前のキャラクターを返す。
 引数としてstring型の名前を受け取る
 ① 配列の要素をすべて見る。（AddMemberを参考にする）
-② 引数として受け取った名前と一致するPlayerを探す。(GetName()を呼び出す）
+② 引数として受け取った名前と一致するPlayerUnitを探す。(GetName()を呼び出す）
 ※ただし、nullのときは回避するように、if(member[i] != null)で判定する。
 ③ 一致したプレイヤーがいたら、その時点でreturnする。
 ④ for文が回りきっても見つからなかったら、return nullする。

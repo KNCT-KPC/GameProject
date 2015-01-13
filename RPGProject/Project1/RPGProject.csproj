@@ -108,6 +108,7 @@
   <ItemGroup>
     <Folder Include="GamePlay\Control\" />
     <Folder Include="GamePlay\Database\" />
+    <Folder Include="GamePlay\Party\Item\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

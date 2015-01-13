@@ -1,15 +1,15 @@
 名前空間 : RPGProject.GamePlay.Party
-クラス名 : Player
+クラス名 : PlayerUnit
 概要 : プレイヤーそのものを表します。
 メンバ :
 string name : 名前
-PlayerStatus status : ステータス
+PlayerUnitStatus status : ステータス
 int Lv : レベル
 int HP : 現在HP
 int TP : 現在TP
 
 コンストラクタ :
-nameとPlayerStatus、HP/TPを引数で受け取ってフィールドを初期化。
+nameとPlayerUnitStatus、HP/TPを引数で受け取ってフィールドを初期化。
 
 GetHP GetTP :
 HP/TPのゲッタ

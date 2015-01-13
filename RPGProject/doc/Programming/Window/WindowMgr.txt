@@ -20,18 +20,18 @@ bool isEnable()
 windowsに要素がある場合、trueを返す
 ない場合はfalseを返す
 
-void addWindow(Window w)
+void AddWindow(Window w)
 処理 :
 windowsの末尾にwを挿入する
 
-void removeWindow(Window w) //オーバーロード
+void RemoveWindow(Window w) //オーバーロード
 処理 :
 wと同じインスタンスを、windowsから削除する
 wと同じインスタンスであるかどうかは、if(w == windows[i])のようにすればよい
 削除は、ただ単にwindows[i] = nullとすればよい
 削除後、windows[i]よりも後方にある要素をすべて前へ詰める
 
-void removeWindow(int index) //オーバーロード
+void RemoveWindow(int index) //オーバーロード
 処理 :
 windowsのindex番目のインスタンスを削除する
 削除後、index番目よりも後方にある要素をすべて前へ詰める
