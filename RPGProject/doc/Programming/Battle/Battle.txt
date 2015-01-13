@@ -5,7 +5,6 @@
 enum BattleScene{BattleStart, TurnStart, OrderMake, OrderExecute, TurnEnd};
 BattlePlayer[] player
 BattleEnemy[] enemy
-#PartyItemList itemList
 Battle.BattleScene scene
 OrderMaker ordMaker
 OrderExecuter ordExecuter
