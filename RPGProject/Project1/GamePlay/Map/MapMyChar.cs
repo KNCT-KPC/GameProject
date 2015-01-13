@@ -57,5 +57,13 @@ namespace RPGProject.GamePlay.Map
 
 
         }
+        override protected  int GetScreenX()
+        {
+            return px - map.GetScreenX();
+        }
+        override protected int GetScreenY()
+        {
+            return py - map.GetScreenY();
+        }
     }
 }

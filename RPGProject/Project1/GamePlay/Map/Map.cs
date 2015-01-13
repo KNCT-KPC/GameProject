@@ -10,8 +10,8 @@ namespace RPGProject.GamePlay.Map
     class Map
     {
         const int TIP_SIZE = 32;
-        const int SCREEN_XSIZE = 20;
-        const int SCREEN_YSIZE = 15;
+        public const int SCREEN_XSIZE = 20;
+        public const int SCREEN_YSIZE = 15;
         public int xSize;
         public int ySize;
         int[,] drawTip;
@@ -67,7 +67,7 @@ namespace RPGProject.GamePlay.Map
         }
         public bool JudgeEnter(int x, int y)
         {
-            if ((x < 0) || (x > xSize-scX-1) || (y < 0) || (y > ySize-scY-1))
+            if ((x < 0) || (x > xSize-1) || (y < 0) || (y > ySize-1))
             {
                 return (false);
             }

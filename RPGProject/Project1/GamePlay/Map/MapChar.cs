@@ -43,32 +43,39 @@ namespace RPGProject.GamePlay.Map
             
             public void Draw()
             {
-                
-                int nx = px *TIP_SIZE;
-                int ny = py *TIP_SIZE;
+
+                int dx = GetScreenX();
+                int dy = GetScreenY();
+                int nx = dx * TIP_SIZE;
+                int ny = dy * TIP_SIZE;
                 if (moveCount != 0)
                 {
                     switch (moveDir)
                     {
-                        case MoveDirect.UP: ny = ny +  moveCount*(TIP_SIZE/MOVE_TIME); //y に 足す
+                        case MoveDirect.UP   :  ny = ny + moveCount * (TIP_SIZE / MOVE_TIME); //y に 足す
                             break;
-                        case MoveDirect.DOWN: ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y から 引く
+                        case MoveDirect.DOWN :  ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y から 引く
                             break;
-                        case MoveDirect.LEFT: nx = nx + moveCount*(TIP_SIZE/MOVE_TIME); //x に 足す
+                        case MoveDirect.LEFT :  nx = nx + moveCount * (TIP_SIZE / MOVE_TIME); //x に 足す
                             break;
-                        case MoveDirect.RIGHT: nx =  nx  - moveCount*(TIP_SIZE/MOVE_TIME);//x から 引く
+                        case MoveDirect.RIGHT:  nx = nx - moveCount * (TIP_SIZE / MOVE_TIME);//x から 引く
                             break;
                         default: break;
                     }
                 }
-                DxLibDLL.DX.DrawBox(nx,ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
+                if ((dx < 0) || (dx > Map.SCREEN_XSIZE) || (dy < 0) || (dy > Map.SCREEN_YSIZE)) return;
+                DxLibDLL.DX.DrawBox( nx, ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
             }
            public int GetX(){
                return(px);
                }
            public int GetY(){
                 return(py);
-                }    
-        }
-    
+                }
+           protected abstract int GetScreenX();
+           protected abstract int GetScreenY(); 
+           }
 }
+        
+    
+
