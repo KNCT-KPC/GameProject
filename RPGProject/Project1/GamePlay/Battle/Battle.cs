@@ -5,23 +5,19 @@ using System.Text;
 using RPGProject.GameSystem;
 using RPGProject.GamePlay.Battle.BattleUnit;
 using RPGProject.GamePlay.Battle.OrderMake;
+using RPGProject.GamePlay.Battle.OrderExecute;
 
 namespace RPGProject.GamePlay.Battle {
+	//戦闘を担当する大本のクラス
 	class Battle {
-		//シングルトン記述
-		private static Battle battle;
-		public static void BattleStart(int DEBUG){
-			battle = new Battle(DEBUG);
-		}
-		public static Battle GetInstance(){
-			return battle;
-		}
+		public Battle(int DEBUG){
+			DEBUG_MESSAGE = "ここにメッセージが表示される";
 
-		private Battle(int DEBUG){
 			//コンストラクタ
 			PlayerAry = new BattlePlayer[4];
 			EnemyAry = new BattleEnemy[3];
 
+			//DEBUG
 			PlayerAry[0] = new BattlePlayer("プレイヤー１");
 			PlayerAry[1] = new BattlePlayer("プレイヤー２");
 			PlayerAry[2] = new BattlePlayer("プレイヤー３");
@@ -29,33 +25,63 @@ namespace RPGProject.GamePlay.Battle {
 			EnemyAry[0] = new BattleEnemy("エネミー１");
 			EnemyAry[1] = new BattleEnemy("エネミー２");
 			EnemyAry[2] = new BattleEnemy("エネミー３");
+			//DEBUG
+
+			ordMaker = new OrderMaker();
 		}
-		//ここまで
 
+		//グローバル要素
+		public static string DEBUG_MESSAGE{get; set;}
+		public static BattlePlayer[] PlayerAry{get; private set;}	//プレイヤー配列
+		public static BattleEnemy[] EnemyAry{get; private set;}	//エネミー配列
 
-		private string DEBUG_MESSAGE = "ここにメッセージが表示される";
+		//フィールド
+		private OrderMaker ordMaker;	
+		private OrderExecuter ordExecuter;
 
-		public BattlePlayer[] PlayerAry{get; private set;}
-		public BattleEnemy[] EnemyAry{get; private set;}
-
-		public OrderMaker ordMaker;
-
-		private bool DEBUG_START = true;
-
+		/// <summary>
+		/// 更新メソッド
+		/// </summary>
 		public void Update(){
-			if(DEBUG_START){
-				ordMaker = new OrderMaker();
-				DEBUG_START = false;
+			//MakerがnullならExecuteの、そうでないならMakerのUpdateを呼ぶ。
+			if(ordMaker != null){
+				BattleOrder[] result = ordMaker.Update();
+				if(result != null){
+					ordExecuter = new OrderExecuter(result);
+					ordMaker = null;
+				}
+			} else {
+				bool end = ordExecuter.Update();
+				if(end){
+					ordExecuter = null;
+					ordMaker = new OrderMaker();
+				}
+			}
+		}
+
+		/// <summary>
+		/// 描画メソッド
+		/// </summary>
+		public void Draw(){
+			//MakerがnullならExecuteの、そうでないならMakerのDrawを呼ぶ。
+			if(ordMaker != null){
+				ordMaker.Draw();
+			} else {
+				ordExecuter.Draw();
 			}
 
-			ordMaker.Update();
-		}
-		public void Draw(){
+			//DEBUG
 			Drawer.DrawString(20,100,DEBUG_MESSAGE,new GameColor(255,255,255),"DEBUG_PFONT");
-		}
-
-		public void DEBUG_SetMessage(string str){
-			DEBUG_MESSAGE = str;
+			int adj_y = 0;
+			foreach(BattlePlayer p in PlayerAry){
+				Drawer.DrawString(300, 200+adj_y, p.Name + " | HP:" + p.HP + " TP:" + p.TP,new GameColor(255,255,255),"DEBUG_PFONT");
+				adj_y += 22;
+			}
+			foreach(BattleEnemy e in EnemyAry){
+				Drawer.DrawString(300, 200+adj_y, e.Name + " | HP:" + e.HP + " TP:" + e.TP,new GameColor(255,255,255),"DEBUG_PFONT");
+				adj_y += 22;
+			}
+			//DEBUG
 		}
 	}
 }
