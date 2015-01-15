@@ -67,6 +67,8 @@
     <Compile Include="GamePlay\Battle\BattleUnits\BattleEnemy.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattlePlayer.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattleUnit.cs" />
+    <Compile Include="GamePlay\Battle\OrderExecute\ActionCalculator.cs" />
+    <Compile Include="GamePlay\Battle\OrderExecute\ActionExecuter.cs" />
     <Compile Include="GamePlay\Battle\OrderExecute\OrderExecuter.cs" />
     <Compile Include="GamePlay\Battle\BattleOrder.cs" />
     <Compile Include="GamePlay\Battle\OrderMake\OrderMaker.cs" />

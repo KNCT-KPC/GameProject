@@ -9,29 +9,36 @@ namespace RPGProject.GamePlay.Battle {
 		public enum TargetSide{
 			Friend,
 			Rival,
-			All
+			All,
+			Ones
 		}
-		public enum TargetType{
-			単体,
-			全体,
-			自身
+		public enum TargetRange{
+			Single,
+			All,
+		}
+		public enum Type{
+			攻撃,
 		}
 
 		readonly public string name;
+		readonly public Type type;
 		readonly public int TP;
 		readonly public TargetSide trgSide;
-		readonly public TargetType trgType;
+		readonly public TargetRange trgRange;
+		readonly public bool veer;
 		readonly public int priority;
-		readonly public ReadOnlyCollection<string> script;
+		readonly public ReadOnlyCollection<string[]> script;
 
-		public BattleAction(string name, int TP, TargetSide trgSide, 
-							TargetType trgType, int priority, string[] script){
+		public BattleAction(string name, Type type, int TP, TargetSide trgSide, 
+							TargetRange trgRange, bool veer, int priority, string[][] script){
 			this.name = name;
+			this.type = type;
 			this.TP = TP;
 			this.trgSide = trgSide;
-			this.trgType = trgType;
+			this.trgRange = trgRange;
 			this.priority = priority;
-			this.script = new ReadOnlyCollection<string>(script);
+			this.veer = veer;
+			this.script = new ReadOnlyCollection<string[]>(script);
 		}
 	}
 }

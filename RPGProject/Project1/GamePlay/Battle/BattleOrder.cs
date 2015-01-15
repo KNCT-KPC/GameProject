@@ -8,35 +8,33 @@ using RPGProject.GamePlay.Database;
 namespace RPGProject.GamePlay.Battle {
 	//戦闘で発生する行動（＝オーダー）を表すクラス
 	class BattleOrder{
-		public enum TergetSide{
-			PlayerSide,
-			EnemySide
-		}
-
 		public BattleUnit actor;
-		public string DEBUG_ACTION_NAME;
-		public TergetSide trgSide;
-		public int DEBUG_SELECT_INDEX;
+		public string actionName;
+		public int slctIndex;
 
 		public BattleOrder(BattleUnit actor){
 			this.actor = actor;
 		}
 
-
-		public class ActionComparer : System.Collections.IComparer
+		/// <summary>
+		/// オーダーの実行順を定義する比較クラス
+		/// </summary>
+		public class OrderComparer : System.Collections.IComparer
 		{
 			public int Compare(object x, object y)
 			{
 				BattleOrder xOrd = (BattleOrder)x;
 				BattleOrder yOrd = (BattleOrder)y;
 
-				int xPri =  BattleActionDatabase.GetAction(xOrd.DEBUG_ACTION_NAME).priority;
-				int yPri =  BattleActionDatabase.GetAction(yOrd.DEBUG_ACTION_NAME).priority;
+				int xPri =  BattleActionDatabase.GetAction(xOrd.actionName).priority;
+				int yPri =  BattleActionDatabase.GetAction(yOrd.actionName).priority;
 
+				//オーダーxとオーダーyのアクション優先度が違うなら
 				if(xPri != yPri){
-					return xPri - yPri;
+					return xPri - yPri;	//引いた結果を返す
 				}
 
+				//同じなら、行動速度で決定する
 				int xSpd = xOrd.actor.status.行動速度;
 				int ySpd = yOrd.actor.status.行動速度;
 				return xSpd - ySpd;

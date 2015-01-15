@@ -25,12 +25,12 @@ namespace RPGProject.GamePlay.Database {
 			return r;
 		}
 
-
 		//完全ダミー。ファイルによる処理を想定
 		private readonly BattleAction[] DUMMY_ACT = new BattleAction[]{
-			new BattleAction("通常攻撃", 0, BattleAction.TargetSide.Rival, BattleAction.TargetType.単体, 0,
-				new string[]{
-					""
+			new BattleAction("通常攻撃", BattleAction.Type.攻撃, 0, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0,
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","物理", "無", "100"}
 				}),
 		};
 

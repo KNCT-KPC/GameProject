@@ -1,0 +1,42 @@
+---予約語---
+--対象--
+Targets	//ターゲットとなる対象すべて
+Rivals	//
+Friends	//
+Actor	//使用者
+All	//全員
+
+--条件--
+== 	//同じ
+
+--変数--
+(Name).HP	//HP
+(Name).MHP	//最大HP
+(Name).TP	//TP
+(Name).MTP	//最大TP
+(Name).PAtk	//物理攻撃力
+(Name).PVit	//物理防御力
+
+--アクション--
+Attack カテゴリ 属性 威力 (フラグ配列)
+
+
+
+---例---
+
+Name 通常攻撃
+Type 攻撃
+TP 0
+TargetSide Side_Rival
+TargetRange Range_Single
+Priority 0
+Script
+ To Targets 
+  Attack 物理 無 1.0
+ EndTo
+EndScript
+
+
+
+対象 [条件]
+ Attack 

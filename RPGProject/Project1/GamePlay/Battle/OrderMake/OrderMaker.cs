@@ -64,7 +64,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 
 			int adj_y = 0;
 			foreach(BattleOrder o in orderStack){
-				Drawer.DrawString(20,200+adj_y,o.DEBUG_ACTION_NAME + " : " + o.DEBUG_SELECT_INDEX,new GameColor(255,255,255),"DEBUG_PFONT");
+				Drawer.DrawString(20,200+adj_y,o.actionName + " : " + o.slctIndex,new GameColor(255,255,255),"DEBUG_PFONT");
 				adj_y += 20;
 			}
 		}

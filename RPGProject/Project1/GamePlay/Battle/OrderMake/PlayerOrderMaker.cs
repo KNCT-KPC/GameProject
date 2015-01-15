@@ -109,7 +109,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
 					//ord.DEBUG_ACTION_NAME = ""+(Command)selectIndex;
 					//DEBUG
-					ord.DEBUG_ACTION_NAME = "通常攻撃";
+					ord.actionName = "通常攻撃";
 					//DEBUG
 					//自身対象はターゲットを取らないので、IDで検知してopr = Operate.Finish
 					return new SelectTergetInEnemy();
@@ -144,8 +144,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				finish = false;
 
 				if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
-					ord.trgSide = BattleOrder.TergetSide.EnemySide;
-					ord.DEBUG_SELECT_INDEX = trgIndex;
+					ord.slctIndex = trgIndex;
 					finish = true;
 					return null;
 				}

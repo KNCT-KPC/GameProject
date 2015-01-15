@@ -32,6 +32,17 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			}
 		}
 
+		public enum Category{
+			物理,
+			術式
+		}
+		public enum Element{
+			無,
+			炎,
+			氷,
+			雷
+		}
+
 		public string Name{get; set;}
 		public int HP{get; set;}
 		public int TP{get; set;}
@@ -45,7 +56,18 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			status = new Status(200, 200, 200, 200, 200, 200, 200, 200, 200, 200);
 		}
 
+		public bool Damage(int damage){
+			HP -= damage;
+			if(HP <= 0){
+				HP = 0;
+				return true;
+			}
+			return false;
+		}
 		public bool isAbleToAction(){
+			return true;
+		}
+		public bool isLive(){
 			return true;
 		}
 	}
