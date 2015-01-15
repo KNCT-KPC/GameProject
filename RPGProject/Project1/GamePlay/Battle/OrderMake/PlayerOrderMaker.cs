@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RPGProject.GamePlay.Battle.BattleUnit;
+using RPGProject.GamePlay.Battle.BattleUnits;
 using RPGProject.GameSystem;
 
 namespace RPGProject.GamePlay.Battle.OrderMake {
@@ -20,7 +20,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 		/// <param name="player">オーダーを作成するプレイヤーユニット</param>
 		public PlayerOrderMaker(BattlePlayer player){
 			this.player = player;
-			this.ord = new BattleOrder();
+			this.ord = new BattleOrder(player);
 			this.procStack.Push(new InputCommand());
 		}
 
@@ -107,7 +107,10 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				finish = false;
 
 				if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
-					ord.DEBUG_COMMAND_NAME = ""+(Command)selectIndex;
+					//ord.DEBUG_ACTION_NAME = ""+(Command)selectIndex;
+					//DEBUG
+					ord.DEBUG_ACTION_NAME = "通常攻撃";
+					//DEBUG
 					//自身対象はターゲットを取らないので、IDで検知してopr = Operate.Finish
 					return new SelectTergetInEnemy();
 				}

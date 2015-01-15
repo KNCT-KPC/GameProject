@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RPGProject.GamePlay.Battle.BattleUnit {
+namespace RPGProject.GamePlay.Battle.BattleUnits {
 	class BattleUnit {
 		public struct Status{
 			public readonly int 物理攻撃;
@@ -43,6 +43,10 @@ namespace RPGProject.GamePlay.Battle.BattleUnit {
 			TP = 100;
 
 			status = new Status(200, 200, 200, 200, 200, 200, 200, 200, 200, 200);
+		}
+
+		public bool isAbleToAction(){
+			return true;
 		}
 	}
 }

@@ -63,13 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GamePlay\Battle\Battle.cs" />
-    <Compile Include="GamePlay\Battle\BattleUnit\BattleEnemy.cs" />
-    <Compile Include="GamePlay\Battle\BattleUnit\BattlePlayer.cs" />
-    <Compile Include="GamePlay\Battle\BattleUnit\BattleUnit.cs" />
+    <Compile Include="GamePlay\Battle\BattleAction.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattleEnemy.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattlePlayer.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattleUnit.cs" />
     <Compile Include="GamePlay\Battle\OrderExecute\OrderExecuter.cs" />
     <Compile Include="GamePlay\Battle\BattleOrder.cs" />
     <Compile Include="GamePlay\Battle\OrderMake\OrderMaker.cs" />
     <Compile Include="GamePlay\Battle\OrderMake\PlayerOrderMaker.cs" />
+    <Compile Include="GamePlay\Database\BattleActionDatabase.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
     <Compile Include="GamePlay\Map\MapChar.cs" />
@@ -114,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GamePlay\Control\" />
-    <Folder Include="GamePlay\Database\" />
     <Folder Include="GamePlay\Party\Item\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
