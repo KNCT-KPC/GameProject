@@ -23,6 +23,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			this.order = order; 
 			BattleOrder.OrderComparer comp = new BattleOrder.OrderComparer();
 			Array.Sort(order, comp);
+			Array.Reverse(order);
 			actExecuter = new ActionExecuter(order[index]);
 		}
 

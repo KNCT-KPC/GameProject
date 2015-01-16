@@ -23,8 +23,8 @@ namespace RPGProject.GameSystem {
 		private static FontData[] fontData = new FontData[]{
 			//ここに追加していく
 			new FontData("system","ＭＳ ゴシック",16,6,false),
-			new FontData("DEBUG_PFONT","ＭＳ Ｐゴシック",20,6,false),
-			new FontData("DEBUG_FONT","ＭＳ ゴシック",20,6,false),
+			new FontData("DEBUG_PFONT","メイリオ",20,6,true),
+			new FontData("DEBUG_FONT","メイリオ",20,6,true),
 		};
 
 

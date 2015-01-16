@@ -97,7 +97,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			return true;
 
 		TERMINAL:
-			DEBUG_interval = 30;
+			DEBUG_interval = 60;
 			return false;
 		}
 

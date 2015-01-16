@@ -18,13 +18,13 @@ namespace RPGProject.GamePlay.Battle {
 			EnemyAry = new BattleEnemy[3];
 
 			//DEBUG
-			PlayerAry[0] = new BattlePlayer("プレイヤー１");
-			PlayerAry[1] = new BattlePlayer("プレイヤー２");
-			PlayerAry[2] = new BattlePlayer("プレイヤー３");
-			PlayerAry[3] = new BattlePlayer("プレイヤー４");
-			EnemyAry[0] = new BattleEnemy("エネミー１");
-			EnemyAry[1] = new BattleEnemy("エネミー２");
-			EnemyAry[2] = new BattleEnemy("エネミー３");
+			PlayerAry[0] = new BattlePlayer("魔法使い", new BattleUnit.Status(280, 300, 210, 174, 272, 242, 165, 12, 211, 206, 196, 182));
+			PlayerAry[1] = new BattlePlayer("戦士", new BattleUnit.Status(380, 120, 315, 276, 144, 170, 135, 17, 189, 180, 183, 197));
+			PlayerAry[2] = new BattlePlayer("僧侶", new BattleUnit.Status(350, 280, 235, 245, 224, 223, 108, 13, 162, 202, 237, 250));
+			PlayerAry[3] = new BattlePlayer("銃士", new BattleUnit.Status(300, 150, 288, 186, 160, 162, 186, 13, 272, 236, 238, 210));
+			EnemyAry[0] = new BattleEnemy("エネミー１", new BattleUnit.Status(900, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
+			EnemyAry[1] = new BattleEnemy("エネミー２", new BattleUnit.Status(900, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
+			EnemyAry[2] = new BattleEnemy("エネミー３", new BattleUnit.Status(900, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
 			//DEBUG
 
 			ordMaker = new OrderMaker();

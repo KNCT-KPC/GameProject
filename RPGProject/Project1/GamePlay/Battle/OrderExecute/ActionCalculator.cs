@@ -10,11 +10,13 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			public readonly BattleUnit.Category ctg;
 			public readonly BattleUnit.Element elm;
 			public readonly int power;
+			public readonly int hit;
 
 			public AttackData(string[] line){
 				string ctgStr = line[1];
 				string elmStr = line[2];
-				int power = int.Parse(line[3]);
+				power = int.Parse(line[3]);
+				hit = int.Parse(line[4]);
 
 				if(ctgStr == "物理"){
 					ctg = BattleUnit.Category.物理;
@@ -28,8 +30,6 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				case "氷" : elm = BattleUnit.Element.氷; break;
 				case "雷" : elm = BattleUnit.Element.雷; break;
 				}
-
-				this.power = power;
 			}
 		};
 
@@ -44,6 +44,10 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 
 			int normalDamage = (int)(baseValue * (atkData.power/100.0));
 			target.Damage(normalDamage);
+
+			//DEBUG
+			Battle.DEBUG_MESSAGE = actor.Name + " >> " + target.Name + " | " + normalDamage + "ダメージ";
+			//DEBUG
 
 			return true;
 		}

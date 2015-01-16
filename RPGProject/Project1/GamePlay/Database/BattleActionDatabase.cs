@@ -30,7 +30,7 @@ namespace RPGProject.GamePlay.Database {
 			new BattleAction("通常攻撃", BattleAction.Type.攻撃, 0, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0,
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Attack","物理", "無", "100"}
+					new string[]{"Attack","物理", "無", "100", "100"}
 				}),
 		};
 
