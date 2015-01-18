@@ -32,6 +32,13 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"To", "Targets"},
 					new string[]{"Attack","物理", "無", "100", "100"}
 				}),
+			new BattleAction("ガード", BattleAction.Type.補助, 0, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, false, 5,
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Support", "ガード", "0", "攻撃を受けた", "自分自身"},
+					new string[]{"Effect", "ダメージ変化", "60"},
+					new string[]{"SupportEnd"}
+				}),
 		};
 
 		private Dictionary<string, BattleAction> actions;

@@ -70,9 +70,11 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 		}
 
 
-
-		//以下すべて内部クラス
-
+		//================================================//
+		//                                                //
+		//　　　　　　　以下すべて内部クラス　　　　　　　//
+		//                                                //
+		//================================================//
 		/// <summary>
 		/// オーダー作成プロセス
 		/// </summary>
@@ -107,11 +109,19 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				finish = false;
 
 				if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
-					//ord.DEBUG_ACTION_NAME = ""+(Command)selectIndex;
-					//DEBUG
-					ord.actionName = "通常攻撃";
-					//DEBUG
-					//自身対象はターゲットを取らないので、IDで検知してopr = Operate.Finish
+					//決定キーが押されていたら
+
+					Command selectCmd = (Command)selectIndex;	//コマンドを取得
+					switch(selectCmd){
+					case Command.Attack:
+						ord.actionName = "通常攻撃"; break;
+					case Command.Escape:
+						finish = true; break;
+					case Command.Guard:
+						ord.actionName = "ガード";
+						finish = true; break;
+					}
+					//Skill,Itemならそれらのセレクト
 					return new SelectTergetInEnemy();
 				}
 
@@ -129,6 +139,9 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				return null;
 			}
 
+			/// <summary>
+			/// 描画メソッド
+			/// </summary>
 			public void Draw(){
 				Drawer.DrawString(20,120,""+(Command)selectIndex,new GameColor(255,255,255),"DEBUG_PFONT");
 			}
@@ -140,24 +153,47 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 		private class SelectTergetInEnemy : MakeProcess{
 			private int trgIndex = 0;
 
+			public SelectTergetInEnemy(){
+				while(Battle.EnemyAry[trgIndex].isDead){
+					trgIndex++;
+				}
+			}
+
 			public MakeProcess Update(BattlePlayer player, BattleOrder ord, out bool finish){
 				finish = false;
 
 				if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
+					//決定キーが押されていたら、ターゲットを追加して終了
 					ord.slctIndex = trgIndex;
 					finish = true;
 					return null;
 				}
 
+				//←→キーによる対象選択
+				//ただし、戦闘不能者は飛ばし、ループしない
 				if(GameInput.GetCount(GameInput.Code.INPUT_RIGHT) == 1){
-					if(trgIndex+1 < Battle.EnemyAry.Length){
-						trgIndex++;
-					}
+					//→キーの場合
+					int temp = trgIndex;
+					do{	//戦闘不能者をスキップする
+						temp++;
+						if(temp >= Battle.EnemyAry.Length) {
+							temp = trgIndex;
+							break;
+						}
+					} while(Battle.EnemyAry[temp].isDead);
+					trgIndex = temp;
 				}
 				if(GameInput.GetCount(GameInput.Code.INPUT_LEFT) == 1){
-					if(trgIndex-1 >= 0){
-						trgIndex--;
-					}
+					//←キーの場合
+					int temp = trgIndex;
+					do{ //戦闘不能者をスキップする
+						temp--;
+						if(temp < 0) {
+							temp = trgIndex;
+							break;
+						}
+					} while(Battle.EnemyAry[temp].isDead);
+					trgIndex = temp;
 				}
 
 				//DEBUG
@@ -167,6 +203,9 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				return null;
 			}
 
+			/// <summary>
+			/// 描画メソッド
+			/// </summary>
 			public void Draw(){
 				Drawer.DrawString(20,140,Battle.EnemyAry[trgIndex].Name,new GameColor(255,255,255),"DEBUG_PFONT");
 			}

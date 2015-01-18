@@ -62,11 +62,15 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameMath.cs" />
     <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\Battle\BattleAction.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattleEnemy.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattlePlayer.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattleUnit.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattleUnitBuff.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattleUnitSupport.cs" />
+    <Compile Include="GamePlay\Battle\BattleViewEffects\BattleViewEffect.cs" />
     <Compile Include="GamePlay\Battle\OrderExecute\ActionCalculator.cs" />
     <Compile Include="GamePlay\Battle\OrderExecute\ActionExecuter.cs" />
     <Compile Include="GamePlay\Battle\OrderExecute\OrderExecuter.cs" />
@@ -117,7 +121,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GamePlay\Control\" />
     <Folder Include="GamePlay\Party\Item\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

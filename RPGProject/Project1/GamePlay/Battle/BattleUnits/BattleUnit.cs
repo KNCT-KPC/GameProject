@@ -52,12 +52,16 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		public int TP{get; set;}
 		public Status status{get; private set;}
 		public bool isDead{get; private set;}
+		public List<BattleUnitBuff> Buff{get; set;}
+		public List<BattleUnitSupport> Support{get; set;}
 
 		public BattleUnit(string name, Status status){
 			Name = name;
 			HP = status.MHP;
 			TP = status.MTP;
 			this.status = status;
+			Buff = new List<BattleUnitBuff>(0);
+			Support = new List<BattleUnitSupport>(0);
 		}
 
 		public bool Damage(int damage){
@@ -72,8 +76,33 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		public bool isAbleToAction(){
 			return !this.isDead;
 		}
-		public bool isLive(){
-			return !this.isDead;
+
+		public void NextTurn(){
+			foreach(var b in Buff){
+				b.NextTurn();
+			}
+			foreach(var s in Support){
+				s.NextTurn();
+			}
+
+			Buff.RemoveAll((b)=>{return b.isEnd();});
+			Support.RemoveAll((s)=>{return s.isEnd();});
+		}
+
+		public string[][] GetSupportEffect(BattleUnitSupport.Timing t, BattleUnit actor, string[][] status){
+			List<string[]> eft = new List<string[]>(0);
+			foreach(var s in Support){
+				var result = s.Notice(t, this, actor, status);
+				if(result != null){
+					eft.AddRange(result);
+				}
+			}
+
+			return eft.ToArray();
+		}
+
+		public int GetBuffEffect(){
+			return 0;
 		}
 	}
 }

@@ -11,9 +11,10 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 	/// </summary>
 	class OrderExecuter {
 		//フィールド
-		private BattleOrder[] order;
 		private int index = 0;
+		private BattleOrder[] order;
 		private ActionExecuter actExecuter;
+		//割り込みスキルは、↑をスタックにして実現
 
 		/// <summary>
 		/// コンストラクタ
@@ -21,6 +22,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// <param name="order">実行するオーダー配列</param>
 		public OrderExecuter(BattleOrder[] order){
 			this.order = order; 
+
 			BattleOrder.OrderComparer comp = new BattleOrder.OrderComparer();
 			Array.Sort(order, comp);
 			Array.Reverse(order);
@@ -31,7 +33,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// 更新メソッド
 		/// </summary>
 		/// <returns>オーダーの実行が終了したか</returns>
-		public bool Update(){
+		public bool Execute(){
 			bool end = actExecuter.Execute();	//アクション実行
 
 			if(end){

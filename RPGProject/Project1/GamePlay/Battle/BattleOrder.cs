@@ -15,6 +15,11 @@ namespace RPGProject.GamePlay.Battle {
 		public BattleOrder(BattleUnit actor){
 			this.actor = actor;
 		}
+		public BattleOrder(BattleUnit actor, string actionName, int slctIndex){
+			this.actor = actor;
+			this.actionName = actionName;
+			this.slctIndex = slctIndex;
+		}
 
 		/// <summary>
 		/// オーダーの実行順を定義する比較クラス

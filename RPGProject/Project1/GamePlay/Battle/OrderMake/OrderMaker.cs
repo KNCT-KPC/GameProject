@@ -18,6 +18,9 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 		/// コンストラクタ
 		/// </summary>
 		public OrderMaker(){
+			while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToAction()){
+				nowPlayer++;
+			}
 			plyOrderMaker = new PlayerOrderMaker(Battle.PlayerAry[nowPlayer]);
 		}
 
@@ -33,22 +36,39 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 
 			if(cancel){
 				//キャンセルなら、戻れる場合は戻る
-				if(nowPlayer > 0){
-					nowPlayer--;
+				int temp = nowPlayer;
+				do {
+					temp--;
+					if(temp < 0) {
+						temp = nowPlayer;
+						break;
+					}
+				} while(!Battle.PlayerAry[temp].isAbleToAction());
+
+				if(nowPlayer != temp){
+					nowPlayer = temp;
 					orderStack.Pop();	//作ったオーダーを削除
-					return null;
+					plyOrderMaker = new PlayerOrderMaker(Battle.PlayerAry[nowPlayer]);
 				}
+				return null;
 			}
 
 			if(result != null){
 				//オーダーが完成したなら
 				orderStack.Push(result);	//作ったオーダーを追加
-				nowPlayer++;
+				do {
+					nowPlayer++;
+				} while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToAction());
 
 				if(nowPlayer < Battle.PlayerAry.Length){
 					plyOrderMaker = new PlayerOrderMaker(Battle.PlayerAry[nowPlayer]);
 				} else {
 					//エネミーの処理して終了
+					foreach(var e in Battle.EnemyAry){
+						if(e.isAbleToAction()){
+							orderStack.Push(new BattleOrder(e, "通常攻撃", Battle.GetRandomInParty(Battle.PlayerAry)));
+						}
+					}
 					return orderStack.ToArray();
 				}
 			}
@@ -64,7 +84,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 
 			int adj_y = 0;
 			foreach(BattleOrder o in orderStack){
-				Drawer.DrawString(20,200+adj_y,o.actionName + " : " + o.slctIndex,new GameColor(255,255,255),"DEBUG_PFONT");
+				Drawer.DrawString(20,200+adj_y, o.actor.Name.Substring(0,1) + " " + o.actionName + " : " + o.slctIndex,new GameColor(255,255,255),"DEBUG_PFONT");
 				adj_y += 20;
 			}
 		}
