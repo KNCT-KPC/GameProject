@@ -31,17 +31,17 @@ namespace RPGProject.GamePlay.Battle {
 				BattleOrder xOrd = (BattleOrder)x;
 				BattleOrder yOrd = (BattleOrder)y;
 
-				int xPri =  BattleActionDatabase.GetAction(xOrd.actionName).priority;
-				int yPri =  BattleActionDatabase.GetAction(yOrd.actionName).priority;
+				BattleAction xAct = BattleActionDatabase.GetAction(xOrd.actionName);
+				BattleAction yAct = BattleActionDatabase.GetAction(yOrd.actionName);
 
 				//オーダーxとオーダーyのアクション優先度が違うなら
-				if(xPri != yPri){
-					return xPri - yPri;	//引いた結果を返す
+				if(xAct.priority != yAct.priority){
+					return xAct.priority - yAct.priority;	//引いた結果を返す
 				}
 
 				//同じなら、行動速度で決定する
-				int xSpd = xOrd.actor.status.行動速度;
-				int ySpd = yOrd.actor.status.行動速度;
+				int xSpd = (int)(xOrd.actor.status.行動速度 * (xAct.speed/100.0));
+				int ySpd = (int)(yOrd.actor.status.行動速度 * (yAct.speed/100.0));
 				return xSpd - ySpd;
 			}
 		}

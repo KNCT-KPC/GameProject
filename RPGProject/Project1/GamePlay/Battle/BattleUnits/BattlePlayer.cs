@@ -5,6 +5,6 @@ using System.Text;
 
 namespace RPGProject.GamePlay.Battle.BattleUnits {
 	class BattlePlayer : BattleUnit {
-		public BattlePlayer(string name, BattleUnit.Status status) : base(name, status){}
+		public BattlePlayer(string name, BattleUnit.Status status, string[] skills) : base(name, status, skills){}
 	}
 }

@@ -15,6 +15,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		private BattleOrder order;		//このアクションを指定したオーダー
 		private BattleAction action;	//実行するアクション
 		private int nowScriptLine = 0;	//アクションスクリプトを読み進めた行数
+		private bool start = true;
 
 		private List<BattleUnit> targets = null;	//アクションのターゲットを保存しておくフィールド
 
@@ -32,6 +33,12 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// </summary>
 		/// <returns>アクションの実行が終了したかどうか</returns>
 		public bool Execute(){
+			if(start){
+				order.actor.TP -= action.TP;
+				start = false;
+				Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の" + order.actionName + "!"));
+			}
+
 			//アクションスクリプト実行部
 			while(nowScriptLine < action.script.Count){
 				int line = nowScriptLine++;
@@ -42,7 +49,6 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				//=================================//
 				case "Attack":
 					if(targets.Count == 0) break;
-					Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の攻撃!"));
 
 					foreach(var t in targets){
 						AttackCalculator.Calc(order.actor, t, new AttackCalculator.AttackData(action.script[line]));
@@ -54,7 +60,6 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				//================================================//
 				case "Support":{
 					if(targets.Count == 0) break;
-					Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "は" + order.actionName + "を使った!"));
 
 					List<string[]> effect = new List<string[]>(0);
 					while(action.script[line][0] != "SupportEnd"){
@@ -63,7 +68,35 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 					}
 
 					foreach(var t in targets){
-						SupportCalculator.Calc(order.actor, t, effect.ToArray());
+						SupportCalculator.Calc(order.actor, t, new SupportCalculator.SupportData(order.actionName, effect.ToArray()));
+					}
+					goto TERMINAL;}
+
+				//===============================//
+				// | ID:Heal | 終端 | 回復を行う //
+				//===============================//
+				case "Heal":
+					if(targets.Count == 0) break;
+
+					foreach(var t in targets){
+						HealCalculator.Calc(order.actor, t, new HealCalculator.HealData(action.script[line]));
+					}
+					goto TERMINAL;
+
+				//=========================================//
+				// | ID:Buff | 終端 | 補助効果の追加を行う //
+				//=========================================//
+				case "Buff":{
+					if(targets.Count == 0) break;
+
+					List<string[]> effect = new List<string[]>(0);
+					while(action.script[line][0] != "BuffEnd"){
+						effect.Add(action.script[line]);
+						line++;
+					}
+
+					foreach(var t in targets){
+						BuffCalculator.Calc(order.actor, t, order.actionName, effect.ToArray());
 					}
 					goto TERMINAL;}
 

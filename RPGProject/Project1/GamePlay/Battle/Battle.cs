@@ -19,13 +19,20 @@ namespace RPGProject.GamePlay.Battle {
 			EnemyAry = new BattleEnemy[3];
 
 			//DEBUG
-			PlayerAry[0] = new BattlePlayer("魔法使い", new BattleUnit.Status(280, 300, 210, 174, 272, 242, 165, 12, 211, 206, 196, 182));
-			PlayerAry[1] = new BattlePlayer("戦士", new BattleUnit.Status(380, 120, 315, 276, 144, 170, 135, 17, 189, 180, 183, 197));
-			PlayerAry[2] = new BattlePlayer("僧侶", new BattleUnit.Status(350, 280, 235, 245, 224, 223, 108, 13, 162, 202, 237, 250));
-			PlayerAry[3] = new BattlePlayer("銃士", new BattleUnit.Status(300, 150, 288, 186, 160, 162, 186, 13, 272, 236, 238, 210));
-			EnemyAry[0] = new BattleEnemy("エネミー１", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
-			EnemyAry[1] = new BattleEnemy("エネミー２", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
-			EnemyAry[2] = new BattleEnemy("エネミー３", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200));
+			PlayerAry[0] = new BattlePlayer("魔法使い", new BattleUnit.Status(280, 300, 210, 174, 272, 242, 165, 12, 211, 206, 196, 182), 
+								new string[]{"ファイア","バーニング","ファイアストーム","コンセントレーション"});
+			PlayerAry[1] = new BattlePlayer("戦士", new BattleUnit.Status(380, 120, 315, 276, 144, 170, 135, 17, 189, 180, 183, 197), 
+								new string[]{"スキル１","スキル２","スキル３","コンバットシールド","庇護の盾"});
+			PlayerAry[2] = new BattlePlayer("僧侶", new BattleUnit.Status(350, 280, 235, 245, 224, 223, 108, 13, 162, 202, 237, 250), 
+								new string[]{"ヒーリング","ハイヒーリング","ワイドヒーリング","ディスペル","アタックオーラ"});
+			PlayerAry[3] = new BattlePlayer("銃士", new BattleUnit.Status(300, 150, 288, 186, 160, 162, 186, 13, 272, 236, 238, 210), 
+								new string[]{"ベノムショット","ハニーショット","ブラインドショット","エロードミスト","掃射体制"});
+			EnemyAry[0] = new BattleEnemy("エネミー１", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+								new string[]{});
+			EnemyAry[1] = new BattleEnemy("エネミー２", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+								new string[]{});
+			EnemyAry[2] = new BattleEnemy("エネミー３", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+								new string[]{});
 			//DEBUG
 
 			ordMaker = new OrderMaker();
@@ -90,17 +97,27 @@ namespace RPGProject.GamePlay.Battle {
 
 			//DEBUG
 			Drawer.DrawString(20,100,DEBUG_MESSAGE,new GameColor(255,255,255),"DEBUG_PFONT");
-			int adj_y = 0;
+			int adj = 0;
 			foreach(BattlePlayer p in PlayerAry){
 				string DEBUG = "";
 				foreach(var s in p.Support){
 					DEBUG += s.Name.Substring(0,1);
 				}
-				Drawer.DrawString(200, 200+adj_y, p.Name + " | HP:" + p.HP + " TP:" + p.TP + " " + DEBUG,new GameColor(255,255,255),"DEBUG_PFONT");
-				adj_y += 22;
+				foreach(var b in p.GetBuffEffect()){
+					DEBUG += b.Name.Substring(0,1) + b.nowTurn;
+				}
+
+				int d = 0;
+				if(adj >= 600) d = 80;
+				Drawer.DrawString(20+adj%600, 300+d, p.Name+ "|" + DEBUG, new GameColor(255,255,255),"DEBUG_PFONT");
+				Drawer.DrawString(20+adj%600, 322+d, "HP : " + p.HP + "/" + p.status.MHP,new GameColor(255,255,255),"DEBUG_PFONT");
+				Drawer.DrawString(20+adj%600, 344+d, "TP : " + p.TP + "/" + p.status.MTP,new GameColor(255,255,255),"DEBUG_PFONT");
+				adj += 300;
 			}
+
+			int adj_y = 0;
 			foreach(BattleEnemy e in EnemyAry){
-				Drawer.DrawString(200, 200+adj_y, e.Name + " | HP:" + e.HP + " TP:" + e.TP,new GameColor(255,255,255),"DEBUG_PFONT");
+				Drawer.DrawString(400, 200+adj_y, e.Name + " | HP:" + e.HP,new GameColor(255,255,255),"DEBUG_PFONT");
 				adj_y += 22;
 			}
 			//DEBUG

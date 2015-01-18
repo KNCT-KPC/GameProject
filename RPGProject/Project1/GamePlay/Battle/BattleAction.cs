@@ -36,6 +36,7 @@ namespace RPGProject.GamePlay.Battle {
 		public enum Type{
 			攻撃,
 			補助,
+			回復,
 		}
 
 		//フィールド
@@ -43,24 +44,28 @@ namespace RPGProject.GamePlay.Battle {
 		readonly public Type type;		//アクションのカテゴリ
 		readonly public int TP;			//消費するTP
 		readonly public int priority;	//優先度
+		readonly public int speed;		//速度補正
 		readonly public bool veer;		//対象が戦闘不能の場合、残りからランダムに選ぶかどうか
 		readonly public TargetSide trgSide;		//対象とする範囲
 		readonly public TargetRange trgRange;	//全体か単体か
+		readonly public ReadOnlyCollection<string[]> active;	//有効かどうかを表すスクリプト
 		readonly public ReadOnlyCollection<string[]> script;	//アクションスクリプト
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public BattleAction(string name, Type type, int TP, TargetSide trgSide, 
-							TargetRange trgRange, bool veer, int priority, string[][] script){
+							TargetRange trgRange, bool veer, int priority, int speed, string[][] active, string[][] script){
 			this.name = name;
 			this.type = type;
 			this.TP = TP;
 			this.trgSide = trgSide;
 			this.trgRange = trgRange;
 			this.priority = priority;
+			this.speed = speed;
 			this.veer = veer;
 			this.script = new ReadOnlyCollection<string[]>(script);
+			this.active = new ReadOnlyCollection<string[]>(active);
 		}
 	}
 }

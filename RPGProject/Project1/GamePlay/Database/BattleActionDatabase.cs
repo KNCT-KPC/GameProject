@@ -27,17 +27,65 @@ namespace RPGProject.GamePlay.Database {
 
 		//完全ダミー。ファイルによる処理を想定
 		private readonly BattleAction[] DUMMY_ACT = new BattleAction[]{
-			new BattleAction("通常攻撃", BattleAction.Type.攻撃, 0, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0,
+			new BattleAction("通常攻撃", BattleAction.Type.攻撃, 0, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
+				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
 					new string[]{"Attack","物理", "無", "100", "100"}
 				}),
-			new BattleAction("ガード", BattleAction.Type.補助, 0, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, false, 5,
+			new BattleAction("ガード", BattleAction.Type.補助, 0, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, false, 5, 100,
+				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Support", "ガード", "0", "攻撃を受けた", "自分自身"},
+					new string[]{"Support", "0", "攻撃を受けた", "自分自身"},
 					new string[]{"Effect", "ダメージ変化", "60"},
 					new string[]{"SupportEnd"}
+				}),
+			new BattleAction("ファイア", BattleAction.Type.攻撃, 4, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","術式", "炎", "130", "100"}					
+				}),
+			new BattleAction("ファイアストーム", BattleAction.Type.攻撃, 32, BattleAction.TargetSide.Rival, BattleAction.TargetRange.All, true, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","術式", "炎", "140", "100"}					
+				}),
+			new BattleAction("ヒーリング", BattleAction.Type.回復, 6, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Heal", "HP", "80"},
+				}),
+			new BattleAction("ハイヒーリング", BattleAction.Type.回復, 15, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Heal", "HP", "260"},
+				}),
+			new BattleAction("ワイドヒーリング", BattleAction.Type.回復, 36, BattleAction.TargetSide.Friend, BattleAction.TargetRange.All, false, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Heal", "HP", "180"},
+				}),
+			new BattleAction("エロードミスト", BattleAction.Type.補助, 12, BattleAction.TargetSide.Rival, BattleAction.TargetRange.All, false, 0, 150,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Buff", "5", "防御力"},
+					new string[]{"物理防御", "120"},
+					new string[]{"BuffEnd"},
+				}),
+			new BattleAction("アタックオーラ", BattleAction.Type.補助, 12, BattleAction.TargetSide.Friend, BattleAction.TargetRange.All, false, 0, 150,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Buff", "5", "攻撃力"},
+					new string[]{"物理攻撃", "120"},
+					new string[]{"BuffEnd"},
 				}),
 		};
 

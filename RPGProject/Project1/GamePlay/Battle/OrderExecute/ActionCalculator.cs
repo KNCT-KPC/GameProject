@@ -43,11 +43,11 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// <summary>
 		/// 計算メソッド
 		/// </summary>
-		/// <param name="actor">攻撃側ユニット</param>
-		/// <param name="target">防御側ユニット</param>
+		/// <param name="offense">攻撃側ユニット</param>
+		/// <param name="defense">防御側ユニット</param>
 		/// <param name="atkData">攻撃データ</param>
 		/// <returns>攻撃が成功したかどうか</returns>
-		public static bool Calc(BattleUnit actor, BattleUnit target, AttackData atkData){
+		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData){
 			List<string[]> status = new List<string[]>(0);	//状態を表す変数配列
 
 			//変数配列に追加していく
@@ -55,7 +55,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			status.Add(new string[]{"カテゴリ", atkData.ctg+""});
 
 			//攻撃を行ったことの通知
-			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, actor, null)){
+			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, offense, null)){
 				switch(s[0]){
 				}
 			}
@@ -63,7 +63,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			//攻撃成功判定
 			int hit = atkData.hit;
 			if(atkData.ctg == BattleUnit.Category.物理){
-				int difHit = actor.status.物理命中 - target.status.物理回避;
+				int difHit = offense.status.物理命中 - defense.status.物理回避;
 				if(difHit > 30) difHit = 30;
 				if(difHit < -30) difHit = -30;
 				hit += difHit;
@@ -71,7 +71,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 
 			//命中判定
 			if(!GameMath.JudgeProbab(hit)){
-				Battle.viewEffect.Enqueue(new BattleViewEffect("しかし" + actor.Name + "の攻撃は外れた!"));
+				Battle.viewEffect.Enqueue(new BattleViewEffect("しかし" + offense.Name + "の攻撃は外れた!"));
 				return false;
 			}
 
@@ -79,26 +79,56 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			int baseValue = 0;	//基本値
 
 			if(atkData.ctg == BattleUnit.Category.物理){
-				baseValue = actor.status.物理攻撃 - target.status.物理防御/2;
+				baseValue = offense.status.物理攻撃 - defense.status.物理防御/2;
 			} else {
-				baseValue = actor.status.術式攻撃 - target.status.術式防御/4;
+				baseValue = offense.status.術式攻撃 - defense.status.術式防御/4;
 			}
 
 			int normalDamage = (int)(baseValue * (atkData.power/100.0));	//基本ダメージ
 			int timesDamage = normalDamage;	//最終的なダメージ
 
 			//サポート・補助・アビリティによる倍率変化
-			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を受けた, target, null)){
+			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を受けた, defense, null)){
 				switch(s[0]){
 				case "ダメージ変化":
 					timesDamage = (int)(timesDamage * int.Parse(s[1])/100.0);
 					break;
 				}
 			}
+			foreach(var b in offense.GetBuffEffect()){
+				//攻撃側の補助効果チェック
+				foreach(var e in b.effects){
+					switch(e.type){
+					case BattleUnitBuff.UnitEffect.Type.物理攻撃:
+						if(atkData.ctg == BattleUnit.Category.物理){
+							timesDamage = (int)(timesDamage * e.value/100.0);
+						} break;
+					case BattleUnitBuff.UnitEffect.Type.術式攻撃:
+						if(atkData.ctg == BattleUnit.Category.術式){
+							timesDamage = (int)(timesDamage * e.value/100.0);
+						} break;
+					}
+				}
+			}
+			foreach(var b in defense.GetBuffEffect()){
+				//防御側の補助効果チェック
+				foreach(var e in b.effects){
+					switch(e.type){
+					case BattleUnitBuff.UnitEffect.Type.物理防御:
+						if(atkData.ctg == BattleUnit.Category.物理){
+							timesDamage = (int)(timesDamage * e.value/100.0);
+						} break;
+					case BattleUnitBuff.UnitEffect.Type.術式防御:
+						if(atkData.ctg == BattleUnit.Category.術式){
+							timesDamage = (int)(timesDamage * e.value/100.0);
+						} break;
+					}
+				}
+			}
 
 			//ダメージを与えて終了
-			target.Damage(timesDamage);
-			Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "に" + timesDamage + "のダメージ"));
+			defense.Damage(timesDamage);
+			Battle.viewEffect.Enqueue(new BattleViewEffect(defense.Name + "に" + timesDamage + "のダメージ"));
 
 			return true;
 		}
@@ -108,19 +138,105 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 	/// サポートアクションの実行を行うメソッド
 	/// </summary>
 	class SupportCalculator {
-		public static bool Calc(BattleUnit actor, BattleUnit target, string[][] line){
-			string supportName = line[0][1];
-			int maxTurn = int.Parse(line[0][2]);
-			BattleUnitSupport.Timing timing = (BattleUnitSupport.Timing)Enum.Parse(typeof(BattleUnitSupport.Timing), line[0][3]);
-			BattleUnitSupport.Range range = (BattleUnitSupport.Range)Enum.Parse(typeof(BattleUnitSupport.Range), line[0][4]);
+		public class SupportData{
+			public readonly string name;
+			public readonly int maxTurn;
+			public readonly BattleUnitSupport.Timing timing;
+			public readonly BattleUnitSupport.Range range;
+			public readonly string[][] script;
 
-			List<string[]> means = new List<string[]>(0);
-			for(int i = 1; i < line.Length; i++){
-				means.Add(line[i]);
+			public SupportData(string name, string[][] line){
+				this.name = name;
+				maxTurn = int.Parse(line[0][1]);
+				timing = (BattleUnitSupport.Timing)Enum.Parse(typeof(BattleUnitSupport.Timing), line[0][2]);
+				range = (BattleUnitSupport.Range)Enum.Parse(typeof(BattleUnitSupport.Range), line[0][3]);
+
+				List<string[]> means = new List<string[]>(0);
+				for(int i = 1; i < line.Length; i++){
+					means.Add(line[i]);
+				}
+
+				script = means.ToArray();
 			}
+		}
 
-			target.Support.Add(new BattleUnitSupport(timing, range, means.ToArray(), maxTurn, supportName));
+		public static bool Calc(BattleUnit actor, BattleUnit target, SupportData data){
+			target.Support.Add(new BattleUnitSupport(data.timing, data.range, data.script, data.maxTurn, data.name));
 			return true;
 		}
+	}
+
+	/// <summary>
+	/// バフアクションの実行を行うメソッド
+	/// </summary>
+	class BuffCalculator {
+		public static bool Calc(BattleUnit actor, BattleUnit target, string name, string[][] line){
+			int MaxTurn = int.Parse(line[0][1]);
+			var ctg = (BattleUnitBuff.Category)Enum.Parse(typeof(BattleUnitBuff.Category), line[0][2]);
+			int mainValue = 0;
+
+			List<BattleUnitBuff.UnitEffect> effects = new List<BattleUnitBuff.UnitEffect>(0);
+			for(int i = 1; i < line.Length; i++){
+				var type = (BattleUnitBuff.UnitEffect.Type)Enum.Parse(typeof(BattleUnitBuff.UnitEffect.Type), line[i][0]);
+				int value = int.Parse(line[i][1]);
+
+				if(i == 1) mainValue = value;
+
+				effects.Add(new BattleUnitBuff.UnitEffect(type, value));
+			}
+
+			target.AddBuffEffect(new BattleUnitBuff(effects.ToArray(), ctg, MaxTurn, name));
+
+			//DEBUG
+			switch(ctg){
+			case BattleUnitBuff.Category.攻撃力:
+			case BattleUnitBuff.Category.回避力:
+			case BattleUnitBuff.Category.命中力:
+				if(mainValue < 100){
+					Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "の" + ctg + "が低下した!"));
+				} else {
+					Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "の" + ctg + "が上昇した!"));
+				}
+				break;
+			case BattleUnitBuff.Category.防御力:
+				if(mainValue > 100){
+					Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "の" + ctg + "が低下した!"));
+				} else {
+					Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "の" + ctg + "が上昇した!"));
+				}
+				break;
+			}
+			//DEBUG
+
+			return true;
+		}
+	}
+
+	/// <summary>
+	/// 回復アクションの実行を行うメソッド
+	/// </summary>
+	class HealCalculator {
+		public class HealData{
+			public readonly string type;
+			public readonly int baseValue;
+
+			public HealData(string[] line){
+				type = line[1];
+				baseValue = int.Parse(line[2]);
+			}
+		}
+
+		public static bool Calc(BattleUnit actor, BattleUnit target, HealData data){
+			int baseValue = data.baseValue;
+			if(data.type == "HP"){
+				target.HealHP(baseValue);
+				Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "のHPを" + baseValue + "回復した"));
+			} else {
+				target.TP += baseValue;
+				Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "のTPを" + baseValue + "回復した"));
+			}
+
+			return true;
+		}	
 	}
 }

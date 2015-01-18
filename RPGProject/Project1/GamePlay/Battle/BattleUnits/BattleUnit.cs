@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace RPGProject.GamePlay.Battle.BattleUnits {
 	class BattleUnit {
@@ -47,21 +48,32 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			雷
 		}
 
+		private int tp;
+
 		public string Name{get; set;}
 		public int HP{get; set;}
-		public int TP{get; set;}
+		public int TP{
+			get{return tp;}
+			set{
+				tp = value;
+				if(tp < 0) tp = 0;
+				if(tp > status.MTP) tp = status.MTP;
+			}
+		}
 		public Status status{get; private set;}
 		public bool isDead{get; private set;}
-		public List<BattleUnitBuff> Buff{get; set;}
+		private List<BattleUnitBuff> buff;
 		public List<BattleUnitSupport> Support{get; set;}
+		public readonly ReadOnlyCollection<string> Skills;
 
-		public BattleUnit(string name, Status status){
+		public BattleUnit(string name, Status status, string[] skills){
+			this.status = status;
 			Name = name;
 			HP = status.MHP;
 			TP = status.MTP;
-			this.status = status;
-			Buff = new List<BattleUnitBuff>(0);
+			buff = new List<BattleUnitBuff>(0);
 			Support = new List<BattleUnitSupport>(0);
+			this.Skills = new ReadOnlyCollection<string>(skills);
 		}
 
 		public bool Damage(int damage){
@@ -73,19 +85,26 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			}
 			return false;
 		}
+		public void HealHP(int hp){
+			HP += hp;
+			if(HP >= status.MHP){
+				HP = status.MHP;
+			}
+		}
+
 		public bool isAbleToAction(){
 			return !this.isDead;
 		}
 
 		public void NextTurn(){
-			foreach(var b in Buff){
+			foreach(var b in buff){
 				b.NextTurn();
 			}
 			foreach(var s in Support){
 				s.NextTurn();
 			}
 
-			Buff.RemoveAll((b)=>{return b.isEnd();});
+			buff.RemoveAll((b)=>{return b.isEnd();});
 			Support.RemoveAll((s)=>{return s.isEnd();});
 		}
 
@@ -98,11 +117,20 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 				}
 			}
 
-			return eft.ToArray();
+			return eft.ToArray(); 
 		}
 
-		public int GetBuffEffect(){
-			return 0;
+		public void AddBuffEffect(BattleUnitBuff add){
+			foreach(var b in buff){
+				if(b.Name == add.Name){
+					b.AddTurn(add.maxTurn);
+					return;
+				}
+			}
+			buff.Add(add);
+		}
+		public BattleUnitBuff[] GetBuffEffect(){
+			return buff.ToArray();
 		}
 	}
 }
