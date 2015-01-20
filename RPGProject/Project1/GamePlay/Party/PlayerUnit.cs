@@ -5,10 +5,10 @@ using System.Text;
 
 namespace RPGProject.GamePlay.Party
 {
-    class Player
+    class PlayerUnit
     {
         private string name;
-        private PlayerStatus status;
+        private PlayerUnitStatus status;
         private int Lv;
         private int HP;
         private int TP;
@@ -21,7 +21,7 @@ namespace RPGProject.GamePlay.Party
         /// <param name="Status">ステータス</param>
         /// <param name="hp">HP</param>
         /// <param name="tp">TP</param>
-        public Player(string Name, PlayerStatus Status, int hp, int tp) {
+        public PlayerUnit(string Name, PlayerUnitStatus Status, int hp, int tp) {
             this.name = Name;
             this.status = Status;
             this.HP = hp;
@@ -78,7 +78,7 @@ namespace RPGProject.GamePlay.Party
         /// statusのゲッタ
         /// </summary>
         /// <returns>ステータス</returns>
-        public PlayerStatus GetStatus() {
+        public PlayerUnitStatus GetStatus() {
             return status;
         }
 

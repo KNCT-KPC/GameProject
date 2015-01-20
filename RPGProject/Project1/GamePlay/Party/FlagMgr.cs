@@ -33,8 +33,6 @@ namespace RPGProject.GamePlay.Control
         /// </summary>
         /// <param name="names">フラグ名</param>
         public void ReverseFlag(string names) {
-            flags[names] = true;
-
             if (flags[names]) {
                 flags[names] = false;
             } else {
