@@ -65,6 +65,7 @@
     <Compile Include="GameMath.cs" />
     <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\Battle\BattleAction.cs" />
+    <Compile Include="GamePlay\Battle\BattleUnits\BattleBadStatus.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattleEnemy.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattlePlayer.cs" />
     <Compile Include="GamePlay\Battle\BattleUnits\BattleUnit.cs" />

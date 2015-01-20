@@ -26,7 +26,6 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			BattleOrder.OrderComparer comp = new BattleOrder.OrderComparer();
 			Array.Sort(order, comp);
 			Array.Reverse(order);
-			actExecuter = new ActionExecuter(order[index]);
 		}
 
 		/// <summary>
@@ -34,19 +33,15 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// </summary>
 		/// <returns>オーダーの実行が終了したか</returns>
 		public bool Execute(){
-			bool end = actExecuter.Execute();	//アクション実行
-
-			if(end){
-				do {	//行動可能なオーダーが見つかるまで繰り返し
-					index++;
-					if(index >= order.Length){	
-						//繰り返し途中でオーダーをすべて見切ったら終了
-						return true;
-					}
-				} while(!order[index].actor.isAbleToAction());
-
-				actExecuter = new ActionExecuter(order[index]);
-			}
+			ActionExecuter.Execute(order[index]);	//アクション実行
+				
+			do {	//行動可能なオーダーが見つかるまで繰り返し
+				index++;
+				if(index >= order.Length){	
+					//繰り返し途中でオーダーをすべて見切ったら終了
+					return true;
+				}
+			} while(!order[index].actor.isAbleToAction());
 
 			return false;
 		}

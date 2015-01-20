@@ -239,4 +239,17 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			return true;
 		}	
 	}
+
+	class BadStatusCalculator{
+		public static bool Calc(BattleUnit actor, BattleUnit target, string[] line){
+			int probab = int.Parse(line[2]);
+
+			if(GameMath.JudgeProbab(probab)){
+				BattleBadStatus.Type type = (BattleBadStatus.Type)Enum.Parse(typeof(BattleBadStatus.Type), line[1]);
+				return target.SetBadStatus(type);
+			}
+
+			return false;
+		}
+	}
 }

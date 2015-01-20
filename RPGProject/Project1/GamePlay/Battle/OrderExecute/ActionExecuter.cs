@@ -11,101 +11,29 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 	/// オーダーが指定したアクションを処理するクラス
 	/// </summary>
 	class ActionExecuter {
-		//フィールド
-		private BattleOrder order;		//このアクションを指定したオーダー
-		private BattleAction action;	//実行するアクション
-		private int nowScriptLine = 0;	//アクションスクリプトを読み進めた行数
-		private bool start = true;
-
-		private List<BattleUnit> targets = null;	//アクションのターゲットを保存しておくフィールド
-
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="order">アクションを指定しているオーダー</param>
-		public ActionExecuter(BattleOrder order){
-			this.order = order;
-			action = BattleActionDatabase.GetAction(order.actionName);
-		}
-
 		/// <summary>
 		/// 実行メソッド
 		/// </summary>
 		/// <returns>アクションの実行が終了したかどうか</returns>
-		public bool Execute(){
-			if(start){
-				order.actor.TP -= action.TP;
-				start = false;
-				Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の" + order.actionName + "!"));
-			}
+		public static void Execute(BattleOrder order){
+			int line = 0;	//アクションスクリプトを読み進めた行数
+			List<BattleUnit> targets = null;	//アクションのターゲットを保存しておくフィールド
+			BattleAction action = BattleActionDatabase.GetAction(order.actionName);
+			string[][] script = action.script.ToArray();	//何度もでるので退避
+
+			order.actor.TP -= action.TP;
+			Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の" + order.actionName + "!"));
+			bool success = false;
 
 			//アクションスクリプト実行部
-			while(nowScriptLine < action.script.Count){
-				int line = nowScriptLine++;
-
-				switch(action.script[line][0]){
-				//=================================//
-				// | ID:Attack | 終端 | 攻撃を行う //
-				//=================================//
-				case "Attack":
-					if(targets.Count == 0) break;
-
-					foreach(var t in targets){
-						AttackCalculator.Calc(order.actor, t, new AttackCalculator.AttackData(action.script[line]));
-					}
-					goto TERMINAL;
-
-				//================================================//
-				// | ID:Support | 終端 | サポート効果の追加を行う //
-				//================================================//
-				case "Support":{
-					if(targets.Count == 0) break;
-
-					List<string[]> effect = new List<string[]>(0);
-					while(action.script[line][0] != "SupportEnd"){
-						effect.Add(action.script[line]);
-						line++;
-					}
-
-					foreach(var t in targets){
-						SupportCalculator.Calc(order.actor, t, new SupportCalculator.SupportData(order.actionName, effect.ToArray()));
-					}
-					goto TERMINAL;}
-
-				//===============================//
-				// | ID:Heal | 終端 | 回復を行う //
-				//===============================//
-				case "Heal":
-					if(targets.Count == 0) break;
-
-					foreach(var t in targets){
-						HealCalculator.Calc(order.actor, t, new HealCalculator.HealData(action.script[line]));
-					}
-					goto TERMINAL;
-
-				//=========================================//
-				// | ID:Buff | 終端 | 補助効果の追加を行う //
-				//=========================================//
-				case "Buff":{
-					if(targets.Count == 0) break;
-
-					List<string[]> effect = new List<string[]>(0);
-					while(action.script[line][0] != "BuffEnd"){
-						effect.Add(action.script[line]);
-						line++;
-					}
-
-					foreach(var t in targets){
-						BuffCalculator.Calc(order.actor, t, order.actionName, effect.ToArray());
-					}
-					goto TERMINAL;}
-
+			while(line < script.Length){
+				switch(script[line][0]){
 				//===============================================//
 				// | ID:To | 制御 | ターゲットの範囲指定を受ける //
 				//===============================================//
 				case "To":
 					targets = new List<BattleUnit>(0);
-					switch(action.script[line][1]){
+					switch(script[line][1]){
 					case "Targets":
 						targets.AddRange(Battle.GetSideParty(action.trgSide, order.actor));
 						if(action.trgRange == BattleAction.TargetRange.Single){
@@ -130,20 +58,87 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 						targets.AddRange(Battle.GetSideParty(BattleAction.TargetSide.All, order.actor));
 						break;
 					}
-					break;
 
-				//========================================================//
-				// | ID:EndTo | 制御 | ターゲットの範囲指定をリセットする //
-				//========================================================//
-				case "EndTo":
-					targets = null;
+					foreach(var t in targets){
+						if(t.isDead) continue;
+						for(int i = line+1; i < script.Length && script[i][0] != "EndTo"; i++){
+							switch(script[i][0]){
+							//=================================//
+							// | ID:If | 制御 | 場合分けを行う //
+							//=================================//
+							case "If":
+								switch(script[i][1]){
+								case "Chase":
+									if(!success){
+										while(line < script.Length && script[line][0] != "EndIf") {
+											line++;
+										} 
+									}
+									line++;
+									break;
+								}
+								break;
+
+							//=================================//
+							// | ID:Attack | 終端 | 攻撃を行う //
+							//=================================//
+							case "Attack":
+								success = AttackCalculator.Calc(order.actor, t, new AttackCalculator.AttackData(script[i]));
+								break;
+
+							//================================================//
+							// | ID:Support | 終端 | サポート効果の追加を行う //
+							//================================================//
+							case "Support":{
+								List<string[]> effect = new List<string[]>(0);
+								while(script[i][0] != "SupportEnd"){
+									effect.Add(script[i]);
+									i++;
+								}
+	
+								success = SupportCalculator.Calc(order.actor, t, new SupportCalculator.SupportData(order.actionName, effect.ToArray()));
+								break;}
+
+							//===============================//
+							// | ID:Heal | 終端 | 回復を行う //
+							//===============================//
+							case "Heal":
+								success = HealCalculator.Calc(order.actor, t, new HealCalculator.HealData(script[i]));
+								break;
+
+							//=========================================//
+							// | ID:Buff | 終端 | 補助効果の追加を行う //
+							//=========================================//
+							case "Buff":{
+								List<string[]> effect = new List<string[]>(0);
+								while(script[i][0] != "BuffEnd"){
+									effect.Add(script[i]);
+									i++;
+								}
+
+								success = BuffCalculator.Calc(order.actor, t, order.actionName, effect.ToArray());
+								break;}
+
+							//==============================================//
+							// | ID:BadStatus | 終端 | 状態異常の追加を行う //
+							//==============================================//
+							case "BadStatus":
+								success = BadStatusCalculator.Calc(order.actor, t, script[i]);
+								break;
+
+							default :
+								Program.AssertExit("存在しないステートメント" + script[i][0] + "が指定されました。");
+								break;
+							}
+						}
+					}
+
+					while(line < script.Length && script[line][0] != "EndTo") {
+						line++;
+					} line++;
 					break;
 				}
 			}
-			return true;
-
-		TERMINAL:
-			return false;
 		}
 	}
 }

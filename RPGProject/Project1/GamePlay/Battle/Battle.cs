@@ -48,6 +48,16 @@ namespace RPGProject.GamePlay.Battle {
 		//フィールド
 		private OrderMaker ordMaker;	
 		private OrderExecuter ordExecuter;
+		private Scene scene = Scene.BattleStart;
+		private bool waitViewEffect = false;
+
+		private enum Scene{
+			BattleStart,
+			TurnStart,
+			OrderMake,
+			OrderExecute,
+			TurnEnd,
+		}
 
 		/// <summary>
 		/// 更新メソッド
@@ -55,31 +65,46 @@ namespace RPGProject.GamePlay.Battle {
 		public void Update(){
 			//MakerがnullならExecuteの、そうでないならMakerのUpdateを呼ぶ。
 			//全部DEBUG実装
-			if(ordMaker != null){
-				BattleOrder[] result = ordMaker.Update();
-				if(result != null){
-					ordExecuter = new OrderExecuter(result);
-					ordMaker = null;
+			//ちゃんとシーケンス処理する
+			if(viewEffect.Count != 0){
+				bool end = viewEffect.Peek().Update();
+				if(end){
+					viewEffect.Dequeue();
 				}
 			} else {
-				if(viewEffect.Count == 0){
-					bool end = ordExecuter.Execute();
-					if(end){
+				switch(scene){
+				case Scene.BattleStart :
+					scene = Scene.TurnStart;
+					break;
+				case Scene.TurnStart:
+					scene = Scene.OrderMake;
+					break;
+				case Scene.OrderMake :
+					BattleOrder[] result = ordMaker.Update();
+					if(result != null){
+						ordExecuter = new OrderExecuter(result);
+						ordMaker = null;
+						scene = Scene.OrderExecute;
+					}
+					break;
+				case Scene.OrderExecute :
+					if(ordExecuter.Execute()){
 						ordExecuter = null;
-						ordMaker = new OrderMaker();
+						scene = Scene.TurnEnd;
+					}
+					break;
+				case Scene.TurnEnd:
+					ordMaker = new OrderMaker();
 
-						foreach(var p in PlayerAry){
-							p.NextTurn();
-						}
-						foreach(var e in EnemyAry){
-							e.NextTurn();
-						}
+					foreach(var p in PlayerAry){
+						p.NextTurn();
 					}
-				} else {
-					bool end = viewEffect.Peek().Update();
-					if(end){
-						viewEffect.Dequeue();
+					foreach(var e in EnemyAry){
+						e.NextTurn();
 					}
+
+					scene = Scene.TurnStart;
+					break;
 				}
 			}
 		}
@@ -89,10 +114,13 @@ namespace RPGProject.GamePlay.Battle {
 		/// </summary>
 		public void Draw(){
 			//MakerがnullならExecuteの、そうでないならMakerのDrawを呼ぶ。
-			if(ordMaker != null){
+			switch(scene){
+			case Scene.OrderMake:
 				ordMaker.Draw();
-			} else {
+				break;
+			case Scene.OrderExecute:
 				ordExecuter.Draw();
+				break;
 			}
 
 			//DEBUG
@@ -100,6 +128,11 @@ namespace RPGProject.GamePlay.Battle {
 			int adj = 0;
 			foreach(BattlePlayer p in PlayerAry){
 				string DEBUG = "";
+
+				if(p.BadStatus != null){
+					DEBUG += "["+p.BadStatus.type.ToString().Substring(0,1)+"]";
+				}
+
 				foreach(var s in p.Support){
 					DEBUG += s.Name.Substring(0,1);
 				}
@@ -117,7 +150,19 @@ namespace RPGProject.GamePlay.Battle {
 
 			int adj_y = 0;
 			foreach(BattleEnemy e in EnemyAry){
-				Drawer.DrawString(400, 200+adj_y, e.Name + " | HP:" + e.HP,new GameColor(255,255,255),"DEBUG_PFONT");
+				string DEBUG = "";
+
+				if(e.BadStatus != null){
+					DEBUG += "["+e.BadStatus.type.ToString().Substring(0,1)+"]";
+				}
+
+				foreach(var s in e.Support){
+					DEBUG += s.Name.Substring(0,1);
+				}
+				foreach(var b in e.GetBuffEffect()){
+					DEBUG += b.Name.Substring(0,1) + b.nowTurn;
+				}
+				Drawer.DrawString(300, 200+adj_y, e.Name + " | HP:" + e.HP + DEBUG,new GameColor(255,255,255),"DEBUG_PFONT");
 				adj_y += 22;
 			}
 			//DEBUG

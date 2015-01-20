@@ -65,6 +65,7 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		private List<BattleUnitBuff> buff;
 		public List<BattleUnitSupport> Support{get; set;}
 		public readonly ReadOnlyCollection<string> Skills;
+		public BattleBadStatus BadStatus{get; private set;}
 
 		public BattleUnit(string name, Status status, string[] skills){
 			this.status = status;
@@ -106,6 +107,35 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 
 			buff.RemoveAll((b)=>{return b.isEnd();});
 			Support.RemoveAll((s)=>{return s.isEnd();});
+
+			if(BadStatus != null){
+				bool end = BadStatus.NextTurn();
+				if(end){
+					BadStatus = null;
+				}
+			}
+
+			if(BadStatus != null && BadStatus.type == BattleBadStatus.Type.炎上){
+				int fireDamage = (int)(status.MHP*0.3);
+				Damage(fireDamage);
+				Battle.viewEffect.Enqueue(new BattleViewEffects.BattleViewEffect(Name + "は炎で" + fireDamage + "ダメージを受けた"));
+			}
+			if(BadStatus != null && BadStatus.type == BattleBadStatus.Type.猛毒){
+				int psnDamage = (int)(status.MHP*0.6);
+				Damage(psnDamage);
+				Battle.viewEffect.Enqueue(new BattleViewEffects.BattleViewEffect(Name + "は毒に侵され" + psnDamage + "ダメージを受けた"));
+			}
+		}
+
+		public bool SetBadStatus(BattleBadStatus.Type bs){
+			if(BadStatus != null){
+				if(!BadStatus.JudgeOverWrited(bs)){
+					return false;
+				}
+			}
+
+			BadStatus = new BattleBadStatus(bs);
+			return true;
 		}
 
 		public string[][] GetSupportEffect(BattleUnitSupport.Timing t, BattleUnit actor, string[][] status){

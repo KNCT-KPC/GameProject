@@ -47,6 +47,15 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"To", "Targets"},
 					new string[]{"Attack","術式", "炎", "130", "100"}					
 				}),
+			new BattleAction("バーニング", BattleAction.Type.攻撃, 16, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","術式", "炎", "150", "100"},
+					new string[]{"If", "Chase"},
+					new string[]{"BadStatus","炎上", "100"},
+//					new string[]{"Attack","術式", "炎", "150", "100"},
+				}),
 			new BattleAction("ファイアストーム", BattleAction.Type.攻撃, 32, BattleAction.TargetSide.Rival, BattleAction.TargetRange.All, true, 0, 100,
 				new string[][]{},
 				new string[][]{
