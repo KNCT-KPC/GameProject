@@ -13,7 +13,6 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		//フィールド
 		private int index = 0;
 		private BattleOrder[] order;
-		private ActionExecuter actExecuter;
 		//割り込みスキルは、↑をスタックにして実現
 
 		/// <summary>

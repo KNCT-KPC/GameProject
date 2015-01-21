@@ -61,6 +61,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			}
 
 			//攻撃成功判定
+			//命中判定
 			int hit = atkData.hit;
 			if(atkData.ctg == BattleUnit.Category.物理){
 				int difHit = offense.status.物理命中 - defense.status.物理回避;
@@ -69,7 +70,20 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				hit += difHit;
 			}
 
-			//命中判定
+			if(defense.BadStatus != null){
+				switch(defense.BadStatus.type){
+				case BattleBadStatus.Type.失明:
+				case BattleBadStatus.Type.睡眠:
+				case BattleBadStatus.Type.混乱:
+				case BattleBadStatus.Type.麻痺:
+					hit = 100;
+					break;
+				}
+			}
+			if(offense.BadStatus != null && offense.BadStatus.type == BattleBadStatus.Type.失明){
+				hit = 0;
+			}
+
 			if(!GameMath.JudgeProbab(hit)){
 				Battle.viewEffect.Enqueue(new BattleViewEffect("しかし" + offense.Name + "の攻撃は外れた!"));
 				return false;

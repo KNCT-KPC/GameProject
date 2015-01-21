@@ -66,6 +66,7 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		public List<BattleUnitSupport> Support{get; set;}
 		public readonly ReadOnlyCollection<string> Skills;
 		public BattleBadStatus BadStatus{get; private set;}
+		public int random;
 
 		public BattleUnit(string name, Status status, string[] skills){
 			this.status = status;
@@ -93,8 +94,53 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			}
 		}
 
+		public bool isAbleToAction(out string message){
+			message = null;
+			bool result = true;
+
+			if(this.isDead){
+				result = false;
+			}
+			if(this.BadStatus != null){
+				switch(this.BadStatus.type){
+				case BattleBadStatus.Type.麻痺:
+					if(random < 60){
+						message = this.Name + "は麻痺して動けない";
+						result = false;
+					}
+					break;
+				case BattleBadStatus.Type.睡眠:
+					message = this.Name + "は眠っている";
+					result = false;
+					break;
+				case BattleBadStatus.Type.混乱:
+				case BattleBadStatus.Type.石化:
+					result = false;
+					break;
+				}
+			}
+
+			return result;
+		}
 		public bool isAbleToAction(){
-			return !this.isDead;
+			if(this.isDead){
+				return false;
+			}
+			if(this.BadStatus != null){
+				switch(this.BadStatus.type){
+				case BattleBadStatus.Type.麻痺:
+					if(random < 60){
+						return false;
+					}
+					break;
+				case BattleBadStatus.Type.睡眠:
+				case BattleBadStatus.Type.混乱:
+				case BattleBadStatus.Type.石化:
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		public void NextTurn(){
@@ -125,6 +171,8 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 				Damage(psnDamage);
 				Battle.viewEffect.Enqueue(new BattleViewEffects.BattleViewEffect(Name + "は毒に侵され" + psnDamage + "ダメージを受けた"));
 			}
+
+			random = DxLibDLL.DX.GetRand(100);
 		}
 
 		public bool SetBadStatus(BattleBadStatus.Type bs){

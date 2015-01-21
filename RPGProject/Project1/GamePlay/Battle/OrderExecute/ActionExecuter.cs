@@ -21,6 +21,14 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			BattleAction action = BattleActionDatabase.GetAction(order.actionName);
 			string[][] script = action.script.ToArray();	//何度もでるので退避
 
+			string message;
+			if(!order.actor.isAbleToAction(out message)){
+				if(message != null){
+					Battle.viewEffect.Enqueue(new BattleViewEffect(message));
+				}
+				return;
+			}
+
 			order.actor.TP -= action.TP;
 			Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の" + order.actionName + "!"));
 			bool success = false;
