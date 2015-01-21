@@ -32,7 +32,7 @@ namespace RPGProject.GamePlay.Map
                 {
                     if (Move() == true) moveCount = MOVE_TIME;
                 }
-                else if (moveCount > 0)
+                if (moveCount > 0)
                 {
                     moveCount--;
                 }
