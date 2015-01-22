@@ -8,7 +8,7 @@ using RPGProject.GameSystem;
 
 namespace RPGProject.GamePlay.Window
 {
-    class MessageWindow 
+    class MessageWindow : Window
     {
         const int STRING_X = 40;       //1文字目のx座標
         const int STRING_Y = 320;       //1文字目のy座標
@@ -22,13 +22,13 @@ namespace RPGProject.GamePlay.Window
         /// コンストラクタ
         /// </summary>
         /// <param name="arg_message">表示させるメッセージ</param>
-        public MessageWindow( String[] arg_message )
+        public MessageWindow(int arg_px,int arg_py, int arg_width, int arg_height, String[] arg_message )  : base(arg_px,arg_py,arg_width,arg_height)
         {
             message = arg_message;
             timeMessage = new TimeMessage(message[messageCount], "DEBUG_PFONT"); 
         }
         
-        public void Update()
+        override public void Update()
         { 
           timeMessage.NextCount();
           if (timeMessage.isFinished())  //Trueだった場合
@@ -50,7 +50,7 @@ namespace RPGProject.GamePlay.Window
 
         }
 
-        public void Draw()
+        override public void Draw()
         {
             window.Draw();
             string[] line = timeMessage.GetMessage();

@@ -11,7 +11,7 @@ namespace RPGProject.GamePlay.Window
     // </summary>
 
 
-    class Window
+    class Window 
     {
         public int px;  //左上座標
         public int py;  //右上座標
@@ -28,7 +28,7 @@ namespace RPGProject.GamePlay.Window
             broken = false;
         }
 
-        public void Update()
+        virtual public void Update()
         //更新させるメソッド
         {
 
@@ -39,7 +39,7 @@ namespace RPGProject.GamePlay.Window
 
         }
 
-        public void Draw()
+        virtual public void Draw()
         //四角形を描画するメソッド。 (左上の座標(px,py)に wid)
         {
 
