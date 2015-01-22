@@ -7,6 +7,13 @@ using RPGProject.GamePlay.Battle.BattleViewEffects;
 
 namespace RPGProject.GamePlay.Battle.OrderExecute {
 	static class AttackCalculator{
+		static public int CalcDamageSwing(int value){
+			int swing = DxLibDLL.DX.GetRand(8) - 4;
+			value += (int)(value*swing*0.01);
+
+			return value;
+		}
+
 		/// <summary>
 		/// 攻撃アクションのデータを表すクラス
 		/// </summary>
@@ -151,9 +158,11 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				}
 			}
 
+			int swingDamage = CalcDamageSwing(timesDamage);
+
 			//ダメージを与えて終了
-			defense.Damage(timesDamage);
-			Battle.viewEffect.Enqueue(new BattleViewEffect(defense.Name + "に" + timesDamage + "のダメージ"));
+			defense.Damage(swingDamage);
+			Battle.viewEffect.Enqueue(new BattleViewEffect(defense.Name + "に" + swingDamage + "のダメージ"));
 
 			return true;
 		}

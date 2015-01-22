@@ -7,11 +7,14 @@ using RPGProject.GamePlay.Battle.BattleUnits;
 using RPGProject.GamePlay.Battle.OrderMake;
 using RPGProject.GamePlay.Battle.OrderExecute;
 using RPGProject.GamePlay.Battle.BattleViewEffects;
+using RPGProject.GamePlay.Database;
 
 namespace RPGProject.GamePlay.Battle {
 	//戦闘を担当する大本のクラス
 	class Battle {
 		public Battle(int DEBUG){
+			BattleActionDatabase.MakeInstance();
+
 			DEBUG_MESSAGE = "ここにメッセージが表示される";
 
 			//コンストラクタ
