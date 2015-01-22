@@ -101,7 +101,7 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"To", "Targets"},
 					new string[]{"Attack","術式", "雷", "140", "100"}					
 				}),
-			new BattleAction("コンセントレーション", BattleAction.Type.補助, 32, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, true, 2, 100,
+			new BattleAction("コンセントレーション", BattleAction.Type.補助, 3, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, true, 2, 100,
 				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
@@ -111,7 +111,15 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"EndIf"},
 					new string[]{"SupportEnd"}
 				}),
-
+			new BattleAction("エナジースマイト", BattleAction.Type.攻撃, 32, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, true, 2, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","物理", "無", "200", "80"},
+					new string[]{"If", "Chase"},
+					new string[]{"If", "Kill"},
+					new string[]{"SupportEnd"}
+				}),
 
 
 			new BattleAction("ヒーリング", BattleAction.Type.回復, 6, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
