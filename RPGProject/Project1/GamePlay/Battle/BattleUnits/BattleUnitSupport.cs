@@ -51,7 +51,7 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		/// <param name="parent">この効果を所持しているユニット</param>
 		/// <param name="actor">トリガーを発生させたユニット</param>
 		/// <param name="status">ステータス</param>
-		public string[][] Notice(Timing tim, BattleUnit parent, BattleUnit actor, string[][] status){
+		public string[][] Notice(Timing tim, BattleUnit parent, BattleUnit actor, Dictionary<string,string> status){
 			//発生タイミングが一致していないなら無視
 			if(timing != tim) return null;
 
@@ -76,7 +76,24 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 				List<string> e = new List<string>(0);
 				e.AddRange(m);
 
+				bool cond = false;
+				string val;
+
 				switch(e[0]){
+				case "If":
+				case "Unless":
+					if(status.TryGetValue(e[1], out val)){
+						switch(e[1]){
+						case "攻撃カテゴリ":
+							cond = e[2] == val;
+							break;
+						}
+					}
+
+					if((e[0] == "If" && !cond) || (e[0] == "Unless" && cond)){
+						return null;
+					}
+					break;
 				case "Effect":
 					e.RemoveAt(0);
 					effects.Add(e.ToArray());

@@ -18,7 +18,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 		/// コンストラクタ
 		/// </summary>
 		public OrderMaker(){
-			while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToAction()){
+			while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToMakeOrder()){
 				nowPlayer++;
 			}
 			plyOrderMaker = new PlayerOrderMaker(Battle.PlayerAry[nowPlayer]);
@@ -43,7 +43,7 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 						temp = nowPlayer;
 						break;
 					}
-				} while(!Battle.PlayerAry[temp].isAbleToAction());
+				} while(!Battle.PlayerAry[temp].isAbleToMakeOrder());
 
 				if(nowPlayer != temp){
 					nowPlayer = temp;
@@ -58,14 +58,14 @@ namespace RPGProject.GamePlay.Battle.OrderMake {
 				orderStack.Push(result);	//作ったオーダーを追加
 				do {
 					nowPlayer++;
-				} while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToAction());
+				} while(nowPlayer < Battle.PlayerAry.Length && !Battle.PlayerAry[nowPlayer].isAbleToMakeOrder());
 
 				if(nowPlayer < Battle.PlayerAry.Length){
 					plyOrderMaker = new PlayerOrderMaker(Battle.PlayerAry[nowPlayer]);
 				} else {
 					//エネミーの処理して終了
 					foreach(var e in Battle.EnemyAry){
-						if(e.isAbleToAction()){
+						if(e.isAbleToMakeOrder()){
 							orderStack.Push(new BattleOrder(e, "通常攻撃", Battle.GetRandomInParty(Battle.PlayerAry)));
 						}
 					}

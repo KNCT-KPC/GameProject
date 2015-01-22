@@ -36,11 +36,21 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				
 			do {	//行動可能なオーダーが見つかるまで繰り返し
 				index++;
+
 				if(index >= order.Length){	
 					//繰り返し途中でオーダーをすべて見切ったら終了
 					return true;
 				}
-			} while(!order[index].actor.isAbleToAction());
+
+				string DEBUG_MES;
+				if(!order[index].actor.isAbleToAction(out DEBUG_MES)){
+					if(DEBUG_MES != null){
+						Battle.viewEffect.Enqueue(new BattleViewEffects.BattleViewEffect(DEBUG_MES)); 
+					}
+					continue;
+				}
+				break;
+			} while(true);
 
 			return false;
 		}

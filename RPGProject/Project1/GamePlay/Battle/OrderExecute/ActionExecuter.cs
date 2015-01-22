@@ -134,6 +134,10 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 								success = BadStatusCalculator.Calc(order.actor, t, script[i]);
 								break;
 
+							case "Kill":
+								success = KillCalculator.Calc(order.actor, t, script[i]);
+								break;
+
 							default :
 								Program.AssertExit("存在しないステートメント" + script[i][0] + "が指定されました。");
 								break;

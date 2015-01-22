@@ -20,18 +20,21 @@ namespace RPGProject.GamePlay.Battle {
 
 			//DEBUG
 			PlayerAry[0] = new BattlePlayer("魔法使い", new BattleUnit.Status(280, 300, 210, 174, 272, 242, 165, 12, 211, 206, 196, 182), 
-								new string[]{"ファイア","バーニング","ファイアストーム","コンセントレーション"});
+								new string[]{"ファイア","バーニング","ファイアストーム","アイス", "ブリザード", "アイスストーム", "サンダー", "ライトニング", "サンダーストーム",
+											 "コンセントレーション","メテオストライク","エナジースマイト","リフレクション","コンセントレーション",});
 			PlayerAry[1] = new BattlePlayer("戦士", new BattleUnit.Status(380, 120, 315, 276, 144, 170, 135, 17, 189, 180, 183, 197), 
-								new string[]{"スキル１","スキル２","スキル３","コンバットシールド","庇護の盾"});
+								new string[]{"スキル１","スキル２","スキル３","スキル４","スキル５","クロスカウンター","攻勢の構え","守勢の構え","庇護の盾","挑発"});
 			PlayerAry[2] = new BattlePlayer("僧侶", new BattleUnit.Status(350, 280, 235, 245, 224, 223, 108, 13, 162, 202, 237, 250), 
-								new string[]{"ヒーリング","ハイヒーリング","ワイドヒーリング","ディスペル","アタックオーラ"});
+								new string[]{"ヒーリング","ハイヒーリング","ワイドヒーリング","リカバリー","ワイドリカバリー","リバイバル","ファーストエイド","ディスペル",
+											 "アタックオーラ","バイタルオーラ","セイントオーラ","ディヴァイン","ストーンカーシス"});
 			PlayerAry[3] = new BattlePlayer("銃士", new BattleUnit.Status(300, 150, 288, 186, 160, 162, 186, 13, 272, 236, 238, 210), 
-								new string[]{"ベノムショット","ハニーショット","ブラインドショット","エロードミスト","掃射体制"});
-			EnemyAry[0] = new BattleEnemy("エネミー１", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+								new string[]{"ハニーショット","ベノムショット","パララシスショット","スリープショット","ブラインドショット","ファイアショット","フリーズショット",
+											 "サンダーショット","ウィークミスト","エロードミスト","照明弾","掃射体制"});
+			EnemyAry[0] = new BattleEnemy("エネミー１", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 10, 200, 200, 200, 200, 200), 
 								new string[]{});
-			EnemyAry[1] = new BattleEnemy("エネミー２", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+			EnemyAry[1] = new BattleEnemy("エネミー２", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 10, 200, 200, 200, 200, 200), 
 								new string[]{});
-			EnemyAry[2] = new BattleEnemy("エネミー３", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200), 
+			EnemyAry[2] = new BattleEnemy("エネミー３", new BattleUnit.Status(800, 200, 200, 200, 200, 200, 10, 200, 200, 200, 200, 200), 
 								new string[]{});
 			//DEBUG
 
@@ -49,7 +52,6 @@ namespace RPGProject.GamePlay.Battle {
 		private OrderMaker ordMaker;	
 		private OrderExecuter ordExecuter;
 		private Scene scene = Scene.BattleStart;
-		private bool waitViewEffect = false;
 
 		private enum Scene{
 			BattleStart,
@@ -230,7 +232,7 @@ namespace RPGProject.GamePlay.Battle {
 		/// <param name="actor">発生させたユニット</param>
 		/// <param name="status">状況を表す変数配列</param>
 		/// <returns>発生したサポート効果を列挙した配列</returns>
-		public static string[][] NoticeSupport(BattleUnitSupport.Timing timing, BattleUnit actor, string[][] status){
+		public static string[][] NoticeSupport(BattleUnitSupport.Timing timing, BattleUnit actor, Dictionary<string, string> status){
 			List<string[]> eft = new List<string[]>(0);
 
 			foreach(var p in PlayerAry){

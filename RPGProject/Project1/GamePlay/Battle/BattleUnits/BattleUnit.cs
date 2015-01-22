@@ -49,9 +49,16 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 		}
 
 		private int tp;
+		private int hp;
 
 		public string Name{get; set;}
-		public int HP{get; set;}
+		public int HP{
+			get{return hp;}
+			set{
+				if(value == 0) isDead = true;
+				hp = value;
+			}
+		}
 		public int TP{
 			get{return tp;}
 			set{
@@ -76,6 +83,7 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			buff = new List<BattleUnitBuff>(0);
 			Support = new List<BattleUnitSupport>(0);
 			this.Skills = new ReadOnlyCollection<string>(skills);
+			random = DxLibDLL.DX.GetRand(100);
 		}
 
 		public bool Damage(int damage){
@@ -122,17 +130,12 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 
 			return result;
 		}
-		public bool isAbleToAction(){
+		public bool isAbleToMakeOrder(){
 			if(this.isDead){
 				return false;
 			}
 			if(this.BadStatus != null){
 				switch(this.BadStatus.type){
-				case BattleBadStatus.Type.麻痺:
-					if(random < 60){
-						return false;
-					}
-					break;
 				case BattleBadStatus.Type.睡眠:
 				case BattleBadStatus.Type.混乱:
 				case BattleBadStatus.Type.石化:
@@ -186,7 +189,16 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 			return true;
 		}
 
-		public string[][] GetSupportEffect(BattleUnitSupport.Timing t, BattleUnit actor, string[][] status){
+		public bool Kill(){
+			if(this.isDead){
+				return false;
+			}
+
+			HP = 0;
+			return true;
+		}
+
+		public string[][] GetSupportEffect(BattleUnitSupport.Timing t, BattleUnit actor, Dictionary<string,string> status){
 			List<string[]> eft = new List<string[]>(0);
 			foreach(var s in Support){
 				var result = s.Notice(t, this, actor, status);

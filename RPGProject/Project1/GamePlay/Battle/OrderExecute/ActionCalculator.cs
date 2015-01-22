@@ -48,14 +48,18 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// <param name="atkData">攻撃データ</param>
 		/// <returns>攻撃が成功したかどうか</returns>
 		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData){
-			List<string[]> status = new List<string[]>(0);	//状態を表す変数配列
+			Dictionary<string, string> status = new Dictionary<string,string>(0);	//状態を表す変数配列
 
 			//変数配列に追加していく
+			/*
 			status.Add(new string[]{"属性", atkData.elm+""});
 			status.Add(new string[]{"カテゴリ", atkData.ctg+""});
+			*/
+			status["攻撃属性"] = atkData.elm+"";
+			status["攻撃カテゴリ"] = atkData.ctg+"";
 
 			//攻撃を行ったことの通知
-			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, offense, null)){
+			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, offense, status)){
 				switch(s[0]){
 				}
 			}
@@ -102,7 +106,14 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			int timesDamage = normalDamage;	//最終的なダメージ
 
 			//サポート・補助・アビリティによる倍率変化
-			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を受けた, defense, null)){
+			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を受けた, defense, status)){
+				switch(s[0]){
+				case "ダメージ変化":
+					timesDamage = (int)(timesDamage * int.Parse(s[1])/100.0);
+					break;
+				}
+			}
+			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, offense, status)){
 				switch(s[0]){
 				case "ダメージ変化":
 					timesDamage = (int)(timesDamage * int.Parse(s[1])/100.0);
@@ -261,6 +272,18 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			if(GameMath.JudgeProbab(probab)){
 				BattleBadStatus.Type type = (BattleBadStatus.Type)Enum.Parse(typeof(BattleBadStatus.Type), line[1]);
 				return target.SetBadStatus(type);
+			}
+
+			return false;
+		}
+	}
+
+	class KillCalculator{
+		public static bool Calc(BattleUnit actor, BattleUnit target, string[] line){
+			int probab = int.Parse(line[1]);
+
+			if(GameMath.JudgeProbab(probab)){
+				return target.Kill();
 			}
 
 			return false;
