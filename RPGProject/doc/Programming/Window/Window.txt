@@ -8,21 +8,28 @@ int width : 幅
 int height : 高さ
 bool broken : 破棄されているかどうか
 
-Window(int arg_px, int arg_py, int arg_width, int arg_height) : コンストラクタ
+public Window(int arg_px, int arg_py, int arg_width, int arg_height) : コンストラクタ
 処理 :
 メンバに引数を代入
 brokenにfalseを代入
 
-virtual void Update() : 更新メソッド
+virtual public void Update() : 更新メソッド
 処理 : 
 Inputの内容を受け取って、INPUT_DECIDEの入力が1以上ならbrokenをtrueにする
 
-virtual void Draw() : 描画メソッド
+public void Draw() :
+DrawBoxを呼び出す
+SubDrawを呼び出す
+
+virtual public void DrawBox() : 描画メソッド
 処理 :
 四角形を描画する。（左上座標(px,py) width×height）
 
-bool isBroken() : 破棄されているかどうか
+virtual public void SubDraw() : 継承先の描画処理
+処理 : なにもなし
+
+public bool isBroken() : 破棄されているかどうか
 brokenの値をそのまま帰す
 
-void Break() : 破棄する
+public void Break() : 破棄する
 brokenの値をtrueにする
