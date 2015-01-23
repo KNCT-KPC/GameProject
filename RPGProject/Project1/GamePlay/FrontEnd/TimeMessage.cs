@@ -83,6 +83,19 @@ namespace RPGProject.GamePlay.FrontEnd {
 		/// 最後の文字までスキップするメソッド
 		/// </summary>
 		public void Finish(){
+			while(charIndex < message.Length && line < lineNum){
+				count++;
+				if(count >= interval){
+					count = 0;
+					subMessage[line] += message[charIndex];
+					charIndex++;
+
+					if(GameSystem.GameFont.GetDrawStringWidth(useFont, subMessage[line]) >= lineLength){
+						line++;
+					}
+				}
+			}
+
 			finish = true;
 		}
 	}
