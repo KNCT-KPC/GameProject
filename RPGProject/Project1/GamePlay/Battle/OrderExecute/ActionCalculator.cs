@@ -54,14 +54,12 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// <param name="defense">防御側ユニット</param>
 		/// <param name="atkData">攻撃データ</param>
 		/// <returns>攻撃が成功したかどうか</returns>
-		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData){
+		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData, out bool kill, BattleOrder reaction){
+			reaction = null;
 			Dictionary<string, string> status = new Dictionary<string,string>(0);	//状態を表す変数配列
+			kill = false;
 
 			//変数配列に追加していく
-			/*
-			status.Add(new string[]{"属性", atkData.elm+""});
-			status.Add(new string[]{"カテゴリ", atkData.ctg+""});
-			*/
 			status["攻撃属性"] = atkData.elm+"";
 			status["攻撃カテゴリ"] = atkData.ctg+"";
 
@@ -118,6 +116,8 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				case "ダメージ変化":
 					timesDamage = (int)(timesDamage * int.Parse(s[1])/100.0);
 					break;
+				case "カウンター":
+					break;
 				}
 			}
 			foreach(var s in Battle.NoticeSupport(BattleUnitSupport.Timing.攻撃を行った, offense, status)){
@@ -161,7 +161,9 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 			int swingDamage = CalcDamageSwing(timesDamage);
 
 			//ダメージを与えて終了
-			defense.Damage(swingDamage);
+			if(defense.Damage(swingDamage)){
+				kill = true;
+			}
 			Battle.viewEffect.Enqueue(new BattleViewEffect(defense.Name + "に" + swingDamage + "のダメージ"));
 
 			return true;
@@ -251,18 +253,34 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 	/// </summary>
 	class HealCalculator {
 		public class HealData{
-			public readonly string type;
-			public readonly int baseValue;
+			public readonly string healType;
+			public readonly int value;
+			public readonly string valueType;
 
 			public HealData(string[] line){
-				type = line[1];
-				baseValue = int.Parse(line[2]);
+				healType = line[1];
+				valueType = line[2];
+				value = int.Parse(line[3]);
 			}
 		}
 
 		public static bool Calc(BattleUnit actor, BattleUnit target, HealData data){
-			int baseValue = data.baseValue;
-			if(data.type == "HP"){
+			int baseValue = 0;
+
+			switch(data.valueType){
+			case "INT" :
+				baseValue = data.value;
+				break;
+			case "PERCENT" :
+				if(data.healType == "HP"){
+					baseValue = (int)(actor.status.MHP * (data.value/100.0));
+				} else {
+					baseValue = (int)(actor.status.MTP * (data.value/100.0));
+				}
+				break;
+			}
+
+			if(data.healType == "HP"){
 				target.HealHP(baseValue);
 				Battle.viewEffect.Enqueue(new BattleViewEffect(target.Name + "のHPを" + baseValue + "回復した"));
 			} else {

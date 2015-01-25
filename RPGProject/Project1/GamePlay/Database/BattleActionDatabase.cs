@@ -39,7 +39,7 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"To", "Targets"},
 					new string[]{"Support", "0", "攻撃を受けた", "自分自身"},
 					new string[]{"Effect", "ダメージ変化", "60"},
-					new string[]{"SupportEnd"}
+					new string[]{"EndSupport"}
 				}),
 			new BattleAction("ファイア", BattleAction.Type.攻撃, 4, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
 				new string[][]{},
@@ -109,36 +109,55 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"If", "攻撃カテゴリ", "術式"},
 					new string[]{"Effect", "ダメージ変化", "220"},
 					new string[]{"EndIf"},
-					new string[]{"SupportEnd"}
+					new string[]{"EndSupport"}
 				}),
-			new BattleAction("エナジースマイト", BattleAction.Type.攻撃, 32, BattleAction.TargetSide.Ones, BattleAction.TargetRange.Single, true, 2, 100,
+			new BattleAction("メテオストライク", BattleAction.Type.攻撃, 12, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
 				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Attack","物理", "無", "200", "80"},
+					new string[]{"Attack","物理", "無", "250", "80"},
 					new string[]{"If", "Chase"},
-					new string[]{"If", "Kill"},
-					new string[]{"SupportEnd"}
+					new string[]{"BadStatus", "混乱", "40"},
 				}),
-
+			new BattleAction("エナジースマイト", BattleAction.Type.攻撃, 6, BattleAction.TargetSide.Rival, BattleAction.TargetRange.Single, true, 0, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Attack","物理", "無", "180", "80"},
+					new string[]{"EndTo"},
+					new string[]{"To", "Actor"},
+					new string[]{"If", "Kill"},
+					new string[]{"Heal", "TP", "PERCENT", "10"},
+				}),
+			new BattleAction("リフレクション", BattleAction.Type.補助, 18, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, true, 5, 100,
+				new string[][]{},
+				new string[][]{
+					new string[]{"To", "Targets"},
+					new string[]{"Support", "0", "攻撃を受けた", "味方全員"},
+					new string[]{"If", "攻撃カテゴリ", "物理"},
+					new string[]{"Effect", "ダメージ変化", "60"},
+					new string[]{"Effect", "カウンター", "術式", "無", "150"},
+					new string[]{"EndIf"},
+					new string[]{"EndSupport"},
+				}),
 
 			new BattleAction("ヒーリング", BattleAction.Type.回復, 6, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
 				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Heal", "HP", "80"},
+					new string[]{"Heal", "HP", "INT", "80"},
 				}),
 			new BattleAction("ハイヒーリング", BattleAction.Type.回復, 15, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
 				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Heal", "HP", "260"},
+					new string[]{"Heal", "HP", "INT", "260"},
 				}),
 			new BattleAction("ワイドヒーリング", BattleAction.Type.回復, 36, BattleAction.TargetSide.Friend, BattleAction.TargetRange.All, false, 0, 100,
 				new string[][]{},
 				new string[][]{
 					new string[]{"To", "Targets"},
-					new string[]{"Heal", "HP", "180"},
+					new string[]{"Heal", "HP", "INT", "180"},
 				}),
 			new BattleAction("アタックオーラ", BattleAction.Type.補助, 12, BattleAction.TargetSide.Friend, BattleAction.TargetRange.All, false, 0, 150,
 				new string[][]{},

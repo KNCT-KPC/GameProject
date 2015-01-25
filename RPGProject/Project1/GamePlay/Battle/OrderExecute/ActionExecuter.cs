@@ -29,9 +29,12 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 				return;
 			}
 
+			BattleOrder reaction;
 			order.actor.TP -= action.TP;
 			Battle.viewEffect.Enqueue(new BattleViewEffect(order.actor.Name + "の" + order.actionName + "!"));
 			bool success = false;
+			bool kill = false;
+			bool outKill;
 
 			//アクションスクリプト実行部
 			while(line < script.Length){
@@ -65,6 +68,9 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 					case "All":
 						targets.AddRange(Battle.GetSideParty(BattleAction.TargetSide.All, order.actor));
 						break;
+					default:
+						Program.AssertExit("存在しないステートメント" + script[line][1] + "が指定されました。（actionExecuter)");
+						break;
 					}
 
 					foreach(var t in targets){
@@ -84,6 +90,14 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 									}
 									line++;
 									break;
+								case "Kill":
+									if(!kill){
+										while(line < script.Length && script[line][0] != "EndIf") {
+											line++;
+										} 
+									}
+									line++;
+									break;
 								}
 								break;
 
@@ -91,7 +105,10 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 							// | ID:Attack | 終端 | 攻撃を行う //
 							//=================================//
 							case "Attack":
-								success = AttackCalculator.Calc(order.actor, t, new AttackCalculator.AttackData(script[i]));
+								success = AttackCalculator.Calc(order.actor, t, new AttackCalculator.AttackData(script[i]), out outKill, out reaction);
+								if(outKill){
+									kill = true;
+								}
 								break;
 
 							//================================================//
@@ -99,7 +116,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 							//================================================//
 							case "Support":{
 								List<string[]> effect = new List<string[]>(0);
-								while(script[i][0] != "SupportEnd"){
+								while(script[i][0] != "EndSupport"){
 									effect.Add(script[i]);
 									i++;
 								}

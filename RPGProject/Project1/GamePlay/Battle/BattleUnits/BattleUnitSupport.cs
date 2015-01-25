@@ -96,6 +96,7 @@ namespace RPGProject.GamePlay.Battle.BattleUnits {
 					break;
 				case "Effect":
 					e.RemoveAt(0);
+					e.Add(actor.Name);
 					effects.Add(e.ToArray());
 					break;
 				}

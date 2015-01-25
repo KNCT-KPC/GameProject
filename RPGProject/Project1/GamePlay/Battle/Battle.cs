@@ -247,5 +247,17 @@ namespace RPGProject.GamePlay.Battle {
 
 			return eft.ToArray();
 		}
+
+		public static BattleUnit GetBattleUnit(string name){
+			foreach(var p in PlayerAry){
+				if(p.Name == name) return p;
+			}
+
+			foreach(var e in EnemyAry){
+				if(e.Name == name) return e;
+			}
+
+			return null;
+		}
 	}
 }
