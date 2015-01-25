@@ -1,0 +1,81 @@
+フィールド :
+
+const int TIP_SIZE = 32;	=> publicに
+※チップサイズは他のクラスでも共通で使う大事な定数です。
+※なので、Mapクラスのみが所有し、他のクラスが参照する。という方法を取ります。
+※この場合、他のクラスから参照するのに Map.TIP_SIZE（クラス名.public定数）とします。
+※説明忘れてました。すいません。
+
+public int r, g, b;	=> 削除
+※テスト用の画像を使うので不要に
+
+-----------------------------------------------------
+
+Update()メソッド : 以下のようにする（そのままコピペで）
+
+		public void Update()
+		{
+			myChar.Update();
+			myChar.GetScreenCenterPosition(out scX, out scY);
+
+			scX -= TIP_SIZE * SCREEN_XSIZE / 2;
+			scY -= TIP_SIZE * SCREEN_YSIZE / 2;
+			if(scX < 0) scX = 0;
+			if(scX > (xSize - SCREEN_XSIZE)*TIP_SIZE) scX = (xSize - SCREEN_XSIZE)*TIP_SIZE;
+			if(scY < 0) scY = 0;
+			if(scY > (ySize - SCREEN_YSIZE)*TIP_SIZE) scY = (ySize - SCREEN_YSIZE)*TIP_SIZE;
+		}
+
+※MapMyCharクラスから、マイキャラの中心座標を得るようにした。（図説1 mx,my）
+※そこから、スクリーンの位置を補正している。
+
+-----------------------------------------------------
+
+Draw()メソッド : 以下のようにする（そのままコピペで）
+
+		public void Draw()
+		{
+			int maxY = scY/TIP_SIZE+SCREEN_YSIZE+1;
+			int maxX = scX/TIP_SIZE+SCREEN_XSIZE+1;
+			if(maxY >= ySize) maxY = ySize;
+ 			if(maxX >= xSize) maxX = xSize;
+
+			for (int y = scY/TIP_SIZE; y < maxY; y++)
+			{
+				for (int x = scX/TIP_SIZE; x < maxX; x++)
+				{
+					string graphName = "";
+				    if (drawTip[y, x] == 0)
+				    {
+						graphName = "TEST_FLOOR_IMG";
+				    }
+				    else if (drawTip[y, x] == 1)
+				    {
+						graphName = "TEST_OBJECT_IMG";
+				    }
+					DrawOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, graphName);
+				}
+			}
+			myChar.Draw();
+		}
+
+※図説に丸投げ
+
+-----------------------------------------------------
+
+DrawOnDisplay()メソッド : 追加
+
+		public void DrawOnDisplay(int x, int y, int width, int height, string graphName, int alpha = 255){
+			int dx = x - scX;
+			int dy = y - scY;
+			if(dx < -width || dx > SCREEN_XSIZE*TIP_SIZE || dy < -height || dy > SCREEN_YSIZE*TIP_SIZE) return;
+
+			Drawer.DrawGraph(dx, dy, graphName, true, alpha);
+		}
+
+※ x ... マップ上のx位置
+※ y ... マップ上のy位置
+※ width ... オブジェクトの横幅
+※ height ... オブジェクトの縦幅
+※ graphName ... 描画ID
+※ alpha ... オプション引数。透過量。

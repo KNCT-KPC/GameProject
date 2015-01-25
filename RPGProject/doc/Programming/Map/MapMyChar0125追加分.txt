@@ -1,0 +1,37 @@
+GetScreenX()メソッド	=> 削除
+GetScreenY()メソッド	=> 削除
+
+-----------------------------------------------------
+
+GetScreenCenterPosition()メソッド	=> 追加
+
+		public void GetScreenCenterPosition(out int x, out int y)
+		{
+			int nx = px * TIP_SIZE;
+			int ny = py * TIP_SIZE;
+			if (moveCount != 0)
+			{
+				switch (moveDir)
+				{
+					case MoveDirect.UP   :  ny = ny + moveCount * (TIP_SIZE / MOVE_TIME); //y に 足す
+						break;
+					case MoveDirect.DOWN :  ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y から 引く
+						break;
+					case MoveDirect.LEFT :  nx = nx + moveCount * (TIP_SIZE / MOVE_TIME); //x に 足す
+						break;
+					case MoveDirect.RIGHT:  nx = nx - moveCount * (TIP_SIZE / MOVE_TIME);//x から 引く
+						break;
+					default: break;
+				}
+			}
+
+			x = nx + TIP_SIZE/2;
+			y = ny + TIP_SIZE/2;
+		}
+
+※ out修飾子は「戻り値用の引数」であることを明示するもの。
+※ 通常、1つのメソッドに2つ以上戻り値がある場合に使用する。
+※ outが付いている場合、呼び出し側もoutをつけて引数を渡す。
+※ 例) myChar.GetScreenCenterPosition(out scX, out scY);
+※ outが付いている変数は、そのメソッドで値が代入されることが保証される。
+※ 逆に言えば、メソッド側は、outが付いている変数に値を代入せずに抜けてはいけない（コンパイルエラー）

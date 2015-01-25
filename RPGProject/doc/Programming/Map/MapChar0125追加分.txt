@@ -1,0 +1,24 @@
+フィールド : 
+const int TIP_SIZE = 32;      => 削除
+※TIP_SIZEは、MAP.TIP_SIZEとして取得する。
+
+-----------------------------------------------------
+
+Draw() メソッド :
+int dx = GetScreenX();      => 削除
+int dy = GetScreenY();      => 削除
+
+nx,ny : dx,dyではなく、px,pyを使う。
+
+if ((dx < 0) || (dx > Map.SCREEN_XSIZE) || (dy < 0) || (dy > Map.SCREEN_YSIZE)) return;
+	=>削除
+
+DxLibDLL.DX.DrawBox( nx, ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
+	=> map.DrawOnDisplay(nx, ny, Map.IP_SIZE, Map.TIP_SIZE, "TEST_CHAR_IMG");　に変更
+※mapで定義している描画メソッドに、現在地を渡す。
+※四角形ではなく、テスト用の画像を使う。
+
+-----------------------------------------------------
+
+GetScreenX()メソッド	=> 削除
+GetScreenY()メソッド	=> 削除
