@@ -54,7 +54,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 		/// <param name="defense">防御側ユニット</param>
 		/// <param name="atkData">攻撃データ</param>
 		/// <returns>攻撃が成功したかどうか</returns>
-		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData, out bool kill, BattleOrder reaction){
+		public static bool Calc(BattleUnit offense, BattleUnit defense, AttackData atkData, out bool kill, out BattleOrder reaction){
 			reaction = null;
 			Dictionary<string, string> status = new Dictionary<string,string>(0);	//状態を表す変数配列
 			kill = false;
@@ -117,6 +117,7 @@ namespace RPGProject.GamePlay.Battle.OrderExecute {
 					timesDamage = (int)(timesDamage * int.Parse(s[1])/100.0);
 					break;
 				case "カウンター":
+
 					break;
 				}
 			}

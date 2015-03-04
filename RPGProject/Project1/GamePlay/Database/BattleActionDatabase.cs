@@ -140,7 +140,6 @@ namespace RPGProject.GamePlay.Database {
 					new string[]{"EndIf"},
 					new string[]{"EndSupport"},
 				}),
-
 			new BattleAction("ヒーリング", BattleAction.Type.回復, 6, BattleAction.TargetSide.Friend, BattleAction.TargetRange.Single, false, 0, 100,
 				new string[][]{},
 				new string[][]{
