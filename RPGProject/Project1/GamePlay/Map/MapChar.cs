@@ -10,9 +10,8 @@ namespace RPGProject.GamePlay.Map
 {
         abstract class MapChar
         {
-            const int TIP_SIZE = 32;
             public enum MoveDirect { NEUTRAL, UP, DOWN, LEFT, RIGHT };
-            protected const int MOVE_TIME = 32; //移動にかかるカウント
+            protected const int MOVE_TIME = 16; //移動にかかるカウント
             protected Map map; //マップ
             protected int px;  //キャラクタのx位置
             protected int py;  //キャラクタのy位置
@@ -43,28 +42,24 @@ namespace RPGProject.GamePlay.Map
             
             public void Draw()
             {
-
-                int dx = GetScreenX();
-                int dy = GetScreenY();
-                int nx = dx * TIP_SIZE;
-                int ny = dy * TIP_SIZE;
+                int nx = px * Map.TIP_SIZE;
+                int ny = py * Map.TIP_SIZE;
                 if (moveCount != 0)
                 {
                     switch (moveDir)
                     {
-                        case MoveDirect.UP   :  ny = ny + moveCount * (TIP_SIZE / MOVE_TIME); //y に 足す
+                        case MoveDirect.UP   :  ny = ny + moveCount * (Map.TIP_SIZE / MOVE_TIME); //y に 足す
                             break;
-                        case MoveDirect.DOWN :  ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y から 引く
+                        case MoveDirect.DOWN :  ny = ny - moveCount * (Map.TIP_SIZE / MOVE_TIME);//y から 引く
                             break;
-                        case MoveDirect.LEFT :  nx = nx + moveCount * (TIP_SIZE / MOVE_TIME); //x に 足す
+                        case MoveDirect.LEFT :  nx = nx + moveCount * (Map.TIP_SIZE / MOVE_TIME); //x に 足す
                             break;
-                        case MoveDirect.RIGHT:  nx = nx - moveCount * (TIP_SIZE / MOVE_TIME);//x から 引く
+                        case MoveDirect.RIGHT:  nx = nx - moveCount * (Map.TIP_SIZE / MOVE_TIME);//x から 引く
                             break;
                         default: break;
                     }
                 }
-                if ((dx < 0) || (dx > Map.SCREEN_XSIZE) || (dy < 0) || (dy > Map.SCREEN_YSIZE)) return;
-                DxLibDLL.DX.DrawBox( nx, ny, nx + TIP_SIZE, ny + TIP_SIZE, DX.GetColor(0, 0, 255), 1);
+				map.DrawOnDisplay(nx, ny, Map.TIP_SIZE, Map.TIP_SIZE, "TEST_CHAR_IMG");
             }
            public int GetX(){
                return(px);
@@ -72,8 +67,6 @@ namespace RPGProject.GamePlay.Map
            public int GetY(){
                 return(py);
                 }
-           protected abstract int GetScreenX();
-           protected abstract int GetScreenY(); 
            }
 }
         

@@ -18,6 +18,9 @@ namespace RPGProject.GameSystem {
 		//| 画像データ管理配列 |
 		//======================
 		private static GraphData[] graphData = new GraphData[]{
+			new GraphData("TEST_CHAR_IMG", "img/DEBUG_CHAR.png"),
+			new GraphData("TEST_FLOOR_IMG", "img/DEBUG_MAP_FLOOR.png"),
+			new GraphData("TEST_OBJECT_IMG", "img/DEBUG_MAP_OBJECT.png"),
 		};
 
 

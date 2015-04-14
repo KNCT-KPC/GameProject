@@ -42,9 +42,15 @@ namespace RPGProject.GamePlay.Window
         virtual public void Draw()
         //四角形を描画するメソッド。 (左上の座標(px,py)に wid)
         {
-
-            Drawer.DrawRect(px, py, px + width - 1, py + height - 1, new GameColor(255, 255, 255), true);
+			DrawBox();
+			SubDraw();
         }
+
+		virtual public void DrawBox(){
+            Drawer.DrawRect(px, py, px + width - 1, py + height - 1, new GameColor(255, 255, 255), true);
+		}
+		virtual public void SubDraw(){
+		}
 
         public bool isBroken()
         //破棄されているかどうか

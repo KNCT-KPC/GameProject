@@ -9,7 +9,7 @@ namespace RPGProject.GamePlay.Map
 {
     class Map
     {
-        const int TIP_SIZE = 32;
+        public const int TIP_SIZE = 32;
         public const int SCREEN_XSIZE = 20;
         public const int SCREEN_YSIZE = 15;
         public int xSize;
@@ -33,38 +33,51 @@ namespace RPGProject.GamePlay.Map
             drawTip[10, 1] = 1;
             myChar = new  MapMychar(this, 0, 0);
         }
-        public void Update()
-        {
-            myChar.Update();
-            
-            scX = myChar.GetX() - SCREEN_XSIZE / 2;
-            if(scX < 0) scX = 0;
-            else if(scX >= xSize-SCREEN_XSIZE) scX = xSize-SCREEN_XSIZE;
-            scY = myChar.GetY() - SCREEN_YSIZE / 2;
-            if (scY < 0) scY = 0;
-            else if (scY >= ySize - SCREEN_YSIZE) scY = ySize - SCREEN_YSIZE;
-        }
-        public void Draw()
-        {
-            
-            for (int y = 0; y < SCREEN_YSIZE; y++)
-            {
-                for (int x = 0; x < SCREEN_XSIZE; x++)
-                {
-                    if (drawTip[y + scY, x + scX] == 0)
-                    {
-                        r = g = b = 255;
 
-                    }
-                    else if (drawTip[y + scY, x + scX] == 1)
-                    {
-                        r = g = b = 0;
-                    }
-                    DxLibDLL.DX.DrawBox(x * TIP_SIZE, y * TIP_SIZE, x * TIP_SIZE + TIP_SIZE, y * TIP_SIZE + TIP_SIZE, DX.GetColor(r, g, b), 1);
-                }
-            }
-            myChar.Draw();
-        }
+		public void Update()
+		{
+			myChar.Update();
+			myChar.GetScreenCenterPosition(out scX, out scY);
+
+			scX -= TIP_SIZE * SCREEN_XSIZE / 2;
+			scY -= TIP_SIZE * SCREEN_YSIZE / 2;
+			if(scX < 0) scX = 0;
+			if(scX > (xSize - SCREEN_XSIZE)*TIP_SIZE) scX = (xSize - SCREEN_XSIZE)*TIP_SIZE;
+			if(scY < 0) scY = 0;
+			if(scY > (ySize - SCREEN_YSIZE)*TIP_SIZE) scY = (ySize - SCREEN_YSIZE)*TIP_SIZE;
+		}
+		public void Draw()
+		{
+			int maxY = scY/TIP_SIZE+SCREEN_YSIZE+1;
+			int maxX = scX/TIP_SIZE+SCREEN_XSIZE+1;
+			if(maxY >= ySize) maxY = ySize;
+ 			if(maxX >= xSize) maxX = xSize;
+
+			for (int y = scY/TIP_SIZE; y < maxY; y++)
+			{
+				for (int x = scX/TIP_SIZE; x < maxX; x++)
+				{
+					string graphName = "";
+				    if (drawTip[y, x] == 0)
+				    {
+						graphName = "TEST_FLOOR_IMG";
+				    }
+				    else if (drawTip[y, x] == 1)
+				    {
+						graphName = "TEST_OBJECT_IMG";
+				    }
+					DrawOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, graphName);
+				}
+			}
+			myChar.Draw();
+		}
+		public void DrawOnDisplay(int x, int y, int width, int height, string graphName, int alpha = 255){
+			int dx = x - scX;
+			int dy = y - scY;
+			if(dx < -width || dx > SCREEN_XSIZE*TIP_SIZE || dy < -height || dy > SCREEN_YSIZE*TIP_SIZE) return;
+
+			Drawer.DrawGraph(dx, dy, graphName, true, alpha);
+		}
         public bool JudgeEnter(int x, int y)
         {
             if ((x < 0) || (x > xSize-1) || (y < 0) || (y > ySize-1))
