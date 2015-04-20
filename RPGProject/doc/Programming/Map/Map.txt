@@ -2,12 +2,13 @@
 クラス名 : Map
 概要 : キャラクターが移動できるマップを表現します。
 メンバー : 
+const int TIP_SIZE = 32
 const int SCREEN_XSIZE = 20
 const int SCREEN_YSIZE = 15
-int scX   //スクリーンの現在x位置
-int scY   //スクリーンの現在y位置
 int xSize // マップのxサイズ
 int ySize // マップのyサイズ
+int scX   //スクリーンの現在x位置
+int scY   //スクリーンの現在y位置
 int[,] drawTip // 描画マップチップ
 int[,] stateTip // 状態マップチップ
 MapMyChar myChar // マイキャラ
@@ -21,13 +22,17 @@ myChar = new MapMyChar(0,0,this) とする
 public Update()
 処理 :
 myChar.Update()を呼び出す。
+
+myChar.GetScreenCenterPostionを呼び出して、以下のようにする。
 scX = マイキャラのx位置-SCREEN_XSIZE/2	(ただし、0未満になるならscX=0 (xSize-SCREEN_XSIZE)以上になるならscX=xSize-SCREEN_XSIZE
 scY = マイキャラのy位置-SCREEN_YSIZE/2  (上記と同様、0未満とySize-SCREEN_YSIZEで判定)
+なお、マイキャラのx,y位置は、マス目間の移動量を含むものとする。
 
 public Draw()
 処理 :
 drawTipの値をすべて走査して、マップチップを表示する
 2次配列の走査は以下のようにする。
+
 for(int y = 0; y < SCREEN_YSIZE; y++){
 	for(int x = 0; x < CREEN_XSIZE; x++){
 		//drawTip[y+scY,x+scX] とすると、順に値を見ていける

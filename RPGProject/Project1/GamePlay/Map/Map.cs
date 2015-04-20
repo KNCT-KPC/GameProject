@@ -19,18 +19,13 @@ namespace RPGProject.GamePlay.Map
         int scX;
         int scY;
         MapMychar myChar;
-        public int r, g, b;
-        public Map(int arg_xSize, int arg_ySize)
+
+		public Map(int arg_xSize, int arg_ySize)
         {
             xSize = arg_xSize;
             ySize = arg_ySize;
             drawTip = new int[ySize, xSize];
             stateTip = new int[ySize, xSize];
-            drawTip[1, 0] = 0;
-            drawTip[0, 0] = 0;
-            drawTip[3, 5] = 1;
-            stateTip[3,1] = 1;
-            drawTip[10, 1] = 1;
             myChar = new  MapMychar(this, 0, 0);
         }
 
