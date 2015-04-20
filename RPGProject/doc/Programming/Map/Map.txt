@@ -2,16 +2,16 @@
 クラス名 : Map
 概要 : キャラクターが移動できるマップを表現します。
 メンバー : 
-const int TIP_SIZE = 32
-const int SCREEN_XSIZE = 20
-const int SCREEN_YSIZE = 15
-int xSize // マップのxサイズ
-int ySize // マップのyサイズ
-int scX   //スクリーンの現在x位置
-int scY   //スクリーンの現在y位置
-int[,] drawTip // 描画マップチップ
-int[,] stateTip // 状態マップチップ
-MapMyChar myChar // マイキャラ
+public const int TIP_SIZE = 32
+public const int SCREEN_XSIZE = 20
+public const int SCREEN_YSIZE = 15
+private int xSize // マップのxサイズ
+private int ySize // マップのyサイズ
+private int scX   //スクリーンの現在x位置
+private int scY   //スクリーンの現在y位置
+private int[,] drawTip // 描画マップチップ
+private int[,] stateTip // 状態マップチップ
+private MapMyChar myChar // マイキャラ
 
 public Map(int arg_xSize, int arg_ySize) // テスト用コンストラクタ
 処理 : 
@@ -33,13 +33,17 @@ public Draw()
 drawTipの値をすべて走査して、マップチップを表示する
 2次配列の走査は以下のようにする。
 
-for(int y = 0; y < SCREEN_YSIZE; y++){
-	for(int x = 0; x < CREEN_XSIZE; x++){
-		//drawTip[y+scY,x+scX] とすると、順に値を見ていける
+maxX = scX/TIP_SIZE+SCREEN_XSIZE+1
+maxY = scY/TIP_SIZE+SCREEN_YSIZE+1
+//現在のscX,scYから画面の大きさ分チップを数える。
+//+1しているのは、見切れている分を描画するため。
+//ただし、maxX,maxYがxSize,ySizeより大きくならないようにする。
+
+for(int y = scY/TIP_SIZE; y < maxY; y++){
+	for(int x = scX/TIP_SIZE; x < maxX; x++){
+		//drawTip[y,x] とすると、順に値を見ていける
 	}
 }
-drawTipの値が0なら、(x*32,y*32)から32×32の黒い四角形を描画する。
-drawTipの値が1なら、(x*32,y*32)から32×32の白い四角形を描画する。
 mychar.Draw()を呼び出す。
 
 
@@ -49,5 +53,10 @@ x,yの値が0未満またはxSize,ySize以上ならfalseを返す
 stateTip[y,x]の値が1ならfalseを、それ以外ならtrueを返す
 
 
-GetScreenX() GetScreenY()
+public GetScreenX() GetScreenY()
 scX,scYを返す
+
+
+public DrawGraphOnDisplay()
+処理 :
+DrawGraphを、スクロール量を考慮して描画する。

@@ -11,9 +11,34 @@ GameInput‚Ì“à—e‚ğó‚¯æ‚Á‚ÄA•ûŒüƒL[‚É‚æ‚Á‚Ä px,py ‚Ì’l‚ğ•Ï‚¦‚éi=ƒLƒƒƒ‰ƒNƒ^‚ğˆ
 uˆÚ“®‚µ‚½•ûŒüv‚ÍmoveDir‚Ö‘ã“ü‚·‚é
 ˆÚ“®‚µ‚½‚È‚çƒƒ\ƒbƒh‚Ì•Ô‚è’l‚Æ‚µ‚Ätrue‚ğ•Ô‚µA‚»‚¤‚Å‚È‚¢‚È‚çfalse‚ğ•Ô‚·
 
-protected override int GetScreenX() {
-	return px - map.GetScreenX();
-}
-protected override int GetScreenY() {
-	return py - map.GetScreenY();
-}
+GetScreenCenterPosition()ƒƒ\ƒbƒh
+
+		public void GetScreenCenterPosition(out int x, out int y)
+		{
+			int nx = px * TIP_SIZE;
+			int ny = py * TIP_SIZE;
+			if (moveCount != 0)
+			{
+				switch (moveDir)
+				{
+					case MoveDirect.UP   :  ny = ny + moveCount * (TIP_SIZE / MOVE_TIME); //y ‚É ‘«‚·
+						break;
+					case MoveDirect.DOWN :  ny = ny - moveCount * (TIP_SIZE / MOVE_TIME);//y ‚©‚ç ˆø‚­
+						break;
+					case MoveDirect.LEFT :  nx = nx + moveCount * (TIP_SIZE / MOVE_TIME); //x ‚É ‘«‚·
+						break;
+					case MoveDirect.RIGHT:  nx = nx - moveCount * (TIP_SIZE / MOVE_TIME);//x ‚©‚ç ˆø‚­
+						break;
+					default: break;
+				}
+			}
+
+			x = nx + TIP_SIZE/2;
+			y = ny + TIP_SIZE/2;
+		}
+¦ outCüq‚Íu–ß‚è’l—p‚Ìˆø”v‚Å‚ ‚é‚±‚Æ‚ğ–¾¦‚·‚é‚à‚ÌB
+¦ ’ÊíA1‚Â‚Ìƒƒ\ƒbƒh‚É2‚ÂˆÈã–ß‚è’l‚ª‚ ‚éê‡‚Ég—p‚·‚éB
+¦ out‚ª•t‚¢‚Ä‚¢‚éê‡AŒÄ‚Ño‚µ‘¤‚àout‚ğ‚Â‚¯‚Äˆø”‚ğ“n‚·B
+¦ —á) myChar.GetScreenCenterPosition(out scX, out scY);
+¦ out‚ª•t‚¢‚Ä‚¢‚é•Ï”‚ÍA‚»‚Ìƒƒ\ƒbƒh‚Å’l‚ª‘ã“ü‚³‚ê‚é‚±‚Æ‚ª•ÛØ‚³‚ê‚éB
+¦ ‹t‚ÉŒ¾‚¦‚ÎAƒƒ\ƒbƒh‘¤‚ÍAout‚ª•t‚¢‚Ä‚¢‚é•Ï”‚É’l‚ğ‘ã“ü‚¹‚¸‚É”²‚¯‚Ä‚Í‚¢‚¯‚È‚¢iƒRƒ“ƒpƒCƒ‹ƒGƒ‰[j

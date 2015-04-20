@@ -1,0 +1,13 @@
+名前空間 : RPGProject.GamePlay.Map
+クラス名 : MapData
+概要 : マップデータを表します。
+メンバ :
+
+readonly public string mapName;
+readonly public int xSize;
+readonly public int ySize;
+readonly public int[,] stateTip;
+readonly public int[,] drawTip;
+
+public MapData(...上記5要素すべて引数...) : コンストラクタ
+5要素すべてを引数として受け取りフィールドに代入

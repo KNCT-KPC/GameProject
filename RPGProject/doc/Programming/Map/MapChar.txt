@@ -3,7 +3,7 @@
 概要 : マップ上に配置するキャラクタを定義します
 メンバー : 
 public enum MoveDirect{NEUTRAL, UP, DOWN, LEFT, RIGHT}
-protected const int MOVE_TIME = 32 //移動にかかるカウント
+protected const int MOVE_TIME = 16 //移動にかかるカウント
 protected Map map //マップ
 protected int px  //キャラクタのx位置
 protected int py  //キャラクタのy位置
@@ -22,9 +22,9 @@ moveCountの値が0より大きい場合は、moveCountの値をデクリメントする
 protected abstract bool Move() //移動メソッド
 
 public void Draw() //描画メソッド
-dx = GetDisplayX()
-dy = GetDisplayY() とする。
-dx,dy,moveCount,moveDirから描画を行う
+nx = px * Map.TIP_SIZE;
+ny = py * Map.TIP_SIZE;
+nx,ny,moveCount,moveDirから描画を行う
 moveCountが0でないなら、以下の処理を行う。
   moveCount != 0なら、移動中である
   dx*TIP_SIZE or dy*TIP_SIZEは「移動後の座標」なので、その値からmoveCount*(TIP_SIZE/MOVE_TIME)を 足す or 引く
@@ -48,6 +48,3 @@ moveCountが0でないなら、以下の処理を行う。
 
 public GetX, public GetY
 px,pyを返す
-
-protected abstract GetDisplayX()	//ディスプレイ上のx位置を返すメソッド
-protected abstract GetDisplayY()	//ディスプレイ上のy位置を返すメソッド

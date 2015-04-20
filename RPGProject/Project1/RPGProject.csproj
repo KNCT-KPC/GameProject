@@ -80,6 +80,7 @@
     <Compile Include="GamePlay\Battle\OrderMake\PlayerOrderMaker.cs" />
     <Compile Include="GamePlay\Database\BattleActionDatabase.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
+    <Compile Include="GamePlay\Map\MapData.cs" />
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
     <Compile Include="GamePlay\Map\MapChar.cs" />
     <Compile Include="GamePlay\Map\Map.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="GamePlay\Party\PlayerUnit.cs" />
     <Compile Include="GamePlay\Party\PlayerUnitStatus.cs" />
     <Compile Include="GamePlay\Window\MessageWindow.cs" />
-    <Compile Include="GamePlay\Window\WindowMgr.cs" />    
+    <Compile Include="GamePlay\Window\WindowMgr.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />

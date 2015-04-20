@@ -59,7 +59,7 @@ namespace RPGProject.GamePlay.Map
                         default: break;
                     }
                 }
-				map.DrawOnDisplay(nx, ny, Map.TIP_SIZE, Map.TIP_SIZE, "TEST_CHAR_IMG");
+				map.DrawGraphOnDisplay(nx, ny, Map.TIP_SIZE, Map.TIP_SIZE, "TEST_CHAR_IMG");
             }
            public int GetX(){
                return(px);

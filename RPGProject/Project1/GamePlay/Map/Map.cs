@@ -61,12 +61,12 @@ namespace RPGProject.GamePlay.Map
 				    {
 						graphName = "TEST_OBJECT_IMG";
 				    }
-					DrawOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, graphName);
+					DrawGraphOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, graphName);
 				}
 			}
 			myChar.Draw();
 		}
-		public void DrawOnDisplay(int x, int y, int width, int height, string graphName, int alpha = 255){
+		public void DrawGraphOnDisplay(int x, int y, int width, int height, string graphName, int alpha = 255){
 			int dx = x - scX;
 			int dy = y - scY;
 			if(dx < -width || dx > SCREEN_XSIZE*TIP_SIZE || dy < -height || dy > SCREEN_YSIZE*TIP_SIZE) return;
