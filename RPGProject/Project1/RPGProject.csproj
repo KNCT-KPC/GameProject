@@ -80,6 +80,7 @@
     <Compile Include="GamePlay\Battle\OrderMake\PlayerOrderMaker.cs" />
     <Compile Include="GamePlay\Database\BattleActionDatabase.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
+    <Compile Include="GamePlay\Map\MapData.cs" />
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
     <Compile Include="GamePlay\Map\MapChar.cs" />
     <Compile Include="GamePlay\Map\Map.cs" />
