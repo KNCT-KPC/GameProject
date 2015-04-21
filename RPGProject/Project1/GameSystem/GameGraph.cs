@@ -21,6 +21,7 @@ namespace RPGProject.GameSystem {
 			new GraphData("TEST_CHAR_IMG", "img/DEBUG_CHAR.png"),
 			new GraphData("TEST_FLOOR_IMG", "img/DEBUG_MAP_FLOOR.png"),
 			new GraphData("TEST_OBJECT_IMG", "img/DEBUG_MAP_OBJECT.png"),
+			new GraphData("TEST_MAP", "img/testMap.png"),
 		};
 
 

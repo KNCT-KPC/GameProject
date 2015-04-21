@@ -206,5 +206,25 @@ namespace RPGProject.GameSystem {
 		public static void SetDrawArea(int x, int y, int width, int height){
 			DxLibDLL.DX.SetDrawArea(x, y, x+width, y+height);
 		}
+
+		public static int[,] DivGraph(string graphName, int width, int height, int xNum, int yNum){
+			int handle = GameGraph.GetGraph(graphName);	
+
+			int[,] result = new int[yNum,xNum];
+			for(int y = 0; y < yNum; y++){
+				for(int x = 0; x < xNum; x++){
+					result[y,x] = DxLibDLL.DX.DerivationGraph(x*width, y*height, width, height, handle);	
+				}
+			}
+
+			return result;
+		}
+
+		public static void DrawDivGraph(int[,] handle, int imgX, int imgY, int x, int y, bool trans){
+			int transFlag = 1;
+			if(!trans) transFlag = 0;
+
+			DxLibDLL.DX.DrawGraph(x, y, handle[imgY,imgX], transFlag);
+		}
 	}
 }
