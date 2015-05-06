@@ -91,6 +91,7 @@
     <Compile Include="GamePlay\Window\MessageWindow.cs" />
     <Compile Include="GamePlay\Window\WindowMgr.cs" />
     <Compile Include="GamePlay\Window\Window.cs" />
+    <Compile Include="GamePlay\Window\YesNoWindow.cs" />
     <Compile Include="GameSystem\Drawer.cs" />
     <Compile Include="GameSystem\GameFileReader.cs" />
     <Compile Include="GameSystem\GameFont.cs" />

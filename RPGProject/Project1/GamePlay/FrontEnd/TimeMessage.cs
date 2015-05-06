@@ -6,7 +6,7 @@ using System.Text;
 namespace RPGProject.GamePlay.FrontEnd {
 	class TimeMessage{
 		const int DEBUG_INTERVAL = 10;
-		const int DEBUG_LINE_LENGTH = 100;
+		const int DEBUG_LINE_LENGTH = 280;
 		const int DEBUG_LINE_NUM = 3;
 
 		private int interval;
@@ -29,7 +29,7 @@ namespace RPGProject.GamePlay.FrontEnd {
 		/// <param name="interval">表示間隔</param>
 		/// <param name="lineLength">一行あたりの文字数（目安）</param>
 		/// <param name="lineNum">行数</param>
-		public TimeMessage(string message, string useFont, int interval = DEBUG_INTERVAL, int lineLength = DEBUG_LINE_LENGTH, int lineNum = DEBUG_LINE_NUM){
+		public TimeMessage(string message, string useFont, int lineLength = DEBUG_LINE_LENGTH, int interval = DEBUG_INTERVAL, int lineNum = DEBUG_LINE_NUM){
 			this.interval = interval;
 			this.lineLength = lineLength;
 			this.lineNum = lineNum;

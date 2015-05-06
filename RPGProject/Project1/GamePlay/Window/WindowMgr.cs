@@ -12,7 +12,7 @@ namespace RPGProject.GamePlay.Window
         /// <summary>
         /// Windowsのすべての要素に対してUpdateを行うメソッド
         /// </summary>
-        void Update()
+        public void Update()
         {
 
             for (int i = 0; i < 32; i++)
@@ -30,7 +30,7 @@ namespace RPGProject.GamePlay.Window
         /// <summary>
         /// 描画メソッド
         /// </summary>
-        void Draw()
+        public void Draw()
         {
             for (int i = 0; i < 32; i++)
             {
@@ -42,7 +42,7 @@ namespace RPGProject.GamePlay.Window
         /// Windowの要素が一つでもあるかどうか
         /// </summary>
         /// <returns></returns>
-        bool isEnable()
+        public bool isEnable()
         {
             for (int i = 0; i < 32; i++)
             {
@@ -55,11 +55,14 @@ namespace RPGProject.GamePlay.Window
         /// ウィンドウを配列の最後に追加するメソッド
         /// </summary>
         /// <param name="w">Window w</param>
-        void addWindow(Window w)
+        public void addWindow(Window w)
         {
             for (int i = 0; i < 32; i++)
             {
-                if (windows[i] == null) windows[i] = w;
+                if (windows[i] == null) {
+					windows[i] = w;
+					break;
+				}
             }
 
         }
@@ -67,7 +70,7 @@ namespace RPGProject.GamePlay.Window
         /// Window配列にある与えたWindowの値を削除するメソッド(オーバーロード)
         /// </summary>
         /// <param name="w">削除するWindow</param>
-        void removeWindow(Window w)//overload
+        public void removeWindow(Window w)//overload
         {
             for (int i = 0; i < 32; i++)
             {
@@ -82,7 +85,7 @@ namespace RPGProject.GamePlay.Window
         /// Windowsのindex番目のインスタンスを削除する(オーバーロード)
         /// </summary>
         /// <param name="index">削除するWindow配列の番号</param>
-        void removeWindow(int index) //overload
+        public void removeWindow(int index) //overload
         {
             windows[index] = null;
             packWindowArr(windows);
@@ -90,7 +93,7 @@ namespace RPGProject.GamePlay.Window
         
 
         // Window配列を前に詰める関数
-        static void packWindowArr(Window[] w)
+        public static void packWindowArr(Window[] w)
         {
             Window numw;
             for (int i = 0; i < w.Length - 1; i++)
