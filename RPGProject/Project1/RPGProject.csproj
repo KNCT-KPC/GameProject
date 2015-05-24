@@ -62,6 +62,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventScript.cs" />
     <Compile Include="GameMath.cs" />
     <Compile Include="GamePlay\Battle\Battle.cs" />
     <Compile Include="GamePlay\Battle\BattleAction.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="GamePlay\Battle\OrderMake\PlayerOrderMaker.cs" />
     <Compile Include="GamePlay\Database\BattleActionDatabase.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
+    <Compile Include="GamePlay\GamePlayMain.cs" />
     <Compile Include="GamePlay\Map\MapData.cs" />
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
     <Compile Include="GamePlay\Map\MapChar.cs" />

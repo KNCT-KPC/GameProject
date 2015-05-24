@@ -10,7 +10,7 @@ using RPGProject.GamePlay.Battle.BattleViewEffects;
 using RPGProject.GamePlay.Database;
 
 namespace RPGProject.GamePlay.Battle {
-	//戦闘を担当する大本のクラス
+	//戦闘を担当する大元のクラス
 	class Battle {
 		public Battle(int DEBUG){
 			BattleActionDatabase.MakeInstance();

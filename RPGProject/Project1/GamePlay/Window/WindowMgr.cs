@@ -7,8 +7,8 @@ namespace RPGProject.GamePlay.Window
 {
     class WindowMgr
     {
-
         Window[] windows = new Window[32];
+
         /// <summary>
         /// Windowsのすべての要素に対してUpdateを行うメソッド
         /// </summary>
@@ -44,8 +44,7 @@ namespace RPGProject.GamePlay.Window
         /// <returns></returns>
         public bool isEnable()
         {
-            for (int i = 0; i < 32; i++)
-            {
+            for(int i = 0; i < 32; i++){
                 if (windows[i] != null) return true;
             }
 
@@ -81,6 +80,12 @@ namespace RPGProject.GamePlay.Window
                 }
             }
         }
+
+		public void RemoveAllWindow(){
+			for(int i = 0; i < 32; i++){
+				windows[i] = null;
+			}		
+		}
         /// <summary>
         /// Windowsのindex番目のインスタンスを削除する(オーバーロード)
         /// </summary>
@@ -103,7 +108,6 @@ namespace RPGProject.GamePlay.Window
                     numw = w[i];
                     w[i] = w[i + 1];
                     w[i + 1] = numw;
-
                 }
             }
         }
