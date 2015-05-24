@@ -38,7 +38,8 @@ namespace RPGProject.GamePlay.Window
 					if(messageCount < message.Length){
 						timeMessage = new TimeMessage(message[messageCount], "DEBUG_PFONT");
 					} else {
-						this.Break();
+						//this.Break();
+						this.Disable();
 					}
 				}
 			} else {

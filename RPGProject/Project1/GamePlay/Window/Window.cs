@@ -15,6 +15,7 @@ namespace RPGProject.GamePlay.Window
 		public int py;	//右上座標
 		int width;		//幅
 		int height;		//高さ
+		bool enable;
 		bool broken;	//破棄されているかどうか
 
 		//コンストラクタ
@@ -25,6 +26,7 @@ namespace RPGProject.GamePlay.Window
 			width = arg_width;
 			height = arg_height;
 			broken = false;
+			enable = true;
 		}
 
 		//更新メソッド
@@ -45,7 +47,7 @@ namespace RPGProject.GamePlay.Window
 
 		//四角形を描画するメソッド
 		virtual public void DrawBox(){
-			Drawer.DrawRect(px, py, width, height, new GameColor(255, 255, 255), true);
+			Drawer.DrawRect(px, py, width, height, new GameColor(205, 205, 205), true);
 		}
 
 		//サブクラス用の描画メソッド
@@ -57,9 +59,17 @@ namespace RPGProject.GamePlay.Window
 			return broken;
 		}
 
+		public bool isEnable(){
+			return enable;
+		}
+
 		//破棄するメソッド
 		public void Break(){
 			broken = true;
+		}
+
+		public void Disable(){
+			enable = true;
 		}
 	}
 }

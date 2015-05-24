@@ -12,6 +12,7 @@ namespace RPGProject {
 		private Map map;
 		private Battle battle;
 		private WindowMgr windowMgr;
+		
 		private Party party;
 		private EventScript script;
 
@@ -29,33 +30,41 @@ namespace RPGProject {
 			);
 
 			windowMgr = new WindowMgr();
+			map = new Map(30,30);
 		}
 
 		public void Update(){
-			windowMgr.Update();
+			if(windowMgr.isEnable()){
+				windowMgr.Update();
+			} else {
+				map.Update();
+			}
 
-			if(script != null){
-				string opr;
-				string[] option;
-				script.Next(out opr, out option);
+			if(windowMgr.isEnable()){
+				if(script != null){
+					string opr;
+					string[] option;
+					script.Next(out opr, out option);
 
-				if(opr == null){
-					script = null;
-					windowMgr.RemoveAllWindow();
-				} else {
-					switch(opr){
-					case "Message":
-						windowMgr.addWindow(new MessageWindow(option));
+					if(opr == null){
+						script = null;
+						windowMgr.RemoveAllWindow();
+					} else {
+						switch(opr){
+						case "Message":
+							windowMgr.addWindow(new MessageWindow(option));
+							break;
+						case "YesNo":
+							windowMgr.addWindow(new YesNoWindow());
 						break;
-					case "YesNo":
-						windowMgr.addWindow(new YesNoWindow());
-						break;
+						}
 					}
 				}
 			}
 		}
 
 		public void Draw(){
+			map.Draw();
 			windowMgr.Draw();
 		}
 	}
