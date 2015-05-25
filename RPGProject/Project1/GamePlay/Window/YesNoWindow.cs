@@ -26,6 +26,10 @@ namespace RPGProject.GamePlay.Window {
 				select = 1;
 				//select = (select+1)%2;
 			}
+			if(GameInput.GetCount(GameInput.Code.INPUT_DECIDE) == 1){
+				this.Disable();
+				this.Break();
+			}
 		}
 
 		override public void SubDraw(){
@@ -37,6 +41,15 @@ namespace RPGProject.GamePlay.Window {
 
 			Drawer.DrawString(px+STRING_X, py+STRING_Y, "はい", new GameColor(0,0,0), "DEBUG_PFONT");
 			Drawer.DrawString(px+STRING_X, py+STRING_Y+LINE_HEIGHT, "いいえ", new GameColor(0,0,0), "DEBUG_PFONT");
+		}
+
+		override public bool State(out int value){
+			value = -1;
+			if(!this.isAble()){
+				value = select;
+				return true;
+			}
+			return false;
 		}
 	}
 }

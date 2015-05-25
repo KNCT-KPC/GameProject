@@ -29,6 +29,13 @@ namespace RPGProject.GamePlay.Window
 			message = arg_message;
 			timeMessage = new TimeMessage(message[messageCount], "DEBUG_PFONT"); 
 		}
+
+		public void AddMessage(string[] arg_message){
+			messageCount = 0;
+			message = arg_message;
+			timeMessage = new TimeMessage(message[messageCount], "DEBUG_PFONT"); 
+			this.Enable();
+		}
 		
 		override public void Update(){ 
 			timeMessage.NextCount();

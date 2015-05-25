@@ -9,13 +9,13 @@ namespace RPGProject.GamePlay.Window
 	/// <summary>
 	///  なにもない空白のウィンドウを表示させるクラス
 	/// </summary>
-	class Window 
+	class Window : EventMonitor
 	{
 		public int px;	//左上座標
 		public int py;	//右上座標
 		int width;		//幅
 		int height;		//高さ
-		bool enable;
+		bool able;
 		bool broken;	//破棄されているかどうか
 
 		//コンストラクタ
@@ -26,7 +26,7 @@ namespace RPGProject.GamePlay.Window
 			width = arg_width;
 			height = arg_height;
 			broken = false;
-			enable = true;
+			able = true;
 		}
 
 		//更新メソッド
@@ -59,8 +59,8 @@ namespace RPGProject.GamePlay.Window
 			return broken;
 		}
 
-		public bool isEnable(){
-			return enable;
+		public bool isAble(){
+			return able;
 		}
 
 		//破棄するメソッド
@@ -69,7 +69,18 @@ namespace RPGProject.GamePlay.Window
 		}
 
 		public void Disable(){
-			enable = true;
+			able = false;
+		}
+		public void Enable(){
+			able = true;
+		}
+
+		virtual public bool State(out int value){
+			value = -1;
+			if(!this.isAble()){
+				return true;
+			}
+			return false;
 		}
 	}
 }

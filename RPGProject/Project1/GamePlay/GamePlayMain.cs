@@ -23,8 +23,30 @@ namespace RPGProject {
 						"これはテスト用のメッセージです。^nこの行は改行されます。^n行の最大は３行の予定です。",
 						"これは新しいページで表示されます。",
 					"End",
-					//"YesNo",
-					//"End",
+					"YesNo",
+						"Case Yes",
+							"Message",
+								"「はい」が選択されました。",
+							"End",
+							"YesNo",
+								"Case Yes",
+									"Message",
+										"さらに「はい」が選択されました。",
+									"End",
+								"Break",
+								"Case No",
+									"Message",
+										"こんどは「いいえ」が選択されました。",
+									"End",
+								"Break",
+							"End",
+						"Break",
+						"Case No",
+							"Message",
+							"「いいえ」が選択されました。",
+							"End",
+						"Break",
+					"End",
 					"ScriptEnd",
 				}
 			);
@@ -34,30 +56,35 @@ namespace RPGProject {
 		}
 
 		public void Update(){
-			if(windowMgr.isEnable()){
-				windowMgr.Update();
-			} else {
+			if(!windowMgr.isEnable()){
 				map.Update();
 			}
+			windowMgr.Update();
 
-			if(windowMgr.isEnable()){
-				if(script != null){
-					string opr;
-					string[] option;
-					script.Next(out opr, out option);
+			if(script != null && !script.isMonitoring()){
+				string opr;
+				string[] option;
+				script.Next(out opr, out option);
 
-					if(opr == null){
-						script = null;
-						windowMgr.RemoveAllWindow();
-					} else {
-						switch(opr){
-						case "Message":
-							windowMgr.addWindow(new MessageWindow(option));
-							break;
-						case "YesNo":
-							windowMgr.addWindow(new YesNoWindow());
-						break;
-						}
+				if(opr == null){
+					script = null;
+					windowMgr.RemoveAllWindow();
+				} else {
+					switch(opr){
+					case "Message":{
+						MessageWindow w = windowMgr.addMessage(option);
+						script.Monitoring(w);
+						/*
+						MessageWindow w = new MessageWindow(option);
+						windowMgr.addWindow(w);
+						script.Monitoring(w);
+						*/
+						}break;
+					case "YesNo":{
+						YesNoWindow w = new YesNoWindow();
+						windowMgr.addWindow(w);
+						script.Monitoring(w);
+						}break;
 					}
 				}
 			}

@@ -5,8 +5,7 @@ using System.Text;
 
 namespace RPGProject.GamePlay.Window
 {
-    class WindowMgr
-    {
+    class WindowMgr{
 		Stack<Window> windows = new Stack<Window>(0);
 
 		/// <summary>
@@ -24,15 +23,14 @@ namespace RPGProject.GamePlay.Window
 			return -1;
         }
 
-        /// <summary>
-        /// 描画メソッド
-        /// </summary>
-        public void Draw()
-        {
+		/// <summary>
+		/// 描画メソッド
+		/// </summary>
+        public void Draw(){
 			foreach(var w in windows){
 				w.Draw();
-            }
-        }
+			}
+		}
 
         /// <summary>
         /// Windowの要素が一つでもあるかどうか
@@ -41,7 +39,7 @@ namespace RPGProject.GamePlay.Window
         public bool isEnable()
         {
 			if(windows.Count != 0){
-				return windows.Peek().isEnable();
+				return windows.Peek().isAble();
 			}
             return false;
         }
@@ -53,6 +51,22 @@ namespace RPGProject.GamePlay.Window
         {
 			windows.Push(w);
         }
+
+		public MessageWindow addMessage(String[] message){
+			MessageWindow mw = null;
+			foreach(var w in windows){
+				mw = w as MessageWindow;
+			}
+
+			if(mw == null){
+				mw = new MessageWindow(message);
+				windows.Push(mw);
+			} else {
+				mw.AddMessage(message);
+			}
+			return mw;
+		}
+
         /// <summary>
         /// Window配列にある与えたWindowの値を削除するメソッド(オーバーロード)
         /// </summary>
