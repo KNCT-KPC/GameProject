@@ -8,7 +8,7 @@ using RPGProject.GamePlay.Map;
 
 namespace RPGProject.GamePlay.Map
 {
-        abstract class MapChar
+        abstract class MapObject
         {
             public enum MoveDirect { NEUTRAL, UP, DOWN, LEFT, RIGHT };
             protected const int MOVE_TIME = 16; //移動にかかるカウント
@@ -17,7 +17,7 @@ namespace RPGProject.GamePlay.Map
             protected int py;  //キャラクタのy位置
             protected MoveDirect moveDir; //移動方向
             protected int moveCount; //移動カウント
-            protected MapChar(Map maps, int x, int y)
+            protected MapObject(Map maps, int x, int y)
             {
                 map = maps;
                 px = x;

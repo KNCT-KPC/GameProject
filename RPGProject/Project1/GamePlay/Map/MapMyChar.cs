@@ -7,7 +7,7 @@ using DxLibDLL;
 
 namespace RPGProject.GamePlay.Map
 {
-    class MapMychar :  MapChar
+    class MapMychar :  MapObject
     {
        
         public MapMychar(Map maps, int x, int y)

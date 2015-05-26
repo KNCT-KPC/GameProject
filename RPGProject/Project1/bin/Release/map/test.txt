@@ -1,0 +1,42 @@
+3 3
+010
+333
+211
+010
+000
+100
+村人１ 2 2
+Message
+	これはテスト用のメッセージです。^nこの行は改行されます。^n行の最大は３行の予定です。
+	これは新しいページで表示されます。
+End
+YesNo
+	Case Yes
+		Message
+			「はい」が選択されました。
+		End
+		YesNo
+			Case Yes
+				Message
+					さらに「はい」が選択されました。
+				End
+			Break
+			Case No
+				Message
+					こんどは「いいえ」が選択されました。
+				End
+			Break
+		End
+	Break
+	Case No
+		Message
+			「いいえ」が選択されました。
+		End
+	Break
+End
+ScriptEnd
+村人２ 1 1
+Message
+	２番めの村人です★
+End
+ScriptEnd

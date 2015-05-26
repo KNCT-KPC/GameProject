@@ -45,6 +45,8 @@ namespace RPGProject {
 							"Message",
 							"「いいえ」が選択されました。",
 							"End",
+							"Battle",
+							"End",
 						"Break",
 					"End",
 					"ScriptEnd",
@@ -56,43 +58,54 @@ namespace RPGProject {
 		}
 
 		public void Update(){
-			if(!windowMgr.isEnable()){
-				map.Update();
-			}
-			windowMgr.Update();
+			if(battle != null){
+				battle.Update();
+			} else {
+				if(!windowMgr.isEnable()){
+					map.Update();
+				}
+				windowMgr.Update();
 
-			if(script != null && !script.isMonitoring()){
-				string opr;
-				string[] option;
-				script.Next(out opr, out option);
+				if(script != null && !script.isMonitoring()){
+					string opr;
+					string[] option;
+					script.Next(out opr, out option);
 
-				if(opr == null){
-					script = null;
-					windowMgr.RemoveAllWindow();
-				} else {
-					switch(opr){
-					case "Message":{
-						MessageWindow w = windowMgr.addMessage(option);
-						script.Monitoring(w);
-						/*
-						MessageWindow w = new MessageWindow(option);
-						windowMgr.addWindow(w);
-						script.Monitoring(w);
-						*/
-						}break;
-					case "YesNo":{
-						YesNoWindow w = new YesNoWindow();
-						windowMgr.addWindow(w);
-						script.Monitoring(w);
-						}break;
+					if(opr == null){
+						script = null;
+						windowMgr.RemoveAllWindow();
+					} else {
+						switch(opr){
+						case "Message":{
+							MessageWindow w = windowMgr.addMessage(option);
+							script.Monitoring(w);
+							/*
+							MessageWindow w = new MessageWindow(option);
+							windowMgr.addWindow(w);
+							script.Monitoring(w);
+							*/
+							}break;
+						case "YesNo":{
+							YesNoWindow w = new YesNoWindow();
+							windowMgr.addWindow(w);
+							script.Monitoring(w);
+							}break;
+						case "Battle":{
+							battle = new Battle(0);
+							}break;
+						}
 					}
 				}
 			}
 		}
 
 		public void Draw(){
-			map.Draw();
-			windowMgr.Draw();
+			if(battle != null){
+				battle.Draw();
+			} else {
+				map.Draw();
+				windowMgr.Draw();
+			}
 		}
 	}
 }

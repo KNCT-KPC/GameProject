@@ -19,6 +19,26 @@ namespace RPGProject.GamePlay.Map
         int scX;
         int scY;
         MapMychar myChar;
+		List<MapNPChar> mapNpc = new List<MapNPChar>(0);
+
+		private static Dictionary<string, string> mapTable = new Dictionary<string,string>(){
+			//key					value
+			{"最初の村",			"map.dat"},
+			{"最初のダンジョン",	"map.dat"},
+		};
+
+		//Map map = new Map("最初の村");	
+		public Map(string mapID){
+			string filename = mapTable[mapID];
+			//xSize = ファイルから読み取った値
+			//ySize = ファイルから読み取った値
+			//drawTip = new int[ySize, xSize];
+			//*for文かなんかでdrawTipにファイルから読み取った値を詰める
+			//stateTipも読み込む
+			//while(次の行があるなら){
+				// mapNpc.Add(new MapNPChar(this, ファイルから読み取った２つめ, ３つめ, １つめ, ScriptEndまで全部
+			//}
+		}
 
 		public Map(int arg_xSize, int arg_ySize)
         {

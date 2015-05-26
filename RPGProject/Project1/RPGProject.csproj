@@ -82,9 +82,10 @@
     <Compile Include="GamePlay\Database\BattleActionDatabase.cs" />
     <Compile Include="GamePlay\FrontEnd\TimeMessage.cs" />
     <Compile Include="GamePlay\GamePlayMain.cs" />
+    <Compile Include="GamePlay\Map\MapNPChar.cs" />
     <Compile Include="GamePlay\Map\MapData.cs" />
     <Compile Include="GamePlay\Map\MapMyChar.cs" />
-    <Compile Include="GamePlay\Map\MapChar.cs" />
+    <Compile Include="GamePlay\Map\MapObject.cs" />
     <Compile Include="GamePlay\Map\Map.cs" />
     <Compile Include="GamePlay\Party\FlagMgr.cs" />
     <Compile Include="GamePlay\Party\Party.cs" />
