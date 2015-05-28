@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using RPGProject.GameSystem;
 using DxLibDLL;
+using System.IO;
+
+using System.Collections;
 
 namespace RPGProject.GamePlay.Map
 {
@@ -20,35 +23,76 @@ namespace RPGProject.GamePlay.Map
         int scY;
         MapMychar myChar;
 		List<MapNPChar> mapNpc = new List<MapNPChar>(0);
-
+        int[,] image;
 		private static Dictionary<string, string> mapTable = new Dictionary<string,string>(){
 			//key					value
-			{"最初の村",			"map.dat"},
+			{"最初の村",			"map/test1.txt"},
 			{"最初のダンジョン",	"map.dat"},
 		};
-
+        
 		//Map map = new Map("最初の村");	
-		public Map(string mapID){
-			string filename = mapTable[mapID];
-			//xSize = ファイルから読み取った値
-			//ySize = ファイルから読み取った値
-			//drawTip = new int[ySize, xSize];
-			//*for文かなんかでdrawTipにファイルから読み取った値を詰める
-			//stateTipも読み込む
-			//while(次の行があるなら){
-				// mapNpc.Add(new MapNPChar(this, ファイルから読み取った２つめ, ３つめ, １つめ, ScriptEndまで全部
-			//}
-		}
-
-		public Map(int arg_xSize, int arg_ySize)
+	
+        public Map()
         {
-            xSize = arg_xSize;
-            ySize = arg_ySize;
+
+            char[] cs;
+            int count = 0;
+            int i = 0;
+            string[] sizes;
+            int m = 0;
+            string[] chara = { };
+            string[] data = { };
+            string line = "";
+
+            ArrayList all = new ArrayList();
+            string filename = mapTable["最初の村"];
+            image = Drawer.DivGraph("TEST_MAP", 32, 32, 2, 2);
+            StreamReader sr = new StreamReader(@"map/test1.txt");                    
+            while ((line = sr.ReadLine()) != null){
+                   all.Add(line);
+                   count++;
+            }
+            sr.Close();
+            
+            sizes= all[i].ToString().Split(' ');
+            xSize = int.Parse(sizes[0]);
+            ySize = int.Parse(sizes[1]);
             drawTip = new int[ySize, xSize];
             stateTip = new int[ySize, xSize];
-            myChar = new  MapMychar(this, 0, 0);
-        }
+            for (int n = 0; n < ySize; n++){
+                cs = all[n + 1].ToString().ToCharArray();
+                for (int v = 0; v < xSize; v++){
+                    drawTip[n, v] = int.Parse(cs[v].ToString());
+                }
+                i++;
+            }
+            for (int n = 0; n < ySize; n++){
+                i++;
+                cs = all[n + 1].ToString().ToCharArray();
+                for (int v = 0; v < xSize; v++){
+                    stateTip[n, v] = int.Parse(cs[v].ToString());
+                }
+            }
+                        
+            myChar = new MapMychar(this, 0, 0);
+            
+            while(all.Count  > i){
+               if(m == 0){string lines = (string)all[i];
+                   chara = lines.Split(' '); }
+               else if(all[i].ToString() == "Scriptend"){
+                   data[m] = (string)all[i];
+                   mapNpc.Add(new MapNPChar(this, int.Parse(chara[1]), int.Parse(chara[2]), chara[0], data));
+                   m = 0;
+               }
+               else {
+                   data[m] = (string)all[i];
+                   m++;
+               } 
+               i++;
+            }
+            
 
+        }
 		public void Update()
 		{
 			myChar.Update();
@@ -72,20 +116,35 @@ namespace RPGProject.GamePlay.Map
 			{
 				for (int x = scX/TIP_SIZE; x < maxX; x++)
 				{
-					string graphName = "";
+					
+                    int imgX= 1,imgY = 1;
 				    if (drawTip[y, x] == 0)
 				    {
-						graphName = "TEST_FLOOR_IMG";
-				    }
-				    else if (drawTip[y, x] == 1)
+						imgX = 0;
+                        imgY = 0;
+				    }else if (drawTip[y, x] == 1)
 				    {
-						graphName = "TEST_OBJECT_IMG";
-				    }
-					DrawGraphOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, graphName);
+                        imgX = 1;
+                        imgY = 1;
+				    }else if (drawTip[y, x] == 2)
+                    {
+                        imgX = 0;
+                        imgY = 1;
+                    }
+                    DrawDivGraphOnDisplay(x * TIP_SIZE, y * TIP_SIZE, TIP_SIZE, TIP_SIZE, imgX, imgY);
+					
 				}
 			}
 			myChar.Draw();
 		}
+        public void DrawDivGraphOnDisplay(int x, int y, int width, int height, int imgX,int imgY)
+        {
+            int dx = x - scX;
+            int dy = y - scY;
+            if (dx < -width || dx > SCREEN_XSIZE * TIP_SIZE || dy < -height || dy > SCREEN_YSIZE * TIP_SIZE) return;
+
+            Drawer.DrawDivGraph(image, imgX, imgY, dx, dy, true);
+        }
 		public void DrawGraphOnDisplay(int x, int y, int width, int height, string graphName, int alpha = 255){
 			int dx = x - scX;
 			int dy = y - scY;
