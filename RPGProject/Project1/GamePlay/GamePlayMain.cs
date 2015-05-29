@@ -54,7 +54,8 @@ namespace RPGProject {
 			);
 
 			windowMgr = new WindowMgr();
-			map = new Map(30,30);
+			//map = new Map(30,30);
+			map = new Map();
 		}
 
 		public void Update(){

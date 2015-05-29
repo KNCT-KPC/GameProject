@@ -39,14 +39,18 @@ namespace RPGProject {
 			GameGraph.LoadGraph();	//画像のロード
 			GameSound.LoadSound();	//音声のロード
 			GameFont.LoadFont();	//フォントのロード
+			Fps fps = new Fps();
 	
 			GameMain main = new GameMain();
 			while(true){
 				if(!LoopStart()) break;	//初期化処理
+				fps.Update();
 				GameInput.Update();
 
 				if(main.Update() != 0) break;	//更新メソッド
 				main.Draw();					//描画メソッド
+
+				fps.Draw();
 			}
 
 			DX.DxLib_End();	//DXライブラリの終了メソッド
